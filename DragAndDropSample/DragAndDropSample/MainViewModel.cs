@@ -27,27 +27,12 @@ namespace DragAndDropSample
             }
         }
 
+        public ICommand StartDragCommand { get; }
 
+        public ICommand EndDragCommand { get; }
 
-        public ICommand StartDragCommand
-        {
-            get;
-            private set;
-        }
+        public ICommand OnStartCommand { get; }
 
-        public ICommand EndDragCommand
-        {
-            get;
-            private set;
-        }
-
-        public ICommand OnStartCommand
-        {
-            get;
-            private set;
-        }
-
-        
         private void StartDragHandler(object obj)
         {
             
@@ -55,7 +40,10 @@ namespace DragAndDropSample
         
         private void EndDragHandler(object obj)
         {
-            
+            foreach (var item in Data)
+            {
+
+            }
         }
         
         private void OnStartHandler(object obj)
@@ -76,8 +64,6 @@ namespace DragAndDropSample
             return data;
         }
     }
-    
-    
 
     public class DummyData
     {

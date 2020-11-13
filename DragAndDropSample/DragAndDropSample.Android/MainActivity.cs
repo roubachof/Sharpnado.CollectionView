@@ -1,10 +1,12 @@
 ﻿using Android.App;
 using Android.Content.PM;
+using Android.Glide;
+using Android.Graphics;
 using Android.OS;
 
-using Sharpnado.Presentation.Forms.Droid;
+using Sharpnado.HorizontalListView.Droid;
 
-namespace DragAndDropSample.Android
+namespace DragAndDropSample.Droid
 {
     [Activity(Label = "Sharpnado.DragAndDropCollection.Sample", Theme = "@style/MainTheme", MainLauncher = true,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -18,11 +20,20 @@ namespace DragAndDropSample.Android
             base.OnCreate(savedInstanceState);
             
             SharpnadoInitializer.Initialize();
-            
-            global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            
-            
-            
+
+            XamEffects.Droid.Effects.Init();
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+            {
+                var darkSurface = Color.ParseColor("#383838");
+                Window.SetStatusBarColor(darkSurface);
+            }
+
+
+            Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
+            Forms.Init(this);
+
             LoadApplication(new App());
         }
     }

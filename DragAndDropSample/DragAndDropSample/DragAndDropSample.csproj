@@ -10,10 +10,49 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Xamarin.Forms" Version="4.7.0.1351" />
+      <None Remove="Resources\ka1.ttf" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Sharpnado.Presentation.Forms\Sharpnado.Presentation.Forms.csproj" />
+      <EmbeddedResource Include="Resources\ka1.ttf" />
     </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Sharpnado.Tabs" Version="2.0.1" />
+        <PackageReference Include="Sharpnado.TaskLoaderView" Version="2.1.1" />
+        <PackageReference Include="SimpleInjector" Version="5.1.0" />
+        <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2" />
+        <PackageReference Include="Xamarin.Forms" Version="4.7.0.1351" />
+        <PackageReference Include="XamEffects" Version="1.6.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Sharpnado.HorizontalListView\Sharpnado.HorizontalListView.csproj" />
+    </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Services\Filmos.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Filmos.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\GridPage.xaml.cs">
+      <DependentUpon>GridPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SillyHorizontalCell.xaml.cs">
+      <DependentUpon>SillyHorizontalCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SillyGridCell.xaml.cs">
+      <DependentUpon>SillyGridCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SillyListCell.xaml.cs">
+      <DependentUpon>SillyListCell.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="SillyCell.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

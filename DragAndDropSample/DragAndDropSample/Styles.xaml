@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+
+<ResourceDictionary
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customViews="clr-namespace:Sharpnado.Presentation.Forms.CustomViews;assembly=Sharpnado.TaskLoaderView"
+    xmlns:sho="http://sharpnado.com">
+
+    <Color x:Key="Primary">#121212</Color>
+    <Color x:Key="Accent">#FF0266</Color>
+    <Color x:Key="TransparentAccent">#00121212</Color>
+
+    <Color x:Key="DarkSurface">#383838</Color>
+
+    <Color x:Key="DarkerSurface">#323232</Color>
+
+    <Color x:Key="LightSurface">#FAF8F9</Color>
+    <Color x:Key="AcrylicSurface">#E4E4E4</Color>
+    <Color x:Key="NeumorphismSurface">#F0F0F3</Color>
+
+
+    <Color x:Key="DarkOverlay">#80000000</Color>
+
+    <Color x:Key="AcrylicFrameBackgroundColor">#F1F1F1</Color>
+
+    <Color x:Key="AccentColor">#00E000</Color>
+
+    <Color x:Key="PrimaryColor">Black</Color>
+    <Color x:Key="SecondaryColor">#60000000</Color>
+    <Color x:Key="TernaryColor">#30000000</Color>
+
+    <Color x:Key="PrimaryDarkColor">White</Color>
+    <Color x:Key="SecondaryDarkColor">#80FFFFFF</Color>
+    <Color x:Key="TernaryDarkColor">#50FFFFFF</Color>
+
+    <x:Double x:Key="SmallPadding">5</x:Double>
+    <x:Double x:Key="MediumPadding">10</x:Double>
+    <x:Double x:Key="StandardPadding">15</x:Double>
+
+    <Thickness x:Key="SmallTopThickness" Top="{StaticResource SmallPadding}" />
+
+    <Thickness x:Key="MediumTopThickness" Top="{StaticResource MediumPadding}" />
+
+    <Thickness x:Key="StandardTopThickness" Top="{StaticResource StandardPadding}" />
+
+    <Thickness
+        x:Key="SmallThickness"
+        Bottom="{StaticResource SmallPadding}"
+        Left="{StaticResource SmallPadding}"
+        Right="{StaticResource SmallPadding}"
+        Top="{StaticResource SmallPadding}" />
+
+    <Thickness
+        x:Key="MediumThickness"
+        Bottom="{StaticResource MediumPadding}"
+        Left="{StaticResource MediumPadding}"
+        Right="{StaticResource MediumPadding}"
+        Top="{StaticResource MediumPadding}" />
+
+    <Thickness
+        x:Key="StandardThickness"
+        Bottom="{StaticResource StandardPadding}"
+        Left="{StaticResource StandardPadding}"
+        Right="{StaticResource StandardPadding}"
+        Top="{StaticResource StandardPadding}" />
+
+    <Color x:Key="TextPrimaryColor">Black</Color>
+    <Color x:Key="TextSecondaryColor">#60000000</Color>
+    <Color x:Key="TextTernaryColor">#40000000</Color>
+
+    <Color x:Key="TextPrimaryDarkColor">White</Color>
+    <Color x:Key="TextSecondaryDarkColor">#CCCCCC</Color>
+    <Color x:Key="TextTernaryDarkColor">#50FFFFFF</Color>
+
+    <x:Double x:Key="TextSizeHeadline">20</x:Double>
+    <x:Double x:Key="TextSizeTitle">18</x:Double>
+    <x:Double x:Key="TextSizeSubhead">16</x:Double>
+    <x:Double x:Key="TextSizeBody">14</x:Double>
+    <x:Double x:Key="TextSizeCaption">12</x:Double>
+    <x:Double x:Key="TextSizeSmallCaption">11</x:Double>
+
+    <Style x:Key="TextHeadline" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource PrimaryDarkColor}" />
+        <Setter Property="FontSize" Value="{StaticResource TextSizeHeadline}" />
+    </Style>
+
+    <Style x:Key="TextTitle" TargetType="Label">
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="{StaticResource PrimaryDarkColor}" />
+        <Setter Property="FontSize" Value="{StaticResource TextSizeTitle}" />
+    </Style>
+
+    <Style x:Key="TextSubheadline" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource PrimaryDarkColor}" />
+        <Setter Property="FontSize" Value="{StaticResource TextSizeSubhead}" />
+    </Style>
+
+    <Style x:Key="TextSubhead" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource PrimaryDarkColor}" />
+        <Setter Property="FontSize" Value="{StaticResource TextSizeSubhead}" />
+    </Style>
+
+    <Style x:Key="TextSubheadSecondary" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource TextSecondaryDarkColor}" />
+        <Setter Property="FontSize" Value="{StaticResource TextSizeSubhead}" />
+    </Style>
+
+    <Style x:Key="TextBody" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource PrimaryDarkColor}" />
+        <Setter Property="FontSize" Value="{StaticResource TextSizeBody}" />
+    </Style>
+
+    <Style x:Key="TextBodySecondary" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource TextSecondaryDarkColor}" />
+        <Setter Property="FontSize" Value="{StaticResource TextSizeBody}" />
+    </Style>
+
+    <Style x:Key="TextCaption" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource PrimaryDarkColor}" />
+        <Setter Property="FontSize" Value="{StaticResource TextSizeCaption}" />
+    </Style>
+
+    <Style
+        x:Key="TextSmallCaption"
+        BasedOn="{StaticResource TextCaption}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="{StaticResource TextSizeSmallCaption}" />
+    </Style>
+
+    <Style x:Key="TextCaptionSecondary" TargetType="Label">
+        <Setter Property="TextColor" Value="{StaticResource TextSecondaryDarkColor}" />
+        <Setter Property="FontSize" Value="{StaticResource TextSizeCaption}" />
+    </Style>
+
+
+    <Style
+        x:Key="Avatar"
+        ApplyToDerivedTypes="True"
+        TargetType="Image">
+        <Setter Property="HorizontalOptions" Value="Fill" />
+        <Setter Property="VerticalOptions" Value="Fill" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="ContentPage">
+        <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="NavigationPage">
+        <Setter Property="BarBackgroundColor" Value="{StaticResource DarkSurface}" />
+        <Setter Property="BarTextColor" Value="{StaticResource PrimaryDarkColor}" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="Frame">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HasShadow" Value="False" />
+    </Style>
+
+    <Style x:Key="SillyTaskLoader" TargetType="customViews:TaskLoaderView">
+        <Setter Property="AccentColor" Value="{StaticResource Accent}" />
+        <Setter Property="TextColor" Value="{StaticResource PrimaryDarkColor}" />
+    </Style>
+
+
+    <sho:SingleShade
+        x:Key="DarkBottomShadow"
+        BlurRadius="6"
+        Opacity="1"
+        Offset="0,8"
+        Color="#2c2c2c" />
+
+    <sho:ImmutableShades x:Key="NoShadow" />
+
+    <sho:ImmutableShades x:Key="DarkNeumorphism">
+        <sho:Shade
+            BlurRadius="6"
+            Opacity="1"
+            Offset="-8,-8"
+            Color="#404040" />
+        <sho:Shade
+            BlurRadius="6"
+            Opacity="1"
+            Offset="8,8"
+            Color="#303030" />
+    </sho:ImmutableShades>
+
+    <sho:ImmutableShades x:Key="ThinDarkNeumorphism">
+        <sho:Shade
+            BlurRadius="6"
+            Opacity="1"
+            Offset="-8,-6"
+            Color="#404040" />
+        <sho:Shade
+            BlurRadius="6"
+            Opacity="1"
+            Offset="8,6"
+            Color="#303030" />
+    </sho:ImmutableShades>
+
+    <sho:ImmutableShades x:Key="DarkerNeumorphism">
+        <sho:Shade
+            BlurRadius="6"
+            Opacity="1"
+            Offset="8,8"
+            Color="#2b2b2b" />
+        <sho:Shade
+            BlurRadius="6"
+            Opacity="1"
+            Offset="-8,-8"
+            Color="#3a3a3a" />
+    </sho:ImmutableShades>
+
+    <sho:ImmutableShades x:Key="ThinDarkerNeumorphism">
+        <sho:Shade
+            BlurRadius="3"
+            Opacity="1"
+            Offset="5,5"
+            Color="#2b2b2b" />
+        <sho:Shade
+            BlurRadius="3"
+            Opacity="1"
+            Offset="-5,-5"
+            Color="#3a3a3a" />
+    </sho:ImmutableShades>
+
+    <sho:ImmutableShades x:Key="DraggingShadows">
+        <sho:Shade
+            BlurRadius="6"
+            Opacity="0.5"
+            Offset="20,20"
+            Color="#404040" />
+    </sho:ImmutableShades>
+
+</ResourceDictionary>

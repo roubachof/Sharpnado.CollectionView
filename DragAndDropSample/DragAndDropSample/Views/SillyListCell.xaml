@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Frame
+    x:Class="DragAndDropSample.Views.SillyListCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:skiaRate="clr-namespace:SkiaRate;assembly=DragAndDropSample"
+    xmlns:viewModels="clr-namespace:DragAndDropSample.ViewModels;assembly=DragAndDropSample"
+    Padding="{StaticResource StandardPadding}">
+
+    <StackLayout
+        x:DataType="viewModels:SillyDudeVmo"
+        Orientation="Horizontal"
+        Spacing="16">
+
+        <Frame
+            Padding="0"
+            CornerRadius="25"
+            HasShadow="False"
+            HeightRequest="50"
+            IsClippedToBounds="True"
+            VerticalOptions="Start"
+            WidthRequest="50">
+            <Image
+                Aspect="AspectFill"
+                Source="{Binding ImageUrl}"
+                Style="{StaticResource Avatar}" />
+        </Frame>
+
+        <StackLayout
+            Orientation="Vertical"
+            Spacing="0"
+            VerticalOptions="Center">
+
+            <Label
+                Style="{StaticResource TextSubhead}"
+                Text="{Binding Name}"
+                VerticalOptions="Start" />
+
+            <Label Style="{StaticResource TextCaptionSecondary}" Text="{Binding Role}" />
+
+            <skiaRate:RatingView
+                Margin="0,5,0,0"
+                ColorOn="{StaticResource Accent}"
+                Count="5"
+                HeightRequest="30"
+                HorizontalOptions="Start"
+                OutlineOffColor="Transparent"
+                RatingType="Full"
+                WidthRequest="100"
+                Value="{Binding SillinessDegree}" />
+        </StackLayout>
+
+    </StackLayout>
+</Frame>

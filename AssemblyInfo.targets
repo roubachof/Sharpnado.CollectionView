@@ -5,8 +5,8 @@
     <Copyright>Copyright © Sharpnado 2020</Copyright>
     <Version>1.8.0</Version>
     <Company>Sharpnado</Company>
-    <Product>Sharpnado Toolkit</Product>
-    <Description>Xamarin Forms custom components and renderers</Description>
+    <Product>Sharpnado.HorizontalListView</Product>
+    <Description>Xamarin Forms HorizontalListView, including carousel, vertical and grid layout.</Description>
   </PropertyGroup>
 
   <Target Name="GenerateCustomAssemblyInfo" BeforeTargets="BeforeBuild">

@@ -3,7 +3,7 @@
     <metadata>
 
       <id>Sharpnado.Presentation.Forms</id>
-      <version>$version$</version>
+      <version>1.8</version>
       <copyright>Sharpnado 2020</copyright>
       <title>A Collection of Xamarin.Forms components including HorizontalListView, Tabs, MaterialFrame, Shadows and TaskLoaderView</title>
       <authors>Jean-Marie Alfonsi</authors>
@@ -87,6 +87,7 @@ Grid ListView (HorizontalListView with ListLayout set to Grid):
           <dependency id="Sharpnado.TaskMonitor" version="1.0.0" />
           <dependency id="Sharpnado.MaterialFrame" version="1.1.1" />
           <dependency id="Sharpnado.Shadows" version="1.1.0" />
+          <dependency id="Sharpnado.HorizontalListView" version="1.8.0" />          
         </group>
 
         <group targetFramework="Xamarin.iOS10">
@@ -95,6 +96,7 @@ Grid ListView (HorizontalListView with ListLayout set to Grid):
           <dependency id="Sharpnado.TaskMonitor" version="1.0.0" />
           <dependency id="Sharpnado.MaterialFrame" version="1.1.1" />
           <dependency id="Sharpnado.Shadows" version="1.1.0" />
+          <dependency id="Sharpnado.HorizontalListView" version="1.8.0" />          
         </group>
 
         <group targetFramework="MonoAndroid10">
@@ -103,6 +105,7 @@ Grid ListView (HorizontalListView with ListLayout set to Grid):
           <dependency id="Sharpnado.TaskMonitor" version="1.0.0" />
           <dependency id="Sharpnado.MaterialFrame" version="1.1.1" />
           <dependency id="Sharpnado.Shadows" version="1.1.0" />
+          <dependency id="Sharpnado.HorizontalListView" version="1.8.0" />
         </group>
 
         <group targetFramework="MonoAndroid10.0">
@@ -111,11 +114,7 @@ Grid ListView (HorizontalListView with ListLayout set to Grid):
           <dependency id="Sharpnado.TaskMonitor" version="1.0.0" />
           <dependency id="Sharpnado.MaterialFrame" version="1.1.1" />
           <dependency id="Sharpnado.Shadows" version="1.1.0" />
-          <dependency id="Xamarin.AndroidX.Browser" version="1.0.0" />
-          <dependency id="Xamarin.AndroidX.Legacy.Support.V4" version="1.0.0" />
-          <dependency id="Xamarin.AndroidX.Lifecycle.LiveData" version="2.1.0" />
-          <dependency id="Xamarin.AndroidX.MediaRouter" version="1.1.0" />
-          <dependency id="Xamarin.Google.Android.Material" version="1.0.0" />
+          <dependency id="Sharpnado.HorizontalListView" version="1.8.0" />
         </group>
 
       </dependencies>
@@ -124,27 +123,7 @@ Grid ListView (HorizontalListView with ListLayout set to Grid):
 
     <files>
 
-        <!--Net Standard-->
-        <file src="Sharpnado.Presentation.Forms\bin\Release\netstandard2.0\Sharpnado.Presentation.Forms.dll" target="lib\netstandard2.0\Sharpnado.Presentation.Forms.dll" />
-        <file src="Sharpnado.Presentation.Forms\bin\Release\netstandard2.0\Sharpnado.Presentation.Forms.pdb" target="lib\netstandard2.0\Sharpnado.Presentation.Forms.pdb" />
-
-        <!--Xamarin.Android -->
-        <file src="Sharpnado.Presentation.Forms.Droid\bin\Release\monoandroid90\Sharpnado.Presentation.Forms.Droid.dll" target="lib\MonoAndroid10\Sharpnado.Presentation.Forms.Droid.dll" />
-        <file src="Sharpnado.Presentation.Forms.Droid\bin\Release\monoandroid90\Sharpnado.Presentation.Forms.Droid.pdb" target="lib\MonoAndroid10\Sharpnado.Presentation.Forms.Droid.pdb" />
-        <file src="Sharpnado.Presentation.Forms.Droid\bin\Release\monoandroid90\Sharpnado.Presentation.Forms.dll" target="lib\MonoAndroid10\Sharpnado.Presentation.Forms.dll" />
-        <file src="Sharpnado.Presentation.Forms.Droid\bin\Release\monoandroid90\Sharpnado.Presentation.Forms.pdb" target="lib\MonoAndroid10\Sharpnado.Presentation.Forms.pdb" />
-
-        <!--Xamarin.Android 10.0-->
-        <file src="Sharpnado.Presentation.Forms.Droid\bin\Release\monoandroid10.0\Sharpnado.Presentation.Forms.Droid.dll" target="lib\MonoAndroid10.0\Sharpnado.Presentation.Forms.Droid.dll" />
-        <file src="Sharpnado.Presentation.Forms.Droid\bin\Release\monoandroid10.0\Sharpnado.Presentation.Forms.Droid.pdb" target="lib\MonoAndroid10.0\Sharpnado.Presentation.Forms.Droid.pdb" />
-        <file src="Sharpnado.Presentation.Forms.Droid\bin\Release\monoandroid10.0\Sharpnado.Presentation.Forms.dll" target="lib\MonoAndroid10.0\Sharpnado.Presentation.Forms.dll" />
-        <file src="Sharpnado.Presentation.Forms.Droid\bin\Release\monoandroid10.0\Sharpnado.Presentation.Forms.pdb" target="lib\MonoAndroid10.0\Sharpnado.Presentation.Forms.pdb" />
-
-        <!--Xamarin.iOS-->
-        <file src="Sharpnado.Presentation.Forms.iOS\bin\Release\Sharpnado.Presentation.Forms.iOS.dll" target="lib\Xamarin.iOS10\Sharpnado.Presentation.Forms.iOS.dll" />
-        <file src="Sharpnado.Presentation.Forms.iOS\bin\Release\Sharpnado.Presentation.Forms.iOS.pdb" target="lib\Xamarin.iOS10\Sharpnado.Presentation.Forms.iOS.pdb" />
-        <file src="Sharpnado.Presentation.Forms.iOS\bin\Release\Sharpnado.Presentation.Forms.dll" target="lib\Xamarin.iOS10\Sharpnado.Presentation.Forms.dll" />
-        <file src="Sharpnado.Presentation.Forms.iOS\bin\Release\Sharpnado.Presentation.Forms.pdb" target="lib\Xamarin.iOS10\Sharpnado.Presentation.Forms.pdb" />
+        <!-- TODO: add msbuild targets and file to include all the initializers -->
 
 
         <!-- Icon -->

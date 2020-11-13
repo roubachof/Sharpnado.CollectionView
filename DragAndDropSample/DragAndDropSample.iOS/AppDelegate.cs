@@ -1,8 +1,13 @@
-﻿using Foundation;
+﻿using System.Linq;
 
-using Sharpnado.Presentation.Forms.iOS;
+using Foundation;
+
+using Sharpnado.HorizontalListView.iOS;
 
 using UIKit;
+
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 
 namespace DragAndDropSample.iOS
 {
@@ -22,6 +27,9 @@ namespace DragAndDropSample.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             SharpnadoInitializer.Initialize();
+            Sharpnado.Tabs.iOS.Preserver.Preserve();
+
+            XamEffects.iOS.Effects.Init();
 
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());

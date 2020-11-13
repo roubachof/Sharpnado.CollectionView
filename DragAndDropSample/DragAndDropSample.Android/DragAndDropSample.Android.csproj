@@ -6,7 +6,7 @@
     <ProjectGuid>{A07EEB14-ECD1-4D9F-8819-FC1B1FC06001}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>DragAndDropSample.Android</RootNamespace>
+    <RootNamespace>DragAndDropSample.Droid</RootNamespace>
     <AssemblyName>DragAndDropSample.Android</AssemblyName>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
@@ -28,6 +28,11 @@
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
     <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
+    <BundleAssemblies>false</BundleAssemblies>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,7 +52,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="glidex.forms">
+      <Version>2.1.0.470</Version>
+    </PackageReference>
+    <PackageReference Include="Sharpnado.Tabs">
+      <Version>2.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="SkiaSharp.Views.Forms">
+      <Version>2.80.2</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.7.0.1351" />
+    <PackageReference Include="XamEffects">
+      <Version>1.6.3</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -66,13 +83,13 @@
     <AndroidResource Include="Resources\values\colors.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Sharpnado.Presentation.Forms.Droid\Sharpnado.Presentation.Forms.Droid.csproj">
+    <ProjectReference Include="..\..\Sharpnado.HorizontalListView.Droid\Sharpnado.HorizontalListView.Droid.csproj">
       <Project>{5c880a51-9e8a-42a9-9fa5-10bc7d3e9ffc}</Project>
-      <Name>Sharpnado.Presentation.Forms.Droid</Name>
+      <Name>Sharpnado.HorizontalListView.Droid</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Sharpnado.Presentation.Forms\Sharpnado.Presentation.Forms.csproj">
+    <ProjectReference Include="..\..\Sharpnado.HorizontalListView\Sharpnado.HorizontalListView.csproj">
       <Project>{76625dcb-b2f9-4e7e-ae80-b657ae9d2566}</Project>
-      <Name>Sharpnado.Presentation.Forms</Name>
+      <Name>Sharpnado.HorizontalListView</Name>
     </ProjectReference>
     <ProjectReference Include="..\DragAndDropSample\DragAndDropSample.csproj">
       <Project>{55f41b9b-d1d7-42a3-8e77-a12a42e8a808}</Project>
@@ -80,4 +97,9 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties TriggeredFromHotReload="False" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

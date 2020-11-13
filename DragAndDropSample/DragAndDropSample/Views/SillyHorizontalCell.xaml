@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Frame
+    x:Class="DragAndDropSample.Views.SillyHorizontalCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:skiaRate="clr-namespace:SkiaRate;assembly=DragAndDropSample"
+    xmlns:viewModels="clr-namespace:DragAndDropSample.ViewModels;assembly=DragAndDropSample"
+    x:DataType="viewModels:SillyDudeVmo"
+    IsClippedToBounds="True">
+
+    <Grid
+        Padding="{StaticResource StandardThickness}"
+        ColumnSpacing="0"
+        RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="130" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+        <!--  ROW 1  -->
+        <Image
+            x:Name="Image"
+            Grid.RowSpan="4"
+            Margin="-16,-16,-16,0"
+            Aspect="AspectFill"
+            Source="{Binding ImageUrl}" />
+
+        <BoxView
+            Grid.Row="1"
+            Grid.RowSpan="3"
+            Margin="-16,0"
+            Color="{StaticResource DarkOverlay}" />
+
+        <Label
+            Grid.Row="1"
+            Style="{StaticResource TextTitle}"
+            Text="{Binding Name}"
+            TextColor="White"
+            VerticalOptions="End" />
+
+        <Label
+            Grid.Row="2"
+            Style="{StaticResource TextBodySecondary}"
+            Text="{Binding Role}"
+            TextColor="White" />
+
+        <skiaRate:RatingView
+            Grid.Row="3"
+            ColorOn="{StaticResource Accent}"
+            Count="5"
+            HeightRequest="20"
+            HorizontalOptions="Start"
+            OutlineOffColor="Transparent"
+            RatingType="Floating"
+            VerticalOptions="Center"
+            WidthRequest="66"
+            Value="{Binding SillinessDegree}" />
+
+
+    </Grid>
+</Frame>

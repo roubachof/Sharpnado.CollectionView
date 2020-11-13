@@ -1,142 +1,547 @@
-# Sharpnado.Presentation.Forms
+# Sharpnado.HorizontalListView
 
-| Lib | Version                                                                                                                             |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| Sharpnado.Presentation.Forms  | ![Sharpnado.Presentation.Forms](https://img.shields.io/nuget/v/Sharpnado.Presentation.Forms.svg) |
-| Sharpnado.Forms.HorizontalListView      | ![Sharpnado.Forms.HorizontalListView](https://img.shields.io/nuget/v/Sharpnado.Forms.HorizontalListView.svg) |
+<p align="left"><img src="Docs/logo.png" height="180"/>
 
-| Platform | Build Status                                                                                                                             |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| Android  | [![Build status](https://build.appcenter.ms/v0.1/apps/23f44cf3-7656-4932-9d82-f654db6afc82/branches/master/badge)](https://appcenter.ms) |
-| iOS      | [![Build status](https://build.appcenter.ms/v0.1/apps/ddd14409-1f42-4521-ae8d-6f9891de2714/branches/master/badge)](https://appcenter.ms) |
+Get it from NuGet:
 
+[![Nuget](https://img.shields.io/nuget/v/Sharpnado.HorizontalListView.svg)](https://www.nuget.org/packages/Sharpnado.HorizontalListView)
 
-## MUST READ: Big refactoring ?
+| Supported platforms        |
+|----------------------------|
+| :heavy_check_mark: Android |
+| :heavy_check_mark: iOS     |
 
-The big sharpnado refactoring is over.
-
-Each sharpnado's component has now its own repo.
-
-* Sharpnado.Tabs have now their own repo
-* The Sharpnado.Presentation.Forms repo now only contains the source code for the HorizontalListView
-
-Latest version of Sharpnado.Presentation.Forms (v1.7.1) doesn't have all the sharpnado nugets up to date.
-
-Preferred way of using packages is now to install only the one needed.
-
-## Sample App: the Silly! app
-
-All the following components are presented in the Silly! app in the following repository:
-
-https://github.com/roubachof/Xamarin-Forms-Practices
-
-If you want to know how to use the components, it's the best place to start.
+![Presentation](Docs/github_banner.png)
 
 ## Initialization
 
-**IMPORTANT:** On platform projects, call `SharpnadoInitializer.Initialize()` after `Xamarin.Forms.Forms.Init()` and before `LoadApplication(new App())`.
+
+* On Core project in `App.xaml.cs`:
+
+For the namespace schema to work, you need to call initializer from App.xaml.cs like this:
+
+```csharp
+public App()
+{
+    InitializeComponent();
+
+    Sharpnado.HorizontalListView.Initializer.Initialize(true, false);
+    ...
+}
+```
+
+* On `iOS` add this line before `Xamarin.Forms.Forms.Init()` and `LoadApplication(new App())`.
+
+```csharp
+public override bool FinishedLaunching(UIApplication app, NSDictionary options)
+{
+    Sharpnado.HorizontalListView.iOSSharpnadoInitializer.Initialize();
+
+    global::Xamarin.Forms.Forms.Init();
+    LoadApplication(new App());
+}
+
+```
+
+## Version 1.8 breaking change
+
+Namespace changed from `Sharpnado.Presentation.Forms.HorizontalListView` to `Sharpnado.HorizontalListView`.
+
+## Presentation
+
+ * Horizontal, Grid, Carousel or Vertical layout
+ * Reveal custom animations
+ * Drag and Drop feature
+ * Column count
+ * Infinite loading with ```Paginator``` component
+ * Snapping on first or middle element
+ * Padding and item spacing
+ * Handles ```NotifyCollectionChangedAction``` Add, Remove and Reset actions
+ * View recycling
+ * ```RecyclerView``` on Android
+ * ```UICollectionView``` on iOS
 
 
-## Featured Components 
+## Linear layout
 
-Xamarin Forms custom components and renderers starring:
+```csharp
+public HorizontalListViewLayout ListLayout { get; set; } = HorizontalListViewLayout.Linear;
+```
+By default the layout is in ```Linear``` mode, which means you will have only one row.
+You can specify the ```ItemWidth``` and ```ItemHeight```.
+You can also specify ```ItemSpacing``` and ```CollectionPadding```.
 
-### [``Sharpnado.Tabs``](https://github.com/roubachof/Sharpnado.Tabs)
+*GridPage.xaml*
 
-<img src="https://github.com/roubachof/Sharpnado.Presentation.Forms/wiki/Images/Tabs/logo_2_1.png" width="200" />
+```xml
+<DataTemplate x:Key="HorizontalDudeTemplate">
+    <sho:DraggableViewCell x:Name="DraggableViewCell">
+        <ContentView
+            xamEffects:Commands.Tap="{Binding TapCommand}"
+            xamEffects:Commands.TapParameter="{Binding .}"
+            xamEffects:TouchEffect.Color="{StaticResource Accent}">
+            <sho:Shadows
+                x:Name="Shadow"
+                CornerRadius="10"
+                Shades="{StaticResource DarkerNeumorphism}">
+                <views:SillyHorizontalCell
+                    Margin="16,13,16,13"
+                    BackgroundColor="{StaticResource DarkerSurface}"
+                    CornerRadius="10">
+                    <views:SillyHorizontalCell.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
+                            TargetType="views:SillyHorizontalCell"
+                            Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
+                        </DataTrigger>
+                    </views:SillyHorizontalCell.Triggers>
+                </views:SillyHorizontalCell>
+            </sho:Shadows>
+        </ContentView>
+    </sho:DraggableViewCell>
+</DataTemplate>
 
-* Fully customizable
-* Underlined tabs, bottom tabs, Segmented control, scrollable tabs
-* BadgeView
-* Component oriented architecture
-* Layout your tabs and ```ViewSwitcher``` as you want
-* Shadows included in `TabHost`
-* Bindable
+...
 
-![banner](https://github.com/roubachof/Sharpnado.Presentation.Forms/wiki/Images/Tabs/github_banner.jpg)
+<sho:HorizontalListView x:Name="HorizontalListView"
+    CollectionPadding="10,30,10,75"
+    CurrentIndex="{Binding CurrentIndex}"
+    InfiniteListLoader="{Binding SillyPeoplePaginator}"
+    ItemHeight="260"
+    ItemWidth="260"
+    ItemTemplate="{StaticResource HorizontalDudeTemplate}"
+    ItemsSource="{Binding SillyPeople}"
+    ListLayout="Linear"
+    ListLayoutChanging="ListLayoutChanging"
+    ScrollBeganCommand="{Binding OnScrollBeginCommand}"
+    ScrollEndedCommand="{Binding OnScrollEndCommand}"
+    SnapStyle="Center"
+    TapCommand="{Binding TapCommand}" />
+```
 
-### [``Sharpnado.Shadows``](https://github.com/roubachof/Sharpnado.Shadows)
+As you can see ```TapCommand``` and ```TouchFeedbackColor``` (aka Ripple) are brought to you by the awesome effects created by mrxten (https://github.com/mrxten/XamEffects). 
+It's the best ripple effect plugin so far on Xamarin.Forms since it always worked for me.
+With other maybe more known plugins, I had some issues on iOS.
 
-<img src="https://github.com/roubachof/Sharpnado.Presentation.Forms/wiki/Images/Shadows/shadows.png" width="200" />
-
-* Add as **many** **custom** shadows as you like to any `Xamarin.Forms` view (`Android`, `iOS`, `UWP`). 
-* You can specify each shadow `Color`, `Opacity`, `BlurRadius`, and `Offset`
-* Simply implement `Neumorphism`
-* You can add one shadow, 3 shadows, 99 shadows, to any `Xamarin.Forms` element
-* Animate any of these property and make the shadows dance around your elements
-* No `AndroidX` or `SkiaSharp` dependency required, only `Xamarin.Forms`
-
-![Presentation](https://raw.githubusercontent.com/roubachof/Sharpnado.Shadows/master/Docs/github_banner.png)
-
-### [``Sharpnado.MaterialFrame``](https://github.com/roubachof/Sharpnado.MaterialFrame)
-
-<img src="https://github.com/roubachof/Sharpnado.Presentation.Forms/wiki/Images/MaterialFrame/material_frame.png" width="200" />
-
-  * 4 built-in themes: AcrylicBlur/Acrylic/Dark/Light
-  * 3 Blur Styles: Light/ExtraLight/Dark
-  * Based on `RealtimeBlurView` on Android and `UIVisualEffectView` on iOS
-  * Dark elevation
-  * LightBackground color
-  * CornerRadius
-  * Performance
-
-![banner](https://github.com/roubachof/Sharpnado.Presentation.Forms/wiki/Images/MaterialFrame/github_banner.png)
-
-
-### [```HorizontalListView``` for Xamarin Forms](https://github.com/roubachof/Sharpnado.Presentation.Forms/wiki/HorizontalListView-Grid-And-Carousel)
-  * Carousel layout
-  * Column count
-  * Infinite loading with ```Paginator``` component
-  * Snapping on first or middle element
-  * Padding and item spacing
-  * Handles ```NotifyCollectionChangedAction``` Add, Remove and Reset actions
-  * View recycling
-  * ```RecyclerView``` on Android
-  * ```UICollectionView``` on iOS
-  * This implementation is in fact very close in terms of philosophy and implementation to what will provide the future Xamarin ```CollectionView```.
-
-<p float="left" align="middle">
-  <img src="https://github.com/roubachof/Sharpnado.Presentation.Forms/wiki/Images/dark/android_hlv.gif" width="320" hspace="20"/>
-  <img src="https://github.com/roubachof/Sharpnado.Presentation.Forms/wiki/Images/dark/ios_hlv_carousel.gif" width="320" hspace="20"/>
+<p align="center">
+  A <code>HorizontalListView</code> with <code>SnapStyle=Center</code> and <code>ItemWidth/ItemHeight</code> set.
+</p>
+<p align="center">
+  <img src="Docs/hlv_horizontal_android.png" width="250" />
 </p>
 
-### [```Grid``` collection view (```ListLayout``` = ```Grid```)](https://github.com/roubachof/Sharpnado.Presentation.Forms/wiki/HorizontalListView-Grid-And-Carousel#grid-layout)
-  * Column count (if equal to 1 then you have a classic ```ListView``` ;)
-  * Infinite loading with ```Paginator``` component
-  * Drag and Drop
-  * Padding and item spacing
-  * Handles ```NotifyCollectionChangedAction``` Add, Remove and Reset actions
-  * View recycling
 
-<p float="left" align="middle">
-  <img src="https://github.com/roubachof/Sharpnado.Presentation.Forms/wiki/Images/dark/android_list.gif" width="320" hspace="20"/>
-  <img src="https://github.com/roubachof/Sharpnado.Presentation.Forms/wiki/Images/dark/ios_grid.gif" width="320" hspace="20"/>
+
+### ColumnCount property
+
+You can also decide to just specify the number of column you want, the ```ColumnCount``` property, and the ```ItemWidth``` will be computed for you.
+
+```xml
+<sho:HorizontalListView
+    x:Name="HorizontalListView"
+    CollectionPadding="10,30,10,75"
+    ColumnCount="2"
+    CurrentIndex="{Binding CurrentIndex}"
+    InfiniteListLoader="{Binding SillyPeoplePaginator}"
+    ItemHeight="260"
+    ItemTemplate="{StaticResource DudeTemplateSelector}"
+    ItemsSource="{Binding SillyPeople}"
+    ListLayout="Linear"
+    TapCommand="{Binding TapCommand}" />
+```
+
+<p align="center">
+  A <code>HorizontalListView</code> with <code>ColumnCount=2</code>.
+</p>
+<p align="center">
+  <img src="Images/../Docs/hlv_horizontal_android_col2.png" width="250" />
+</p>
+
+### Carousel Layout
+
+You can set ```ListLayout``` to ```Carousel```.
+In this mode you can't specify ```ItemWidth``` (obviously).
+If you don't specify the ```ItemHeight```, it will be automatically computed for you.
+
+```xml
+<renderedViews:HorizontalListView Grid.Row="3"
+                                  Margin="-16,8"
+                                  CollectionPadding="8,8"
+                                  ItemSpacing="8"
+                                  ListLayout="Carousel"
+                                  ItemsSource="{Binding SillyPeopleLoader.Result}"
+                                  SnapStyle="Center">
+    ...
+</renderedViews:HorizontalListView>
+```
+
+<p align="center">
+  A <code>HorizontalListView</code> with <code>ListLayout=Carousel</code>.
+</p>
+<p align="center">
+  <img src="Docs/hlv_carousel_iphone.gif" width="250" />
+</p>
+
+## Grid Layout
+
+If you set the ```ListLayout``` property to ```Grid```, you will have access to the same properties.
+
+```xml
+<DataTemplate x:Key="GridDudeTemplate">
+    <sho:DraggableViewCell x:Name="DraggableViewCell">
+        <ContentView>
+            <sho:Shadows
+                x:Name="Shadow"
+                CornerRadius="10"
+                Shades="{StaticResource ThinDarkerNeumorphism}">
+                <views:SillyGridCell
+                    Margin="16,13,16,13"
+                    BackgroundColor="{StaticResource DarkerSurface}"
+                    CornerRadius="10">
+                    <views:SillyGridCell.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
+                            TargetType="views:SillyGridCell"
+                            Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
+                        </DataTrigger>
+                    </views:SillyGridCell.Triggers>
+                </views:SillyGridCell>
+            </sho:Shadows>
+        </ContentView>
+    </sho:DraggableViewCell>
+</DataTemplate>
+
+<sho:HorizontalListView x:Name="HorizontalListView"
+    CollectionPadding="10,30,10,75"
+    CurrentIndex="{Binding CurrentIndex}"
+    EnableDragAndDrop="True"
+    InfiniteListLoader="{Binding SillyPeoplePaginator}"
+    ItemHeight="120"
+    ItemWidth="120"
+    ItemTemplate="{StaticResource GridDudeTemplate}"
+    ItemsSource="{Binding SillyPeople}"
+    ListLayout="Grid"
+    TapCommand="{Binding TapCommand}" />
+```
+
+You can use the ```IsDragAndDropping``` property of the ```DraggableViewCell``` to change the background color with a simple ```DataTrigger```.
+
+<p align="center">
+A <code>Grid</code> <code>ListLayout</code> with drag and drop enabled.<br>
+</p>
+<p align="center">
+  <img src="Docs/drag_grid.gif" width="250" />
+</p>
+
+The ```ColumnCount``` property works also with the grid layout.
+
+## Vertical Layout
+
+You can also use Sharpnado's `HorizontalListView` like a regular list view.
+
+```xml
+<DataTemplate x:Key="VerticalDudeTemplate">
+    <sho:DraggableViewCell x:Name="DraggableViewCell">
+        <ContentView>
+            <sho:Shadows
+                x:Name="Shadow"
+                CornerRadius="10"
+                Shades="{StaticResource ThinDarkerNeumorphism}">
+                <views:SillyListCell
+                    Margin="16,13,16,13"
+                    BackgroundColor="{StaticResource DarkerSurface}"
+                    CornerRadius="10">
+                    <views:SillyListCell.Triggers>
+                        <DataTrigger
+                            Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
+                            TargetType="views:SillyListCell"
+                            Value="True">
+                            <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
+                        </DataTrigger>
+                    </views:SillyListCell.Triggers>
+                </views:SillyListCell>
+            </sho:Shadows>
+        </ContentView>
+    </sho:DraggableViewCell>
+</DataTemplate>
+
+<sho:HorizontalListView x:Name="HorizontalListView"
+    CollectionPadding="10,30,10,75"
+    CurrentIndex="{Binding CurrentIndex}"
+    EnableDragAndDrop="True"
+    InfiniteListLoader="{Binding SillyPeoplePaginator}"
+    ItemHeight="120"
+    ItemTemplate="{StaticResource VerticalDudeTemplate}"
+    ItemsSource="{Binding SillyPeople}"
+    ListLayout="Vertical"
+    TapCommand="{Binding TapCommand}" />
+```
+
+<p align="center">
+  A <code>HorizontalListView</code> with <code>ListLayout=Vertical</code>.
+</p>
+<p align="center">
+  <img src="Docs/hlv_drag_iphone.png" width="250" />
+</p>
+
+Of course drag and drop is also available with this layout.
+
+## Reveal animations
+
+Contributor: original idea from @jmmortega.
+
+You can set custom animations on cells that will be triggered when a cell appears for the first time.
+
+*Properties for reveal animations*
+```csharp
+public Func<ViewCell, Task> PreRevealAnimationAsync { get; set; }
+
+public Func<ViewCell, Task> RevealAnimationAsync { get; set; }
+
+public Func<ViewCell, Task> PostRevealAnimationAsync { get; set; }
+```
+
+In the following example I flip the cell on the vertical axis and fade them for grid and linear layout. And flip the cell on the horizontal axis for vertical layout.
+
+*GridPage.xaml.cs*
+
+
+```csharp
+public partial class GridPage : ContentPage
+{
+    public GridPage()
+    {
+        InitializeComponent();
+
+        HorizontalListView.PreRevealAnimationAsync = async (viewCell) =>
+        {
+            viewCell.View.Opacity = 0;
+
+            if (HorizontalListView.ListLayout == HorizontalListViewLayout.Vertical)
+            {
+                viewCell.View.RotationX = 90;
+            }
+            else
+            {
+                viewCell.View.RotationY = -90;
+            }
+        };
+
+        HorizontalListView.RevealAnimationAsync = async (viewCell) =>
+        {
+            await viewCell.View.FadeTo(1);
+
+            if (HorizontalListView.ListLayout == HorizontalListViewLayout.Vertical)
+            {
+                await viewCell.View.RotateXTo(0);
+            }
+            else
+            {
+                await viewCell.View.RotateYTo(0);
+            }
+        };
+    }
+}
+```
+
+<p align="center">
+  <img src="Docs/reveal.gif" width="250" />
 </p>
 
 
-### [```Sharpnado.TaskLoaderView 2.0``` handles all your task loading states](https://github.com/roubachof/Sharpnado.TaskLoaderView)
+## Infinite Loading
 
-<img src="https://github.com/roubachof/Sharpnado.Presentation.Forms/wiki/Images/TaskLoaderView/tlv_icon_tos.png" width="150" />
+You can achieve infinite loading really easily by using the ```Paginator``` component, and bind it to the ```InfiniteListLoader``` property.
+All is explained here:
 
-  * Handles error with custom messages and icons
-  * Handles empty states
-  * Show snackbar errors for refresh scenarios (if data is already shown)
-  * Handles retry with button
-  * Support Xamarin.Forms.Skeleton
-  * Can override any state views with your own custom ones
+https://www.sharpnado.com/paginator-platform-independent/
 
-<p float="left" align="middle">
-  <img src="https://github.com/roubachof/Sharpnado.Presentation.Forms/wiki/Images/tlv_skeleton.gif" width="320" hspace="20"/>
-  <img src="https://github.com/roubachof/Sharpnado.Presentation.Forms/wiki/Images/tlv_user_views.gif" width="320" hspace="20"/>
-</p>
+## Drag and drop
 
-**IMPORTANT:** On platform projects, call SharpnadoInitializer.Initialize() after Xamarin.Forms.Forms.Init() and before LoadApplication(new App()).
+If you want to have both drag and drop enabled and still be able to tap the item, you need to use the ```TapCommand``` on the `HorizontalListView` instead of the ```xamEffects:Commands.Tap``` on the `DataTemplate` content.
+It's less nice since you won't have the nice color ripple, but it will work :)
 
-Those components are used and tested in the Silly! app:  https://github.com/roubachof/Xamarin-Forms-Practices.
+The only thing you have to do to enable drag and drop is setting `EnableDragAndDrop` to `true`.
 
-## Open Source licenses and inspirations
+The `DragAndDropStartCommand` and `DragAndDropEndedCommand` commands will pass as argument a `DragAndDropInfo` object:
 
-* Special thanks to Daniel John Causer (https://causerexception.com) for inspiring the horizontal list.
-* Thanks to alex dunn for his ```MaterialFrame``` idea.
-* Thanks to Vladislav Zhukov (https://github.com/mrxten/XamEffects) for its ```TapCommand``` and ```TouchFeedbackColor``` effects, Copyright (c) 2017 Vladislav Zhukov, under MIT License (MIT).
-* I greet his grace Stephen Cleary (https://github.com/StephenCleary) who cast his holy words on my async soul (https://www.youtube.com/watch?v=jjaqrPpdQYc). ```NotifyTask``` original code, Copyright (c) 2015 Stephen Cleary, under MIT License (MIT).
+```csharp
+public class DragAndDropInfo
+{
+    public int To { get; }
+
+    public int From { get; }
+
+    public object Content { get; }
+}
+```
+
+Contributor: Implemented by @jmmortega.
+
+**Remark:** You don't have to inherit from `DraggableViewCell`, any `ViewCell` can be dragged.
+
+### DraggableViewCell
+
+The `DraggableViewCell` is useful for using triggers on the `IsDragAndDropping` property (changing its background color or elevation during drag and drop for example).
+
+You can also disable the drag and drop for certain cells thanks to the `IsDraggable` property.
+
+## Others properties
+
+### Properties available with both layout mode
+
+```csharp
+public static readonly BindableProperty ListLayoutProperty = BindableProperty.Create(
+    nameof(ListLayout),
+    typeof(HorizontalListViewLayout),
+    typeof(HorizontalListView),
+    HorizontalListViewLayout.Linear,
+    propertyChanged: OnListLayoutChanged,
+    propertyChanging: OnListLayoutChanging);
+
+public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(
+    nameof(ItemsSource),
+    typeof(IEnumerable),
+    typeof(HorizontalListView),
+    default(IEnumerable<object>),
+    BindingMode.TwoWay,
+    propertyChanged: OnItemsSourceChanged);
+
+public static readonly BindableProperty InfiniteListLoaderProperty = BindableProperty.Create(
+    nameof(InfiniteListLoader),
+    typeof(IInfiniteListLoader),
+    typeof(HorizontalListView));
+
+public static readonly BindableProperty ItemTemplateProperty = BindableProperty.Create(
+    nameof(ItemTemplate),
+    typeof(DataTemplate),
+    typeof(HorizontalListView),
+    default(DataTemplate));
+
+public static readonly BindableProperty ItemHeightProperty = BindableProperty.Create(
+    nameof(ItemHeight),
+    typeof(double),
+    typeof(HorizontalListView),
+    defaultValue: 0D,
+    defaultBindingMode: BindingMode.OneWayToSource);
+
+public static readonly BindableProperty ItemWidthProperty = BindableProperty.Create(
+    nameof(ItemWidth),
+    typeof(double),
+    typeof(HorizontalListView),
+    defaultValue: 0D,
+    defaultBindingMode: BindingMode.OneWayToSource);
+
+public static readonly BindableProperty CollectionPaddingProperty = BindableProperty.Create(
+    nameof(CollectionPadding),
+    typeof(Thickness),
+    typeof(HorizontalListView),
+    defaultValue: new Thickness(0, 0),
+    defaultBindingMode: BindingMode.OneWayToSource);
+
+public static readonly BindableProperty ItemSpacingProperty = BindableProperty.Create(
+    nameof(ItemSpacing),
+    typeof(int),
+    typeof(HorizontalListView),
+    defaultValue: 0,
+    defaultBindingMode: BindingMode.OneWayToSource);
+
+public static readonly BindableProperty TapCommandProperty = BindableProperty.Create(
+    nameof(TapCommand),
+    typeof(ICommand),
+    typeof(HorizontalListView));
+
+public static readonly BindableProperty ScrollBeganCommandProperty = BindableProperty.Create(
+    nameof(ScrollBeganCommand),
+    typeof(ICommand),
+    typeof(HorizontalListView));
+
+public static readonly BindableProperty ScrollEndedCommandProperty = BindableProperty.Create(
+    nameof(ScrollEndedCommand),
+    typeof(ICommand),
+    typeof(HorizontalListView));
+
+public static readonly BindableProperty CurrentIndexProperty = BindableProperty.Create(
+    nameof(CurrentIndex),
+    typeof(int),
+    typeof(HorizontalListView),
+    defaultValue: -1,
+    defaultBindingMode: BindingMode.TwoWay,
+    propertyChanged: OnCurrentIndexChanged);
+
+public static readonly BindableProperty VisibleCellCountProperty = BindableProperty.Create(
+    nameof(VisibleCellCount),
+    typeof(int),
+    typeof(HorizontalListView),
+    defaultValue: 0,
+    defaultBindingMode: BindingMode.TwoWay,
+    propertyChanged: OnVisibleCellCountChanged);
+
+public static readonly BindableProperty DisableScrollProperty = BindableProperty.Create(
+    nameof(DisableScroll),
+    typeof(bool),
+    typeof(HorizontalListView),
+    defaultValue: false,
+    defaultBindingMode: BindingMode.TwoWay);
+
+public event EventHandler<ListLayoutChangedEventArgs> ListLayoutChanging;
+
+public Func<ViewCell, Task> PreRevealAnimationAsync { get; set; }
+
+public Func<ViewCell, Task> RevealAnimationAsync { get; set; }
+
+public Func<ViewCell, Task> PostRevealAnimationAsync { get; set; }
+
+/// In certain scenarios, the first scroll of the list can be smoothen
+/// by pre-building some views.
+public int ViewCacheSize { get; set; } = 0;
+
+public bool EnableDragAndDrop { get; set; } = false;
+
+public SnapStyle SnapStyle { get; set; } = SnapStyle.None;
+
+public int ColumnCount { get; set; } = 0;
+
+public ScrollSpeed ScrollSpeed { get; set; } = ScrollSpeed.Normal;
+
+```
+
+### Properties available with Grid and Vertical ListLayout
+
+```csharp
+public bool EnableDragAndDrop { get; set; } = false;
+
+public static readonly BindableProperty DragAndDropStartedCommandProperty = BindableProperty.Create(
+    nameof(DragAndDropStartedCommand),
+    typeof(ICommand),
+    typeof(HorizontalListView));
+
+public static readonly BindableProperty DragAndDropEndedCommandProperty = BindableProperty.Create(
+    nameof(DragAndDropEndedCommand),
+    typeof(ICommand),
+    typeof(HorizontalListView));
+
+public static readonly BindableProperty IsDragAndDroppingProperty = BindableProperty.Create(
+    nameof(IsDragAndDropping),
+    typeof(bool),
+    typeof(HorizontalListView),
+    defaultValue: false);
+```
+
+## Some implementation details
+
+### Android
+
+The Android renderer is implemented with a ```RecyclerView```.
+Padding and item spacing is computed by an extension of ```ItemDecoration```.
+While column computing and item distribution is achieved by a custom ```GridLayoutManager```.
+The Snap to first item is implemented with a custom ```LinearSnapHelper```. Drag and drop is handled by an ```ItemTouchHelper.Callback```.
+
+### iOS
+
+The iOS renderer is implemented by a ```UICollectionView```.
+Padding and item spacing are natively provided by the ```UICollectionViewFlowLayout```.
+Snap to Center item is brought by a little trick on ```DecelerationEnded``` callback.
+Drag and drop is handled by a ```UILongPressGestureRecognizer``` followed by calls to the ```xxxInteractiveMovementxxx``` methods.
