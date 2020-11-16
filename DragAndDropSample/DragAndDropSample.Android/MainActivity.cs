@@ -29,6 +29,7 @@ namespace DragAndDropSample.Droid
                 Window.SetStatusBarColor(darkSurface);
             }
 
+            Xamarin.Forms.Forms.SetFlags("Brush_Experimental");
 
             Xamarin.Forms.Forms.Init(this, savedInstanceState);
 

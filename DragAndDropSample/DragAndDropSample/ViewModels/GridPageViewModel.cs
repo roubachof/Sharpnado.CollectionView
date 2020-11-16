@@ -45,6 +45,13 @@ namespace DragAndDropSample.ViewModels
             SillyPeopleLoaderNotifier = new TaskLoaderNotifier<IReadOnlyCollection<SillyDude>>();
         }
 
+        public LogoLetterVmo[] Logo { get; } = new[]
+        {
+            new LogoLetterVmo("H", Color.FromHex("#FF0266"), "ThinAccentNeumorphism"),
+            new LogoLetterVmo("L", Color.White, "ThinDarkerNeumorphism"),
+            new LogoLetterVmo("V", Color.White, "ThinDarkerNeumorphism"),
+        };
+
         public int CurrentIndex
         {
             get => _currentIndex;

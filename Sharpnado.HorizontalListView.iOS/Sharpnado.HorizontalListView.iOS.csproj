@@ -76,7 +76,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.7.0.1351</Version>
+      <Version>4.8.0.1687</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

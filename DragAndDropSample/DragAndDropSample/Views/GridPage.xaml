@@ -9,6 +9,7 @@
     mc:Ignorable="d"
     xmlns:converters="clr-namespace:DragAndDropSample.Converters;assembly=DragAndDropSample"
     xmlns:customViews="clr-namespace:Sharpnado.Presentation.Forms.CustomViews;assembly=Sharpnado.TaskLoaderView"
+    xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
     xmlns:sho="http://sharpnado.com"
     xmlns:viewModels="clr-namespace:DragAndDropSample.ViewModels;assembly=DragAndDropSample"
     xmlns:views="clr-namespace:DragAndDropSample.Views;assembly=DragAndDropSample"
@@ -143,6 +144,64 @@
                         ScrollBeganCommand="{Binding OnScrollBeginCommand}"
                         ScrollEndedCommand="{Binding OnScrollEndCommand}"
                         TapCommand="{Binding TapCommand}" />
+
+                    <!--  HorizontalListView Logo  -->
+                    <!--<sho:HorizontalListView
+                        x:Name="HorizontalListView"
+                        CollectionPadding="10,30,10,75"
+                        CurrentIndex="{Binding CurrentIndex}"
+                        EnableDragAndDrop="True"
+                        InfiniteListLoader="{Binding SillyPeoplePaginator}"
+                        ItemHeight="120"
+                        ItemWidth="120"
+                        ItemsSource="{Binding Logo}"
+                        ListLayout="Linear"
+                        TapCommand="{Binding TapCommand}">
+                        <sho:HorizontalListView.ItemTemplate>
+                            <DataTemplate>
+                                <sho:DraggableViewCell x:Name="DraggableViewCell">
+                                    <ContentView>
+                                        <sho:Shadows
+                                            x:Name="Shadow"
+                                            CornerRadius="10"
+                                            Shades="{Binding ShadowResourceName, Converter={converters:StringToResource}}">
+                                            <pancakeView:PancakeView
+                                                Margin="16,13,16,13"
+                                                Padding="0"
+                                                CornerRadius="10"
+                                                BackgroundGradientStartPoint="0,0"
+                                                BackgroundGradientEndPoint="1,1">
+                                                <pancakeView:PancakeView.Triggers>
+                                                    <DataTrigger
+                                                        Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
+                                                        TargetType="pancakeView:PancakeView"
+                                                        Value="True">
+                                                        <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
+                                                    </DataTrigger>
+                                                </pancakeView:PancakeView.Triggers>
+                                                <pancakeView:PancakeView.BackgroundGradientStops>
+                                                    <pancakeView:GradientStopCollection>
+                                                        <pancakeView:GradientStop Offset="0.1" Color="#3a3a3a" />
+                                                        <pancakeView:GradientStop Offset="0.9" Color="#2b2b2b" />
+                                                    </pancakeView:GradientStopCollection>
+                                                </pancakeView:PancakeView.BackgroundGradientStops>
+                                                <Label
+                                                    Style="{StaticResource TextHeadline}"
+                                                    Margin="0,-14,0,0"
+                                                    HorizontalOptions="Center"
+                                                    VerticalOptions="Center"
+                                                    FontAttributes="Bold"
+                                                    FontSize="90"
+                                                    Text="{Binding Text}"
+                                                    TextColor="{Binding TextColor}" />
+                                            </pancakeView:PancakeView>
+                                        </sho:Shadows>
+                                    </ContentView>
+                                </sho:DraggableViewCell>
+                            </DataTemplate>
+                        </sho:HorizontalListView.ItemTemplate>
+                    </sho:HorizontalListView>-->
+
                 </RefreshView>
             </customViews:TaskLoaderView>
 

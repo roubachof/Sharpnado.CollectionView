@@ -116,7 +116,10 @@
     <PackageReference Include="SkiaSharp.Views.Forms">
       <Version>2.80.2</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.7.0.1351" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
+    <PackageReference Include="Xamarin.Forms.PancakeView">
+      <Version>2.3.0.759</Version>
+    </PackageReference>
     <PackageReference Include="XamEffects">
       <Version>1.6.3</Version>
     </PackageReference>

@@ -223,6 +223,19 @@
             Color="#3a3a3a" />
     </sho:ImmutableShades>
 
+    <sho:ImmutableShades x:Key="ThinAccentNeumorphism">
+        <sho:Shade
+            BlurRadius="3"
+            Opacity="1"
+            Offset="5,5"
+            Color="#FA0061" />
+        <sho:Shade
+            BlurRadius="3"
+            Opacity="1"
+            Offset="-5,-5"
+            Color="#FF0266" />
+    </sho:ImmutableShades>
+
     <sho:ImmutableShades x:Key="DraggingShadows">
         <sho:Shade
             BlurRadius="6"

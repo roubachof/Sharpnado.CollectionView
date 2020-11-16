@@ -22,7 +22,7 @@ namespace DragAndDropSample
 
             Sharpnado.HorizontalListView.Initializer.Initialize(true, true);
             Sharpnado.Tabs.Initializer.Initialize(true, true);
-            Sharpnado.Shades.Initializer.Initialize(loggerEnable: false, true);
+            Sharpnado.Shades.Initializer.Initialize(loggerEnable: true, true);
 
             var navigationService = new FormsNavigationService(
                 new Lazy<NavigationPage>(() => (NavigationPage)Current.MainPage),

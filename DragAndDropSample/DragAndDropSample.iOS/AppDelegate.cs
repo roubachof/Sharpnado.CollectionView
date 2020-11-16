@@ -6,7 +6,6 @@ using Sharpnado.HorizontalListView.iOS;
 
 using UIKit;
 
-using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
 namespace DragAndDropSample.iOS
@@ -31,7 +30,9 @@ namespace DragAndDropSample.iOS
 
             XamEffects.iOS.Effects.Init();
 
-            global::Xamarin.Forms.Forms.Init();
+            Xamarin.Forms.Forms.SetFlags("Brush_Experimental");
+
+            Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

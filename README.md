@@ -11,7 +11,7 @@ Get it from NuGet:
 | :heavy_check_mark: Android |
 | :heavy_check_mark: iOS     |
 
-![Presentation](Docs/github_banner.png)
+![Presentation](Docs/github_banner.jpg)
 
 ## Initialization
 
