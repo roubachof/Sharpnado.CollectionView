@@ -1,14 +1,14 @@
 ﻿#if __ANDROID_29__
+using AndroidX.RecyclerView.Widget;
 #else
 using Android.Support.V7.Widget;
 #endif
+
 using System;
 
 using Android.Content;
 using Android.Graphics;
 using Android.Runtime;
-
-using AndroidX.RecyclerView.Widget;
 
 using Sharpnado.HorizontalListView.RenderedViews;
 

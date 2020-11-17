@@ -5,8 +5,6 @@ using System.ComponentModel;
 using Android.Content;
 using Android.Views;
 
-using AndroidX.RecyclerView.Widget;
-
 using Sharpnado.HorizontalListView.Droid.Helpers;
 using Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList;
 using Sharpnado.HorizontalListView.RenderedViews;
@@ -14,6 +12,7 @@ using Sharpnado.HorizontalListView.RenderedViews;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 #if __ANDROID_29__
+using AndroidX.RecyclerView.Widget;
 #else
 using Android.Support.V7.Widget;
 using Android.Support.V7.Widget.Helper;

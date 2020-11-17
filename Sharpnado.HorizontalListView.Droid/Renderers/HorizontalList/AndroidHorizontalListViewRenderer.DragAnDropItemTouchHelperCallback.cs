@@ -3,13 +3,12 @@ using System.Windows.Input;
 
 using Android.Runtime;
 
-using AndroidX.RecyclerView.Widget;
-
 using Sharpnado.HorizontalListView.RenderedViews;
 using Sharpnado.HorizontalListView.ViewModels;
 
 using Xamarin.Forms;
 #if __ANDROID_29__
+using AndroidX.RecyclerView.Widget;
 #else
 using Android.Support.V7.Widget;
 using Android.Support.V7.Widget.Helper;

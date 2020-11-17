@@ -4,6 +4,8 @@ $hlvProject = ".\Sharpnado.HorizontalListView\Sharpnado.HorizontalListView.cspro
 $droidHLVProject = ".\Sharpnado.HorizontalListView.Droid\Sharpnado.HorizontalListView.Droid.csproj"
 $iosHLVProject = ".\Sharpnado.HorizontalListView.iOS\Sharpnado.HorizontalListView.iOS.csproj"
 
+$droidBin = ".\Sharpnado.HorizontalListView.Droid\bin\Release"
+$droidObj = ".\Sharpnado.HorizontalListView.Droid\obj\Release"
 
 rm *.txt
 
@@ -21,25 +23,81 @@ echo "########################################"
 echo "# Sharpnado.Forms.HorizontalListView"
 echo "########################################"
 
+echo "  deleting android bin-obj folders"
+rm -Force -Recurse $droidBin
+rm -Force -Recurse $droidObj
+
+echo "  cleaning Sharpnado.HorizontalListView solution"
+msbuild .\Sharpnado.HorizontalListView.sln /t:Clean
+
+if ($LastExitCode -gt 0)
+{
+    echo "  Error while cleaning solution"
+    return
+}
+
+echo "  restoring Sharpnado.HorizontalListView solution packages"
+msbuild .\Sharpnado.HorizontalListView.sln /t:Restore
+
+if ($LastExitCode -gt 0)
+{
+    echo "  Error while restoring packages"
+    return
+}
+
 echo "  building Sharpnado.HorizontalListView solution"
-$errorCode = msbuild .\Sharpnado.HorizontalListView.sln /t:Clean,Restore,Build /p:Configuration=Release
-if ($errorCode -gt 0)
+msbuild .\Sharpnado.HorizontalListView.sln /t:Build /p:Configuration=Release
+if ($LastExitCode -gt 0)
 {
-    echo "  Error while building HorizontalListView version, see build.HLV.txt for infos"
-    return 5
+    echo "  Error while building solution"
+    return
 }
 
 
-echo "  building Android9 -- only HorizontalListView"
-$errorCode = msbuild .\Sharpnado.HorizontalListView.Droid\Sharpnado.HorizontalListView.Droid.csproj /t:Clean,Restore,Build /p:Configuration=ReleaseAndroid9.0
-if ($errorCode -gt 0)
+echo "###############################################"
+echo "# Android 9.0 and below"
+echo "###############################################"
+
+echo "  deleting android obj folders"
+rm -Force -Recurse $droidObj
+if ($LastExitCode -gt 0)
 {
-    echo "  Error while building Android9 HorizontalListView version, see build.Android9.HLV.txt for infos"
-    return 6
+    echo "  Error deleting android obj folder"
+    return
+}
+
+echo "  cleaning Android9 solution"
+msbuild .\Sharpnado.HorizontalListView.Droid\Sharpnado.HorizontalListView.Droid.csproj /t:Clean /p:Configuration=ReleaseAndroid9.0
+
+if ($LastExitCode -gt 0)
+{
+    echo "  Error while cleaning solution"
+    return
+}
+
+echo "  restoring Android9 solution packages"
+msbuild .\Sharpnado.HorizontalListView.Droid\Sharpnado.HorizontalListView.Droid.csproj /t:Restore /p:Configuration=ReleaseAndroid9.0
+
+if ($LastExitCode -gt 0)
+{
+    echo "  Error while restoring packages"
+    return
+}
+
+echo "  building Android9"
+msbuild .\Sharpnado.HorizontalListView.Droid\Sharpnado.HorizontalListView.Droid.csproj /t:Build /p:Configuration=ReleaseAndroid9.0
+if ($LastExitCode -gt 0)
+{
+    echo "  Error while building solution for Android9"
+    return
 }
 
 
-$version = (Get-Item Sharpnado.HorizontalListView\bin\HLVRelease\netstandard2.0\Sharpnado.HorizontalListView.dll).VersionInfo.FileVersion
+echo "###############################################"
+echo "# Packaging"
+echo "###############################################"
+
+$version = (Get-Item Sharpnado.HorizontalListView\bin\Release\netstandard2.0\Sharpnado.HorizontalListView.dll).VersionInfo.FileVersion
 
 echo "  packaging Sharpnado.HorizontalListView.nuspec (v$version)"
 nuget pack .\Sharpnado.HorizontalListView.nuspec -Version $version

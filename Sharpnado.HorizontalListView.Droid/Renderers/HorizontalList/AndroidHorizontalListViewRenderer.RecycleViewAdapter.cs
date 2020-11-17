@@ -1,7 +1,9 @@
 ﻿#if __ANDROID_29__
+using AndroidX.RecyclerView.Widget;
 #else
 using Android.Support.V7.Widget;
 #endif
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,8 +17,6 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-
-using AndroidX.RecyclerView.Widget;
 
 using Sharpnado.HorizontalListView.Droid.Helpers;
 using Sharpnado.HorizontalListView.Helpers;
