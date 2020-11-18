@@ -4,7 +4,7 @@
 
 Get it from NuGet:
 
-[![Nuget](https://img.shields.io/nuget/v/Sharpnado.HorizontalListView.svg)](https://www.nuget.org/packages/Sharpnado.HorizontalListView)
+[![Nuget](https://img.shields.io/nuget/v/Sharpnado.Forms.HorizontalListView.svg)](https://www.nuget.org/packages/Sharpnado.Forms.HorizontalListView)
 
 | Supported platforms        |
 |----------------------------|
