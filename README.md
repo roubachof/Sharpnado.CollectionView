@@ -47,6 +47,20 @@ public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 
 Namespace changed from `Sharpnado.Presentation.Forms.HorizontalListView` to `Sharpnado.HorizontalListView`.
 
+`HorizontalListView`, like `MaterialFrame`, `Tabs` and `Shadows`, now uses the same xml namespace: http://sharpnado.com.
+
+Because of how works xaml compilation, you need to add code in your `App.xaml.cs` referencing the sharpnado assembly:
+
+```csharp
+public App()
+{
+    InitializeComponent();
+
+    Sharpnado.HorizontalListView.Initializer.Initialize(true, false);
+    ...
+}
+```
+
 ## Presentation
 
  * Horizontal, Grid, Carousel or Vertical layout
