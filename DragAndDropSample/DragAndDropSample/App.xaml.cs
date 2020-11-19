@@ -23,7 +23,7 @@ namespace DragAndDropSample
             Sharpnado.HorizontalListView.Initializer.Initialize(true, true);
             Sharpnado.Tabs.Initializer.Initialize(true, true);
             Sharpnado.Shades.Initializer.Initialize(loggerEnable: true, true);
-
+            Device.SetFlags(new string[] { "RadioButton_Experimental" });
             var navigationService = new FormsNavigationService(
                 new Lazy<NavigationPage>(() => (NavigationPage)Current.MainPage),
                 new ViewLocator());

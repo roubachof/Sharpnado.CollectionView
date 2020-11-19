@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 using DragAndDropSample.Navigables;
 using DragAndDropSample.Services;
-
+using Sharpnado.HorizontalListView.Helpers;
 using Sharpnado.HorizontalListView.Paging;
 using Sharpnado.HorizontalListView.Services;
 using Sharpnado.HorizontalListView.ViewModels;
@@ -103,6 +103,36 @@ namespace DragAndDropSample.ViewModels
             OnScrollEndCommand = new Command(
                 () => System.Diagnostics.Debug.WriteLine("SillyInfiniteGridPeopleVm: OnScrollEndCommand"));
         }
+        public RevealAnimation MyCustomAnimation { get; set; } = new RevealAnimation()
+        {
+            PreRevealAnimationAsync = async (viewCell) =>
+            {
+                viewCell.View.Opacity = 0;
+                await Task.Delay(300);
+            },
+            RevealAnimationAsync = async (viewCell) =>
+            {
+                //Fade then Shake
+                await viewCell.View.FadeTo(1, 750);
+                await viewCell.View.TranslateTo(-15, 0, 50);
+                await viewCell.View.TranslateTo(15, 0, 50);
+                await viewCell.View.TranslateTo(-10, 0, 50);
+                await viewCell.View.TranslateTo(10, 0, 50);
+                await viewCell.View.TranslateTo(-5, 0, 50);
+                await viewCell.View.TranslateTo(5, 0, 50);
+                await viewCell.View.TranslateTo(0, 0, 50);
+                await Task.WhenAny<bool>(
+                    viewCell.View.RotateXTo(180, 300),
+                    viewCell.View.ScaleTo(1.3, 300, easing: Easing.CubicOut)
+                );
+                await Task.WhenAny<bool>(
+                    viewCell.View.RotateXTo(0, 300),
+                    viewCell.View.ScaleTo(1, 300, easing: Easing.CubicIn)
+                );
+                await Task.Delay(200);
+            },
+            PostRevealAnimationAsync = RevealAnimationHelper.NoAnim()
+        };
 
         private async Task<PageResult<SillyDude>> LoadSillyPeoplePageAsync(int pageNumber, int pageSize, bool isRefresh)
         {

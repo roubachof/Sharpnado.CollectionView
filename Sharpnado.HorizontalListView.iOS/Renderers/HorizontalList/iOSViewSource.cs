@@ -280,22 +280,22 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
         {
             TaskMonitor.Create(
                 async () =>
+                {
+                    if (element.RevealAnimation?.PreRevealAnimationAsync != null)
                     {
-                        if (element.PreRevealAnimationAsync != null)
-                        {
-                            await element.PreRevealAnimationAsync(cell);
-                        }
+                        await element.RevealAnimation.PreRevealAnimationAsync(cell);
+                    }
 
-                        if (element.RevealAnimationAsync != null)
-                        {
-                            await element.RevealAnimationAsync(cell);
-                        }
+                    if (element.RevealAnimation?.RevealAnimationAsync != null)
+                    {
+                        await element.RevealAnimation.RevealAnimationAsync(cell);
+                    }
 
-                        if (element.PostRevealAnimationAsync != null)
-                        {
-                            await element.PostRevealAnimationAsync(cell);
-                        }
-                    });
+                    if (element.RevealAnimation?.PostRevealAnimationAsync != null)
+                    {
+                        await element.RevealAnimation.PostRevealAnimationAsync(cell);
+                    }
+                });
         }
 
         private string GetItemTemplateIdentifier(UICollectionView collectionView, NSIndexPath indexPath)

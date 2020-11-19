@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
+using Sharpnado.HorizontalListView.Helpers;
 using Sharpnado.HorizontalListView.Paging;
-
+using Sharpnado.HorizontalListView.ViewModels;
 using Xamarin.Forms;
 
 namespace Sharpnado.HorizontalListView.RenderedViews
@@ -184,6 +184,16 @@ namespace Sharpnado.HorizontalListView.RenderedViews
             typeof(HorizontalListView),
             defaultValue: false);
 
+        public static readonly BindableProperty RevealAnimationProperty = BindableProperty.Create(
+            nameof(RevealAnimation),
+            typeof(RevealAnimation),
+            typeof(HorizontalListView),
+            RevealAnimationHelper.Nothing(),
+            propertyChanged: OnRevealAnimationChanged,
+            propertyChanging: OnRevealAnimationChanging);
+
+
+
         public event EventHandler<ListLayoutChangedEventArgs> ListLayoutChanging;
 
         public int CurrentIndex
@@ -304,12 +314,7 @@ namespace Sharpnado.HorizontalListView.RenderedViews
             set => SetValue(ListLayoutProperty, value);
         }
 
-        public Func<ViewCell, Task> PreRevealAnimationAsync { get; set; }
-
-        public Func<ViewCell, Task> RevealAnimationAsync { get; set; }
-
-        public Func<ViewCell, Task> PostRevealAnimationAsync { get; set; }
-
+        public RevealAnimation RevealAnimation { get; set; }
         public int ViewCacheSize { get; set; } = 0;
 
         public bool EnableDragAndDrop { get; set; } = false;
@@ -394,7 +399,11 @@ namespace Sharpnado.HorizontalListView.RenderedViews
 
             return PlatformHelper.Instance.PixelsToDp(spaceHeightLeft);
         }
-
+        private static void OnRevealAnimationChanging(BindableObject bindable, object oldvalue, object newvalue)
+        {
+            var horizontalListView = (HorizontalListView)bindable;
+            horizontalListView.RevealAnimation = (ViewModels.RevealAnimation)newvalue;
+        }
         private static void OnListLayoutChanging(BindableObject bindable, object oldvalue, object newvalue)
         {
             var horizontalListView = (HorizontalListView)bindable;
@@ -418,7 +427,9 @@ namespace Sharpnado.HorizontalListView.RenderedViews
                 horizontalListView,
                 new ListLayoutChangedEventArgs(newLayout));
         }
-
+        private static void OnRevealAnimationChanged(BindableObject bindable, object oldvalue, object newvalue)
+        {
+        }
         private static void OnListLayoutChanged(BindableObject bindable, object oldvalue, object newvalue)
         {
         }

@@ -290,22 +290,22 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
             {
                 TaskMonitor.Create(
                     async () =>
+                    {
+                        if (_element.RevealAnimation?.PreRevealAnimationAsync != null)
                         {
-                            if (_element.PreRevealAnimationAsync != null)
-                            {
-                                await _element.PreRevealAnimationAsync(cell);
-                            }
+                            await _element.RevealAnimation.PreRevealAnimationAsync(cell);
+                        }
 
-                            if (_element.RevealAnimationAsync != null)
-                            {
-                                await _element.RevealAnimationAsync(cell);
-                            }
+                        if (_element.RevealAnimation?.RevealAnimationAsync != null)
+                        {
+                            await _element.RevealAnimation.RevealAnimationAsync(cell);
+                        }
 
-                            if (_element.PostRevealAnimationAsync != null)
-                            {
-                                await _element.PostRevealAnimationAsync(cell);
-                            }
-                        });
+                        if (_element.RevealAnimation?.PostRevealAnimationAsync != null)
+                        {
+                            await _element.RevealAnimation.PostRevealAnimationAsync(cell);
+                        }
+                    });
             }
 
             private View CreateView(out ViewCell viewCell, int itemViewType)

@@ -1,4 +1,4 @@
-# Sharpnado.HorizontalListView
+﻿# Sharpnado.HorizontalListView
 
 <p align="left"><img src="Docs/logo.png" height="180"/>
 
@@ -304,65 +304,109 @@ Of course drag and drop is also available with this layout.
 
 ## Reveal animations
 
-Contributor: original idea from @jmmortega.
+Contributor: original idea from @jmmortega
 
 You can set custom animations on cells that will be triggered when a cell appears for the first time.
 
-*Properties for reveal animations*
+*Property for reveal animations*
 ```csharp
-public Func<ViewCell, Task> PreRevealAnimationAsync { get; set; }
-
-public Func<ViewCell, Task> RevealAnimationAsync { get; set; }
-
-public Func<ViewCell, Task> PostRevealAnimationAsync { get; set; }
+public RevealAnimation RevealAnimation { get; set; }
 ```
-
-In the following example I flip the cell on the vertical axis and fade them for grid and linear layout. And flip the cell on the horizontal axis for vertical layout.
-
-*GridPage.xaml.cs*
-
-
+*The model*
 ```csharp
-public partial class GridPage : ContentPage
-{
-    public GridPage()
+ public class RevealAnimation
     {
-        InitializeComponent();
-
-        HorizontalListView.PreRevealAnimationAsync = async (viewCell) =>
-        {
-            viewCell.View.Opacity = 0;
-
-            if (HorizontalListView.ListLayout == HorizontalListViewLayout.Vertical)
-            {
-                viewCell.View.RotationX = 90;
-            }
-            else
-            {
-                viewCell.View.RotationY = -90;
-            }
-        };
-
-        HorizontalListView.RevealAnimationAsync = async (viewCell) =>
-        {
-            await viewCell.View.FadeTo(1);
-
-            if (HorizontalListView.ListLayout == HorizontalListViewLayout.Vertical)
-            {
-                await viewCell.View.RotateXTo(0);
-            }
-            else
-            {
-                await viewCell.View.RotateYTo(0);
-            }
-        };
+        public Func<ViewCell, Task> PreRevealAnimationAsync { get; set; }
+        public Func<ViewCell, Task> RevealAnimationAsync { get; set; }
+        public Func<ViewCell, Task> PostRevealAnimationAsync { get; set; }
     }
-}
 ```
+
+#### Method 1 : Provided animation
+
+Multiple animation are ready to use (more to come soon)
+```csharp
+    public enum RevealAnimationType
+    {
+        Fade,
+        Rotation,
+        Flip
+    }
+```
+
+In the following example I flip the cell
+
+*GridPage.xaml*
+
+```xml
+ <sho:HorizontalListView {...}
+                         RevealAnimation="{behaviors:RevealAnimation Animation=Flip}"
+                         {...} />
+```
+
+And Voilà ! 🎊🎊
+
 
 <p align="center">
   <img src="Docs/reveal.gif" width="250" />
 </p>
+
+---
+
+#### Method 2 : Custom animation
+
+If you prefer a **Custom Animation**, create your own RevealAnimation and bind it to RevealAnimation Property
+
+*In your ViewModel*
+
+This is a complex and totally useless animation 😂
+
+```csharp
+   public RevealAnimation MyCustomAnimation { get; set; } = new RevealAnimation()
+        {
+            PreRevealAnimationAsync = async (viewCell) =>
+            {
+                viewCell.View.Opacity = 0;
+                await Task.Delay(300);
+            },
+            RevealAnimationAsync = async (viewCell) =>
+            {
+                //Fade
+                await viewCell.View.FadeTo(1, 750);
+                //Shake
+                await viewCell.View.TranslateTo(-15, 0, 50);
+                await viewCell.View.TranslateTo(15, 0, 50);
+                await viewCell.View.TranslateTo(-10, 0, 50);
+                await viewCell.View.TranslateTo(10, 0, 50);
+                await viewCell.View.TranslateTo(-5, 0, 50);
+                await viewCell.View.TranslateTo(5, 0, 50);
+                await viewCell.View.TranslateTo(0, 0, 50);
+                //??? 
+                await Task.WhenAny<bool>(
+                    viewCell.View.RotateXTo(180, 300),
+                    viewCell.View.ScaleTo(1.3, 300,easing: Easing.CubicOut)
+                );
+                await Task.WhenAny<bool>(
+                    viewCell.View.RotateXTo(0, 300),
+                    viewCell.View.ScaleTo(1, 300,easing: Easing.CubicIn)
+                );
+                await Task.Delay(200);
+            },
+            PostRevealAnimationAsync = RevealAnimationHelper.NoAnim()
+        };
+```
+*In Your Xaml*
+
+```xml
+ <sho:HorizontalListView {...}
+                         RevealAnimation="{Binding MyCustomAnimation}"
+                         {...} />
+```
+It couldn't be easier
+<p align="center">
+  <img src="Docs/CustomRevealAnimation.gif" width="250" />
+</p>
+
 
 
 ## Infinite Loading
@@ -502,11 +546,7 @@ public static readonly BindableProperty DisableScrollProperty = BindableProperty
 
 public event EventHandler<ListLayoutChangedEventArgs> ListLayoutChanging;
 
-public Func<ViewCell, Task> PreRevealAnimationAsync { get; set; }
-
-public Func<ViewCell, Task> RevealAnimationAsync { get; set; }
-
-public Func<ViewCell, Task> PostRevealAnimationAsync { get; set; }
+public RevealAnimation RevealAnimation { get; set; }
 
 /// In certain scenarios, the first scroll of the list can be smoothen
 /// by pre-building some views.

@@ -118,10 +118,72 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-        <Grid RowDefinitions="Auto,*">
-
-            <customViews:TaskLoaderView
+        <Grid RowDefinitions="Auto,Auto,*">
+            <!--  If you want to try Provided Animation , uncomment the following lines. And take a look at GridPage.xaml.cs  -->
+            <sho:Shadows
+                x:Name="Shadow"
                 Grid.Row="1"
+                HorizontalOptions="Center"
+                CornerRadius="30"
+                Shades="{StaticResource ThinDarkerNeumorphism}">
+                <views:SillyGridCell
+                    Margin="16,13,16,0"
+                    BackgroundColor="{StaticResource DarkerSurface}"
+                    CornerRadius="30">
+                    <StackLayout
+                        Grid.Row="1"
+                        Margin="20"
+                        HorizontalOptions="Center"
+                        Orientation="Horizontal">
+                        <StackLayout>
+                            <Label
+                                HorizontalTextAlignment="Center"
+                                Text="Fade"
+                                TextColor="{StaticResource Accent}" />
+                            <RadioButton
+                                HorizontalOptions="Center"
+                                CheckedChanged="OnRadioButtonCheckedChanged"
+                                GroupName="AnimationTypeGroup"
+                                Text="Fade" />
+                        </StackLayout>
+                        <StackLayout>
+                            <Label
+                                HorizontalTextAlignment="Center"
+                                Text="Flip"
+                                TextColor="{StaticResource Accent}" />
+                            <RadioButton
+                                HorizontalOptions="Center"
+                                CheckedChanged="OnRadioButtonCheckedChanged"
+                                GroupName="AnimationTypeGroup"
+                                Text="Flip" />
+                        </StackLayout>
+                        <StackLayout>
+                            <Label
+                                HorizontalTextAlignment="Center"
+                                Text="Rotate"
+                                TextColor="{StaticResource Accent}" />
+                            <RadioButton
+                                HorizontalOptions="Center"
+                                CheckedChanged="OnRadioButtonCheckedChanged"
+                                GroupName="AnimationTypeGroup"
+                                Text="Rotate" />
+                        </StackLayout>
+                        <StackLayout>
+                            <Label
+                                HorizontalTextAlignment="Center"
+                                Text="Complex"
+                                TextColor="{StaticResource Accent}" />
+                            <RadioButton
+                                HorizontalOptions="Center"
+                                CheckedChanged="OnRadioButtonCheckedChanged"
+                                GroupName="AnimationTypeGroup"
+                                Text="Complex" />
+                        </StackLayout>
+                    </StackLayout>
+                </views:SillyGridCell>
+            </sho:Shadows>
+            <customViews:TaskLoaderView
+                Grid.Row="2"
                 Style="{StaticResource SillyTaskLoader}"
                 VerticalOptions="FillAndExpand"
                 TaskLoaderNotifier="{Binding SillyPeopleLoaderNotifier}">
@@ -141,6 +203,7 @@
                         ItemsSource="{Binding SillyPeople}"
                         ListLayout="{Binding Mode, Converter={converters:ListModeToListLayout}}"
                         ListLayoutChanging="ListLayoutChanging"
+                        RevealAnimation="{Binding MyCustomAnimation}"
                         ScrollBeganCommand="{Binding OnScrollBeginCommand}"
                         ScrollEndedCommand="{Binding OnScrollEndCommand}"
                         TapCommand="{Binding TapCommand}" />
