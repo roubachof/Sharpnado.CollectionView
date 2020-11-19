@@ -344,7 +344,7 @@ In the following example I flip the cell
                          {...} />
 ```
 
-And Voilà ! 🎊🎊
+And Voilà !
 
 
 <p align="center">
@@ -359,7 +359,7 @@ If you prefer a **Custom Animation**, create your own RevealAnimation and bind i
 
 *In your ViewModel*
 
-This is a complex and totally useless animation 😂
+This is a complex animation sample
 
 ```csharp
    public RevealAnimation MyCustomAnimation { get; set; } = new RevealAnimation()
