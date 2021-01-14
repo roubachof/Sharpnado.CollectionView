@@ -35,7 +35,18 @@ public App()
 ```csharp
 public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 {
-    Sharpnado.HorizontalListView.iOSSharpnadoInitializer.Initialize();
+    SharpnadoInitializer.Initialize();
+
+    global::Xamarin.Forms.Forms.Init();
+    LoadApplication(new App());
+}
+
+* On `Android` add this line before `Xamarin.Forms.Forms.Init()` and `LoadApplication(new App())`.
+
+```csharp
+public override OnCreate(Bundle savedInstanceState)
+{
+    SharpnadoInitializer.Initialize();
 
     global::Xamarin.Forms.Forms.Init();
     LoadApplication(new App());
