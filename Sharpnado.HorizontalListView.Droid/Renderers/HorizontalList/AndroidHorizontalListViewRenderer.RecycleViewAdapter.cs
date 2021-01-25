@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Threading;
 using System.Windows.Input;
 
 using Android.Content;
@@ -114,6 +115,8 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
 
             private readonly List<WeakReference<ViewCell>> _formsViews;
 
+            private CancellationTokenSource _enableDragAndDropCts;
+
             private bool _collectionChangedBackfire;
 
             private bool _isDisposed;
@@ -216,6 +219,27 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                 return _viewHolderQueue.Dequeue();
             }
 
+            public void OnEnableDragAndDropUpdated(bool isEnabled)
+            {
+                _enableDragAndDropCts?.Cancel();
+                _enableDragAndDropCts = new CancellationTokenSource();
+
+                if (!isEnabled)
+                {
+                    return;
+                }
+
+                foreach (var weakFormsView in _formsViews)
+                {
+                    if (!weakFormsView.TryGetTarget(out var formsView))
+                    {
+                        continue;
+                    }
+
+                    HandleDragAndDropEnabledAnimation(formsView);
+                }
+            }
+
             public void OnItemMoved(int from, int to)
             {
                 if (_elementItemsSource is IList collection)
@@ -286,6 +310,19 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                 return new ViewHolder(view, viewCell, _element.TapCommand);
             }
 
+            private void HandleDragAndDropEnabledAnimation(ViewCell viewCell)
+            {
+                if (_enableDragAndDropCts != null
+                    && !_enableDragAndDropCts.IsCancellationRequested
+                    && _element.EnableDragAndDrop
+                    && _element.DragAndDropEnabledAnimationAsync != null)
+                {
+                    InternalLogger.Debug("HandleDragAndDropEnabledAnimation");
+
+                    TaskMonitor.Create(_element.DragAndDropEnabledAnimationAsync(viewCell, _enableDragAndDropCts.Token));
+                }
+            }
+
             private void AnimateCell(ViewCell cell)
             {
                 TaskMonitor.Create(
@@ -310,6 +347,7 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
 
             private View CreateView(out ViewCell viewCell, int itemViewType)
             {
+                InternalLogger.Debug("Creating View");
                 var dataTemplate = _element.ItemTemplate;
 
                 if (itemViewType == -1)
@@ -327,12 +365,7 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                 var renderer = Platform.CreateRendererWithContext(view, _context);
                 Platform.SetRenderer(view, renderer);
 
-                renderer.Element.Layout(
-                    new Rectangle(
-                        0,
-                        0,
-                        _element.ItemWidth,
-                        _element.ItemHeight));
+                renderer.Element.Layout(new Rectangle(0, 0, _element.ItemWidth, _element.ItemHeight));
                 renderer.UpdateLayout();
 
                 var itemView = renderer.View;
@@ -348,21 +381,19 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                 int width = PlatformHelper.Instance.DpToPixels(_element.ItemWidth, PlatformHelper.Rounding.Floor);
                 int height = PlatformHelper.Instance.DpToPixels(_element.ItemHeight);
 
-                itemView.LayoutParameters =
-                    new FrameLayout.LayoutParams(
-                        width,
-                        height)
-                    {
-                        Gravity = GravityFlags.CenterHorizontal,
-                        TopMargin = topMargin,
-                        BottomMargin = bottomMargin,
-                    };
+                itemView.LayoutParameters = new FrameLayout.LayoutParams(width, height)
+                {
+                    Gravity = GravityFlags.CenterHorizontal, TopMargin = topMargin, BottomMargin = bottomMargin,
+                };
+
+                HandleDragAndDropEnabledAnimation(viewCell);
 
                 if (_element.IsLayoutLinear)
                 {
                     return itemView;
                 }
 
+                // If it's a grid list layer, we need to add it in a parent's view to have it centered
                 var container = new FrameLayout(_context)
                 {
                     LayoutParameters = new FrameLayout.LayoutParams(
@@ -371,6 +402,7 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                 };
 
                 container.AddView(itemView);
+
                 return container;
             }
 
@@ -408,27 +440,25 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
             private void OnItemAdded(int newIndex, IList items)
             {
                 InternalLogger.Info($"OnItemAdded( newIndex: {newIndex}, itemCount: {items.Count} )");
-                using (var h = new Handler(Looper.MainLooper))
-                {
-                    h.Post(
-                        () =>
+                using var h = new Handler(Looper.MainLooper);
+                h.Post(
+                    () =>
+                    {
+                        if (_isDisposed)
                         {
-                            if (_isDisposed)
-                            {
-                                return;
-                            }
+                            return;
+                        }
 
-                            _dataSource.InsertRange(newIndex, items.Cast<object>());
-                            if (items.Count == 1)
-                            {
-                                NotifyItemInserted(newIndex);
-                            }
-                            else
-                            {
-                                NotifyItemRangeInserted(newIndex, items.Count);
-                            }
-                        });
-                }
+                        _dataSource.InsertRange(newIndex, items.Cast<object>());
+                        if (items.Count == 1)
+                        {
+                            NotifyItemInserted(newIndex);
+                        }
+                        else
+                        {
+                            NotifyItemRangeInserted(newIndex, items.Count);
+                        }
+                    });
             }
 
             private void OnItemRemoved(int removedIndex, int itemCount)

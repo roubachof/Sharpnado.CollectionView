@@ -43,6 +43,17 @@ namespace DragAndDropSample.Views
                         await viewCell.View.RotateYTo(0);
                     }
                 };
+
+            HorizontalListView.DragAndDropEnabledAnimationAsync = async (viewCell, token) =>
+            {
+                while (!token.IsCancellationRequested)
+                {
+                    await viewCell.View.RotateTo(8);
+                    await viewCell.View.RotateTo(-8);
+                }
+
+                await viewCell.View.RotateTo(0);
+            };
         }
 
         private void ListLayoutChanging(object sender, ListLayoutChangedEventArgs e)

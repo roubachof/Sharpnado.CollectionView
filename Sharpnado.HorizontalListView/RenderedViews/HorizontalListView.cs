@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -145,6 +146,12 @@ namespace Sharpnado.HorizontalListView.RenderedViews
             typeof(ICommand),
             typeof(HorizontalListView));
 
+        public static readonly BindableProperty EnableDragAndDropProperty = BindableProperty.Create(
+            nameof(EnableDragAndDrop),
+            typeof(bool),
+            typeof(HorizontalListView),
+            default(bool));
+
         public static readonly BindableProperty DragAndDropStartedCommandProperty = BindableProperty.Create(
             nameof(DragAndDropStartedCommand),
             typeof(ICommand),
@@ -185,6 +192,8 @@ namespace Sharpnado.HorizontalListView.RenderedViews
             defaultValue: false);
 
         public event EventHandler<ListLayoutChangedEventArgs> ListLayoutChanging;
+
+        public bool iOSDragAndDropOnPanGesture { get; set; } = false;
 
         public int CurrentIndex
         {
@@ -274,6 +283,12 @@ namespace Sharpnado.HorizontalListView.RenderedViews
             set => SetValue(ScrollEndedCommandProperty, value);
         }
 
+        public bool EnableDragAndDrop
+        {
+            get => (bool)GetValue(EnableDragAndDropProperty);
+            set => SetValue(EnableDragAndDropProperty, value);
+        }
+
         public ICommand DragAndDropStartedCommand
         {
             get => (ICommand)GetValue(DragAndDropStartedCommandProperty);
@@ -310,9 +325,9 @@ namespace Sharpnado.HorizontalListView.RenderedViews
 
         public Func<ViewCell, Task> PostRevealAnimationAsync { get; set; }
 
-        public int ViewCacheSize { get; set; } = 0;
+        public Func<ViewCell, CancellationToken, Task> DragAndDropEnabledAnimationAsync { get; set; }
 
-        public bool EnableDragAndDrop { get; set; } = false;
+        public int ViewCacheSize { get; set; } = 0;
 
         public SnapStyle SnapStyle { get; set; } = SnapStyle.None;
 

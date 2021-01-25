@@ -14,7 +14,7 @@
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
       <summary>HorizontalListView (CollectionView) on steroids for Xamarin Forms</summary>
       <tags>xamarin.forms android ios netstandard horizontallistview collectionview gridview carouselview listview drag drop</tags>
-      <releaseNotes>Add cell animations and drag and drop improvements.</releaseNotes>
+      <releaseNotes>Can enable drag and drop dynamically, drag and drop enable animation, can drag on Pan gesture on iOS.</releaseNotes>
       <description>
 
 * Horizontal, Grid, Carousel or Vertical layout

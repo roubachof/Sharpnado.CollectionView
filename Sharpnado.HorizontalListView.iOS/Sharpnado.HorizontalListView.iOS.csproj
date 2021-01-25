@@ -9,6 +9,7 @@
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{a52b8a63-bc84-4b47-910d-692533484892}</TemplateGuid>
     <OutputType>Library</OutputType>
+    <LangVersion>latest</LangVersion>
     <RootNamespace>Sharpnado.HorizontalListView.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>Sharpnado.HorizontalListView.iOS</AssemblyName>
@@ -76,7 +77,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.8.0.1687</Version>
+      <Version>5.0.0.1905</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

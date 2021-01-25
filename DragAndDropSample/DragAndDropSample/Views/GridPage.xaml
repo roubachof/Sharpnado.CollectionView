@@ -32,79 +32,70 @@
 
             <DataTemplate x:Key="GridDudeTemplate">
                 <sho:DraggableViewCell x:Name="DraggableViewCell">
-                    <ContentView>
-                        <sho:Shadows
-                            x:Name="Shadow"
-                            CornerRadius="10"
-                            Shades="{StaticResource ThinDarkerNeumorphism}">
-                            <views:SillyGridCell
-                                Margin="16,13,16,13"
-                                BackgroundColor="{StaticResource DarkerSurface}"
-                                CornerRadius="10">
-                                <views:SillyGridCell.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
-                                        TargetType="views:SillyGridCell"
-                                        Value="True">
-                                        <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
-                                    </DataTrigger>
-                                </views:SillyGridCell.Triggers>
-                            </views:SillyGridCell>
-                        </sho:Shadows>
-                    </ContentView>
+                    <sho:Shadows
+                        x:Name="Shadow"
+                        CornerRadius="10"
+                        Shades="{StaticResource ThinDarkerNeumorphism}">
+                        <views:SillyGridCell
+                            Margin="16,13,16,13"
+                            BackgroundColor="{StaticResource DarkerSurface}"
+                            CornerRadius="10">
+                            <views:SillyGridCell.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
+                                    TargetType="views:SillyGridCell"
+                                    Value="True">
+                                    <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
+                                </DataTrigger>
+                            </views:SillyGridCell.Triggers>
+                        </views:SillyGridCell>
+                    </sho:Shadows>
                 </sho:DraggableViewCell>
             </DataTemplate>
 
             <DataTemplate x:Key="HorizontalDudeTemplate">
                 <sho:DraggableViewCell x:Name="DraggableViewCell">
-                    <ContentView
-                        xamEffects:Commands.Tap="{Binding TapCommand}"
-                        xamEffects:Commands.TapParameter="{Binding .}"
-                        xamEffects:TouchEffect.Color="{StaticResource Accent}">
-                        <sho:Shadows
-                            x:Name="Shadow"
-                            CornerRadius="10"
-                            Shades="{StaticResource DarkerNeumorphism}">
-                            <views:SillyHorizontalCell
-                                Margin="16,13,16,13"
-                                BackgroundColor="{StaticResource DarkerSurface}"
-                                CornerRadius="10">
-                                <views:SillyHorizontalCell.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
-                                        TargetType="views:SillyHorizontalCell"
-                                        Value="True">
-                                        <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
-                                    </DataTrigger>
-                                </views:SillyHorizontalCell.Triggers>
-                            </views:SillyHorizontalCell>
-                        </sho:Shadows>
-                    </ContentView>
+                    <sho:Shadows
+                        x:Name="Shadow"
+                        CornerRadius="10"
+                        Shades="{StaticResource DarkerNeumorphism}">
+                        <views:SillyHorizontalCell
+                            Margin="16,13,16,13"
+                            BackgroundColor="{StaticResource DarkerSurface}"
+                            CornerRadius="10">
+                            <views:SillyHorizontalCell.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
+                                    TargetType="views:SillyHorizontalCell"
+                                    Value="True">
+                                    <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
+                                </DataTrigger>
+                            </views:SillyHorizontalCell.Triggers>
+                        </views:SillyHorizontalCell>
+                    </sho:Shadows>
                 </sho:DraggableViewCell>
             </DataTemplate>
 
             <DataTemplate x:Key="VerticalDudeTemplate">
                 <sho:DraggableViewCell x:Name="DraggableViewCell">
-                    <ContentView>
-                        <sho:Shadows
-                            x:Name="Shadow"
-                            CornerRadius="10"
-                            Shades="{StaticResource ThinDarkerNeumorphism}">
-                            <views:SillyListCell
-                                Margin="16,13,16,13"
-                                BackgroundColor="{StaticResource DarkerSurface}"
-                                CornerRadius="10">
-                                <views:SillyListCell.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
-                                        TargetType="views:SillyListCell"
-                                        Value="True">
-                                        <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
-                                    </DataTrigger>
-                                </views:SillyListCell.Triggers>
-                            </views:SillyListCell>
-                        </sho:Shadows>
-                    </ContentView>
+                    <sho:Shadows
+                        x:Name="Shadow"
+                        CornerRadius="10"
+                        Shades="{StaticResource ThinDarkerNeumorphism}">
+                        <views:SillyListCell
+                            Margin="16,13,16,13"
+                            BackgroundColor="{StaticResource DarkerSurface}"
+                            CornerRadius="10">
+                            <views:SillyListCell.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
+                                    TargetType="views:SillyListCell"
+                                    Value="True">
+                                    <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
+                                </DataTrigger>
+                            </views:SillyListCell.Triggers>
+                        </views:SillyListCell>
+                    </sho:Shadows>
                 </sho:DraggableViewCell>
             </DataTemplate>
 
@@ -124,16 +115,19 @@
                 Grid.Row="1"
                 Style="{StaticResource SillyTaskLoader}"
                 VerticalOptions="FillAndExpand"
+                IsClippedToBounds="False"
                 TaskLoaderNotifier="{Binding SillyPeopleLoaderNotifier}">
                 <RefreshView
                     Command="{Binding SillyPeopleLoaderNotifier.RefreshCommand}"
+                    IsClippedToBounds="False"
                     IsRefreshing="{Binding SillyPeopleLoaderNotifier.ShowRefresher}"
                     RefreshColor="{StaticResource Accent}">
                     <sho:HorizontalListView
                         x:Name="HorizontalListView"
                         CollectionPadding="10,30,10,75"
+                        ColumnCount="2"
                         CurrentIndex="{Binding CurrentIndex}"
-                        EnableDragAndDrop="True"
+                        EnableDragAndDrop="{Binding Source={x:Reference DragAndDropSwitch}, Path=IsToggled}"
                         InfiniteListLoader="{Binding SillyPeoplePaginator}"
                         ItemHeight="120"
                         ItemTemplate="{StaticResource DudeTemplateSelector}"
@@ -143,7 +137,8 @@
                         ListLayoutChanging="ListLayoutChanging"
                         ScrollBeganCommand="{Binding OnScrollBeginCommand}"
                         ScrollEndedCommand="{Binding OnScrollEndCommand}"
-                        TapCommand="{Binding TapCommand}" />
+                        TapCommand="{Binding TapCommand}"
+                        iOSDragAndDropOnPanGesture="True" />
 
                     <!--  HorizontalListView Logo  -->
                     <!--<sho:HorizontalListView
@@ -217,18 +212,32 @@
                         </OnPlatform>
                     </StackLayout.Padding>
 
-                    <Label
-                        FontAttributes="Italic"
-                        FontSize="22"
-                        Text="Sharpnado's"
-                        TextColor="{StaticResource Accent}" />
+                    <Grid ColumnDefinitions="*, 60" RowDefinitions="Auto,Auto">
+                        <Label
+                            Grid.Row="0"
+                            FontAttributes="Italic"
+                            FontSize="22"
+                            Text="Sharpnado's"
+                            TextColor="{StaticResource Accent}" />
 
-                    <Label
-                        Margin="0,-10,0,0"
-                        FontAttributes="Bold"
-                        FontSize="30"
-                        Text="HorizontalListView"
-                        TextColor="White" />
+                        <Label
+                            Grid.Row="1"
+                            Margin="0,-10,0,0"
+                            FontAttributes="Bold"
+                            FontSize="30"
+                            Text="HorizontalListView"
+                            TextColor="White" />
+
+                        <Switch
+                            x:Name="DragAndDropSwitch"
+                            Grid.RowSpan="2"
+                            Grid.Column="1" />
+                        <!--
+                            OnColor="{StaticResource Accent}"
+                            ThumbColor="{StaticResource TextPrimaryDarkColor}"
+                        -->
+
+                    </Grid>
 
                     <sho:TabHostView
                         x:Name="TabHost"

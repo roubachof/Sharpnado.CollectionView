@@ -22,7 +22,7 @@
         <PackageReference Include="Sharpnado.TaskLoaderView" Version="2.1.1" />
         <PackageReference Include="SimpleInjector" Version="5.1.0" />
         <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2" />
-        <PackageReference Include="Xamarin.Forms" Version="4.8.0.1687" />
+        <PackageReference Include="Xamarin.Forms" Version="5.0.0.1905" />
         <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
         <PackageReference Include="XamEffects" Version="1.6.3" />
     </ItemGroup>

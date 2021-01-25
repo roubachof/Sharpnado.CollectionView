@@ -108,6 +108,9 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                 case nameof(HorizontalListView.RenderedViews.HorizontalListView.ListLayout):
                     UpdateListLayout();
                     break;
+                case nameof(HorizontalListView.RenderedViews.HorizontalListView.EnableDragAndDrop):
+                    UpdateEnableDragAndDrop();
+                    break;
             }
         }
 
@@ -251,6 +254,7 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                     PlatformHelper.Instance.DpToPixels(Element.CollectionPadding.Bottom));
 
                 recyclerView.SetClipToPadding(false);
+                recyclerView.SetClipChildren(false);
             }
         }
 
@@ -295,6 +299,11 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
 
         private void ProcessDisableScroll()
         {
+            if (Control.IsNullOrDisposed())
+            {
+                return;
+            }
+
             if (LinearLayoutManager == null)
             {
                 return;
@@ -313,6 +322,11 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
 
         private void ScrollToCurrentItem()
         {
+            if (Control.IsNullOrDisposed())
+            {
+                return;
+            }
+
             if (Element.CurrentIndex == -1 || Control.GetAdapter() == null || Element.CurrentIndex >= Control.GetAdapter().ItemCount)
             {
                 return;
@@ -341,9 +355,38 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
             LinearLayoutManager?.ScrollToPositionWithOffset(Element.CurrentIndex, offset);
         }
 
+        private void UpdateEnableDragAndDrop()
+        {
+            if (Control.IsNullOrDisposed() || Control.GetAdapter().IsNullOrDisposed())
+            {
+                return;
+            }
+
+            _dragHelper?.AttachToRecyclerView(null);
+
+            if (Element.EnableDragAndDrop)
+            {
+                _dragHelper = new ItemTouchHelper(
+                    new DragAnDropItemTouchHelperCallback(
+                        Element,
+                        (RecycleViewAdapter)Control.GetAdapter(),
+                        Element.DragAndDropStartedCommand,
+                        Element.DragAndDropEndedCommand));
+                _dragHelper.AttachToRecyclerView(Control);
+            }
+
+            var adapter = Control.GetAdapter();
+            ((RecycleViewAdapter)adapter)?.OnEnableDragAndDropUpdated(Element.EnableDragAndDrop);
+        }
+
         private void UpdateItemsSource()
         {
             InternalLogger.Info($"UpdateItemsSource()");
+
+            if (Control.IsNullOrDisposed())
+            {
+                return;
+            }
 
             var oldAdapter = Control.GetAdapter();
 
@@ -358,25 +401,17 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
             var adapter = new RecycleViewAdapter(Element, Control, Context);
             Control.SetAdapter(adapter);
 
-            oldAdapter?.Dispose();
+            if (!oldAdapter.IsNullOrDisposed())
+            {
+                oldAdapter.Dispose();
+            }
 
             if (_itemsSource is INotifyCollectionChanged newNotifyCollection)
             {
                 newNotifyCollection.CollectionChanged += OnCollectionChanged;
             }
 
-            if (Element.EnableDragAndDrop)
-            {
-                _dragHelper?.AttachToRecyclerView(null);
-
-                _dragHelper = new ItemTouchHelper(
-                    new DragAnDropItemTouchHelperCallback(
-                        Element,
-                        adapter,
-                        Element.DragAndDropStartedCommand,
-                        Element.DragAndDropEndedCommand));
-                _dragHelper.AttachToRecyclerView(Control);
-            }
+            UpdateEnableDragAndDrop();
 
             ScrollToCurrentItem();
         }

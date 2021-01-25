@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Threading;
 using System.Windows.Input;
 
 using Foundation;
@@ -131,6 +132,8 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
         private readonly List<DataTemplate> _dataTemplates;
         private readonly bool _multipleCellTemplates;
 
+        private CancellationTokenSource _enableDragAndDropCts;
+
         private int _currentMaxPosition = -1;
 
         public iOSViewSource(HorizontalListView.RenderedViews.HorizontalListView element, List<DataTemplate> dataTemplates)
@@ -256,6 +259,27 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
             return nativeCell;
         }
 
+        public void OnEnableDragAndDropUpdated(bool isEnabled)
+        {
+            _enableDragAndDropCts?.Cancel();
+            _enableDragAndDropCts = new CancellationTokenSource();
+
+            if (!isEnabled)
+            {
+                return;
+            }
+
+            foreach (var weakViewCell in _createdCells.Values)
+            {
+                if (!weakViewCell.TryGetTarget(out var nativeViewCell))
+                {
+                    continue;
+                }
+
+                HandleDragAndDropEnabledAnimation(nativeViewCell.FormsCell);
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -274,6 +298,24 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
             }
 
             base.Dispose(disposing);
+        }
+
+        private void HandleDragAndDropEnabledAnimation(ViewCell viewCell)
+        {
+            if (!_weakElement.TryGetTarget(out var element))
+            {
+                return;
+            }
+
+            if (_enableDragAndDropCts != null
+                && !_enableDragAndDropCts.IsCancellationRequested
+                && element.EnableDragAndDrop
+                && element.DragAndDropEnabledAnimationAsync != null)
+            {
+                InternalLogger.Debug("HandleDragAndDropEnabledAnimation");
+
+                TaskMonitor.Create(element.DragAndDropEnabledAnimationAsync(viewCell, _enableDragAndDropCts.Token));
+            }
         }
 
         private void AnimateCell(ViewCell cell, RenderedViews.HorizontalListView element)
@@ -356,6 +398,8 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
 
             var nativeView = Platform.GetRenderer(formsCell.View).NativeView;
             nativeView.ContentMode = UIViewContentMode.ScaleAspectFit;
+
+            HandleDragAndDropEnabledAnimation(formsCell);
 
             return new UIViewCellHolder(formsCell, nativeView, element.TapCommand);
         }

@@ -87,6 +87,9 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
                 case nameof(HorizontalListView.RenderedViews.HorizontalListView.ListLayout):
                     UpdateListLayout();
                     break;
+                case nameof(HorizontalListView.RenderedViews.HorizontalListView.EnableDragAndDrop):
+                    UpdateEnableDragAndDrop();
+                    break;
             }
         }
 
@@ -227,10 +230,7 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
             Control.ScrollAnimationEnded += OnStopScrolling;
             Control.DecelerationEnded += OnStopScrolling;
 
-            if (Element.EnableDragAndDrop)
-            {
-                EnableDragAndDrop();
-            }
+            EnableDragAndDrop(Element.EnableDragAndDrop, Element.iOSDragAndDropOnPanGesture);
 
             ScrollToCurrentItem();
             ProcessDisableScroll();
@@ -306,6 +306,18 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
             }
 
             Control.ScrollEnabled = !Element.DisableScroll;
+        }
+
+        private void UpdateEnableDragAndDrop()
+        {
+            if (Control == null)
+            {
+                return;
+            }
+
+            EnableDragAndDrop(Element.EnableDragAndDrop, Element.iOSDragAndDropOnPanGesture);
+
+            ((iOSViewSource)Control.DataSource).OnEnableDragAndDropUpdated(Element.EnableDragAndDrop);
         }
 
         private void UpdateItemsSource()
