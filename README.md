@@ -389,7 +389,7 @@ https://www.sharpnado.com/paginator-platform-independent/
 If you want to have both drag and drop enabled and still be able to tap the item, you need to use the ```TapCommand``` on the `HorizontalListView` instead of the ```xamEffects:Commands.Tap``` on the `DataTemplate` content.
 It's less nice since you won't have the nice color ripple, but it will work :)
 
-The only thing you have to do to enable drag and drop is setting `EnableDragAndDrop` to `true`.
+The only thing you have to do to enable drag and drop is set `EnableDragAndDrop` to `true`.
 
 The `DragAndDropStartCommand` and `DragAndDropEndedCommand` commands will pass as argument a `DragAndDropInfo` object:
 
@@ -405,6 +405,40 @@ public class DragAndDropInfo
 ```
 
 Contributor: Implemented by @jmmortega.
+
+### Since 1.8.1
+
+`EnableDragAndDrop` is now a bindable property, so you can enable it at runtime.
+
+You can now also specify a custom animation when the `EnableDragAndDrop` is set to ture:
+
+```csharp
+HorizontalListView.DragAndDropEnabledAnimationAsync = async (viewCell, token) =>
+{
+    while (!token.IsCancellationRequested)
+    {
+        await viewCell.View.RotateTo(8);
+        await viewCell.View.RotateTo(-8);
+    }
+
+    await viewCell.View.RotateTo(0);
+};
+```
+
+will result in:
+
+<p align="center">
+  <img src="Docs/drag_enabled_animation.gif" width="400" />
+</p>
+
+You can decide to start the drag without long press on iOS thanks to the iOS specific property `iOSDragAndDropOnPanGesture`:
+
+```xml
+<sho:HorizontalListView
+    ...
+    iOSDragAndDropOnPanGesture="True" />
+```
+
 
 **Remark:** You don't have to inherit from `DraggableViewCell`, any `ViewCell` can be dragged.
 
