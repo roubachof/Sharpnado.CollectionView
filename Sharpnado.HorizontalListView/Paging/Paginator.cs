@@ -210,7 +210,7 @@ namespace Sharpnado.HorizontalListView.Paging
 
                 InternalLogger.Info($"Page n°{pageNumber} loading started");
                 LoadingTask.Start();
-                return LoadingTask.Task;
+                return (Task<PageResult<TResult>>)LoadingTask.Task;
             }
         }
 

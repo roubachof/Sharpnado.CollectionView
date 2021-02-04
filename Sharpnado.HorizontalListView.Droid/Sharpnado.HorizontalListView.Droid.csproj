@@ -87,7 +87,7 @@
       </PropertyGroup>
       <ItemGroup>
         <PackageReference Include="Xamarin.Forms">
-          <Version>5.0.0.1905</Version>
+          <Version>5.0.0.1931</Version>
         </PackageReference>
         <PackageReference Include="Xamarin.Google.Android.Material">
           <Version>1.0.0.1</Version>
