@@ -14,7 +14,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
   </PropertyGroup>
@@ -61,7 +60,7 @@
     <PackageReference Include="SkiaSharp.Views.Forms">
       <Version>2.80.2</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.1905" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Forms.PancakeView">
       <Version>2.3.0.759</Version>
     </PackageReference>
@@ -87,7 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Sharpnado.HorizontalListView.Droid\Sharpnado.HorizontalListView.Droid.csproj">
-      <Project>{5c880a51-9e8a-42a9-9fa5-10bc7d3e9ffc}</Project>
+      <Project>{92E0ECFC-C8C0-4C03-BA61-A2701390D7DE}</Project>
       <Name>Sharpnado.HorizontalListView.Droid</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Sharpnado.HorizontalListView\Sharpnado.HorizontalListView.csproj">
