@@ -10,7 +10,7 @@
     <TemplateGuid>{9ef11e43-1701-4396-8835-8392d57abb70}</TemplateGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <RootNamespace>Sharpnado.HorizontalListView.Droid</RootNamespace>
     <AssemblyName>Sharpnado.HorizontalListView.Droid</AssemblyName>
     <FileAlignment>512</FileAlignment>

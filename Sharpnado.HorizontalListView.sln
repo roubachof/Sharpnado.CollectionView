@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DragAndDropSample", "DragAn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragAndDropSample.Android", "DragAndDropSample\DragAndDropSample.Android\DragAndDropSample.Android.csproj", "{A07EEB14-ECD1-4D9F-8819-FC1B1FC06001}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragAndDropSample.iOS", "DragAndDropSample\DragAndDropSample.iOS\DragAndDropSample.iOS.csproj", "{57551E87-1A59-4AF0-8012-BA65C96BA8DC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{5BE3FB50-251F-4E15-833D-CA80196607DB}"
 	ProjectSection(SolutionItems) = preProject
 		AssemblyInfo.targets = AssemblyInfo.targets
@@ -25,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configurat
 		Sharpnado.HorizontalListView.nuspec = Sharpnado.HorizontalListView.nuspec
 		StyleCopRules.ruleset = StyleCopRules.ruleset
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DragAndDropSample.iOS", "DragAndDropSample\DragAndDropSample.iOS\DragAndDropSample.iOS.csproj", "{57551E87-1A59-4AF0-8012-BA65C96BA8DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,8 +79,9 @@ Global
 		{57551E87-1A59-4AF0-8012-BA65C96BA8DC}.Debug|iPhone.Build.0 = Debug|iPhone
 		{57551E87-1A59-4AF0-8012-BA65C96BA8DC}.Release|Any CPU.ActiveCfg = Release|iPhoneSimulator
 		{57551E87-1A59-4AF0-8012-BA65C96BA8DC}.Release|Any CPU.Build.0 = Release|iPhoneSimulator
-		{57551E87-1A59-4AF0-8012-BA65C96BA8DC}.Release|iPhone.ActiveCfg = Release|iPhoneSimulator
-		{57551E87-1A59-4AF0-8012-BA65C96BA8DC}.Release|iPhone.Build.0 = Release|iPhoneSimulator
+		{57551E87-1A59-4AF0-8012-BA65C96BA8DC}.Release|iPhone.ActiveCfg = Release|iPhone
+		{57551E87-1A59-4AF0-8012-BA65C96BA8DC}.Release|iPhone.Build.0 = Release|iPhone
+		{57551E87-1A59-4AF0-8012-BA65C96BA8DC}.Debug|Any CPU.Deploy.0 = Debug|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
