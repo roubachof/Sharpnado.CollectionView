@@ -138,7 +138,8 @@
                         ScrollBeganCommand="{Binding OnScrollBeginCommand}"
                         ScrollEndedCommand="{Binding OnScrollEndCommand}"
                         TapCommand="{Binding TapCommand}"
-                        iOSDragAndDropOnPanGesture="True" />
+                        MovementDirection="VerticalOnly"
+                        DragAndDropImmediately="True" />
 
                     <!--  HorizontalListView Logo  -->
                     <!--<sho:HorizontalListView

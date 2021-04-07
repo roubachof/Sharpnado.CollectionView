@@ -12,6 +12,13 @@ using Xamarin.Forms;
 
 namespace Sharpnado.HorizontalListView.RenderedViews
 {
+    public enum HorizontalListViewMovementDirection
+    {
+        Free = 0,
+        VerticalOnly,
+        HorizontalOnly,
+    }
+
     public enum HorizontalListViewLayout
     {
         Linear = 0,
@@ -191,9 +198,16 @@ namespace Sharpnado.HorizontalListView.RenderedViews
             typeof(HorizontalListView),
             defaultValue: false);
 
+        public static readonly BindableProperty MovementDirectionProperty = BindableProperty.Create(
+          nameof(MovementDirection),
+          typeof(HorizontalListViewMovementDirection),
+          typeof(HorizontalListView),
+          HorizontalListViewMovementDirection.Free,
+          propertyChanged: OnMovementDirectionChanged);
+
         public event EventHandler<ListLayoutChangedEventArgs> ListLayoutChanging;
 
-        public bool iOSDragAndDropOnPanGesture { get; set; } = false;
+        public bool DragAndDropImmediately { get; set; } = false;
 
         public int CurrentIndex
         {
@@ -311,6 +325,12 @@ namespace Sharpnado.HorizontalListView.RenderedViews
         {
             get => (bool)GetValue(IsDragAndDroppingProperty);
             set => SetValue(IsDragAndDroppingProperty, value);
+        }
+
+        public HorizontalListViewMovementDirection MovementDirection
+        {
+            get => (HorizontalListViewMovementDirection)GetValue(MovementDirectionProperty);
+            set => SetValue(MovementDirectionProperty, value);
         }
 
         public HorizontalListViewLayout ListLayout
@@ -447,6 +467,10 @@ namespace Sharpnado.HorizontalListView.RenderedViews
         }
 
         private static void OnVisibleCellCountChanged(BindableObject bindable, object oldvalue, object newvalue)
+        {
+        }
+
+        private static void OnMovementDirectionChanged(BindableObject bindable, object oldValue, object newValue)
         {
         }
     }

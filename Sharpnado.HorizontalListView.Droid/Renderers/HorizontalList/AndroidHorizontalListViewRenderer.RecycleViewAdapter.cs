@@ -123,13 +123,16 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
 
             private int _currentMaxPosition = -1;
 
+            private AndroidHorizontalListViewRenderer _renderer;
+
             public RecycleViewAdapter(IntPtr javaReference, JniHandleOwnership transfer)
                 : base(javaReference, transfer)
             {
             }
 
-            public RecycleViewAdapter(HorizontalListView.RenderedViews.HorizontalListView element, RecyclerView parentView, Context context)
+            public RecycleViewAdapter(HorizontalListView.RenderedViews.HorizontalListView element, AndroidHorizontalListViewRenderer renderer, RecyclerView parentView, Context context)
             {
+                _renderer = renderer;
                 _element = element;
                 _weakParentView = new WeakReference<RecyclerView>(parentView);
                 _context = context;
@@ -196,6 +199,11 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
 
                 var item = (ViewHolder)holder;
                 item.Bind(_dataSource[position], _element);
+
+                if (_element.DragAndDropImmediately)
+                {
+                    item.ItemView.Touch += (sender, e) => OnItemViewTouch(sender, e, item);
+                }
 
                 if (position > _currentMaxPosition)
                 {
@@ -327,22 +335,22 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
             {
                 TaskMonitor.Create(
                     async () =>
+                    {
+                        if (_element.PreRevealAnimationAsync != null)
                         {
-                            if (_element.PreRevealAnimationAsync != null)
-                            {
-                                await _element.PreRevealAnimationAsync(cell);
-                            }
+                            await _element.PreRevealAnimationAsync(cell);
+                        }
 
-                            if (_element.RevealAnimationAsync != null)
-                            {
-                                await _element.RevealAnimationAsync(cell);
-                            }
+                        if (_element.RevealAnimationAsync != null)
+                        {
+                            await _element.RevealAnimationAsync(cell);
+                        }
 
-                            if (_element.PostRevealAnimationAsync != null)
-                            {
-                                await _element.PostRevealAnimationAsync(cell);
-                            }
-                        });
+                        if (_element.PostRevealAnimationAsync != null)
+                        {
+                            await _element.PostRevealAnimationAsync(cell);
+                        }
+                    });
             }
 
             private View CreateView(out ViewCell viewCell, int itemViewType)
@@ -383,7 +391,9 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
 
                 itemView.LayoutParameters = new FrameLayout.LayoutParams(width, height)
                 {
-                    Gravity = GravityFlags.CenterHorizontal, TopMargin = topMargin, BottomMargin = bottomMargin,
+                    Gravity = GravityFlags.CenterHorizontal,
+                    TopMargin = topMargin,
+                    BottomMargin = bottomMargin,
                 };
 
                 HandleDragAndDropEnabledAnimation(viewCell);
@@ -467,28 +477,28 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                 using var h = new Handler(Looper.MainLooper);
                 h.Post(
                     () =>
+                    {
+                        if (_isDisposed)
                         {
-                            if (_isDisposed)
-                            {
-                                return;
-                            }
+                            return;
+                        }
 
-                            for (int index = removedIndex; index < removedIndex + itemCount; index++)
-                            {
-                                var data = _dataSource[index];
-                                Unbind(data);
-                            }
+                        for (int index = removedIndex; index < removedIndex + itemCount; index++)
+                        {
+                            var data = _dataSource[index];
+                            Unbind(data);
+                        }
 
-                            _dataSource.RemoveRange(removedIndex, itemCount);
-                            if (itemCount == 1)
-                            {
-                                NotifyItemRemoved(removedIndex);
-                            }
-                            else
-                            {
-                                NotifyItemRangeRemoved(removedIndex, itemCount);
-                            }
-                        });
+                        _dataSource.RemoveRange(removedIndex, itemCount);
+                        if (itemCount == 1)
+                        {
+                            NotifyItemRemoved(removedIndex);
+                        }
+                        else
+                        {
+                            NotifyItemRangeRemoved(removedIndex, itemCount);
+                        }
+                    });
             }
 
             private void Unbind(object data)
@@ -507,6 +517,16 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                     viewCell.BindingContext = null;
                     viewCell.Parent = null;
                 }
+            }
+
+            private void OnItemViewTouch(object sender, TouchEventArgs e, ViewHolder item)
+            {
+                if (e.Event.ActionMasked == MotionEventActions.Down && _element.EnableDragAndDrop)
+                {
+                    _renderer.StartDragging(item);
+                }
+
+                e.Handled = false;
             }
         }
     }
