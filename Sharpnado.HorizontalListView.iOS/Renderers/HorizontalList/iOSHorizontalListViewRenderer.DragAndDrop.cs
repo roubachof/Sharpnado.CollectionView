@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-
+using CoreGraphics;
 using Foundation;
 
 using Sharpnado.HorizontalListView.RenderedViews;
@@ -38,14 +38,12 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
                     {
                         // Take action based on state
                         HandleDragByGestureState(gesture.State, gesture, ref from, ref pathTo, ref draggedViewCell);
-
                     })
                 : new UILongPressGestureRecognizer(
                     gesture =>
                     {
                         // Take action based on state
                         HandleDragByGestureState(gesture.State, gesture, ref from, ref pathTo, ref draggedViewCell);
-
                     });
 
             // Add the custom recognizer to the collection view
@@ -93,7 +91,8 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
                         return;
                     }
 
-                    var changedPath = Control.IndexPathForItemAtPoint(gesture.LocationInView(gesture.View));
+                    var gestureLocation = gesture.LocationInView(gesture.View);
+                    var changedPath = Control.IndexPathForItemAtPoint(gestureLocation);
                     if (changedPath != null)
                     {
                         draggedViewCell = (iOSViewCell)Control.CellForItem(changedPath);
@@ -112,7 +111,19 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
                         // System.Diagnostics.Debug.WriteLine($"State changed to {pathTo.Item}");
                     }
 
-                    Control.UpdateInteractiveMovement(gesture.LocationInView(gesture.View));
+                    switch (Element.MovementDirection)
+                    {
+                        case HorizontalListViewMovementDirection.HorizontalOnly:
+                            Control.UpdateInteractiveMovement(new CGPoint(gestureLocation.X, draggedViewCell.Center.Y));
+                            break;
+                        case HorizontalListViewMovementDirection.VerticalOnly:
+                            Control.UpdateInteractiveMovement(new CGPoint(draggedViewCell.Center.X, gestureLocation.Y));
+                            break;
+                        default:
+                            Control.UpdateInteractiveMovement(gestureLocation);
+                            break;
+                    }
+
                     break;
 
                 case UIGestureRecognizerState.Ended:
