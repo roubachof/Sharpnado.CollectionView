@@ -200,7 +200,7 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                 var item = (ViewHolder)holder;
                 item.Bind(_dataSource[position], _element);
 
-                if (_element.DragAndDropImmediately)
+                if (_element.DragAndDropTrigger == DragAndDropTrigger.Pan)
                 {
                     item.ItemView.Touch += (sender, e) => OnItemViewTouch(sender, e, item);
                 }

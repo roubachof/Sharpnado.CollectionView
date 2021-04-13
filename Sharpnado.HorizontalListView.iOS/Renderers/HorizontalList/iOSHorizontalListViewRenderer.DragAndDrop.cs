@@ -13,7 +13,7 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
     {
         private UIGestureRecognizer _dragAndDropGesture;
 
-        private void EnableDragAndDrop(bool isEnabled, bool panGesture)
+        private void EnableDragAndDrop(bool isEnabled, DragAndDropTrigger dragAndDropTrigger)
         {
             if (_dragAndDropGesture != null)
             {
@@ -32,7 +32,7 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
             iOSViewCell draggedViewCell = null;
 
             // Create a custom gesture recognizer
-            _dragAndDropGesture = panGesture
+            _dragAndDropGesture = dragAndDropTrigger == DragAndDropTrigger.Pan
                 ? new UIPanGestureRecognizer(
                     gesture =>
                     {
@@ -111,12 +111,12 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
                         // System.Diagnostics.Debug.WriteLine($"State changed to {pathTo.Item}");
                     }
 
-                    switch (Element.MovementDirection)
+                    switch (Element.DragAndDropDirection)
                     {
-                        case HorizontalListViewMovementDirection.HorizontalOnly:
+                        case DragAndDropDirection.HorizontalOnly:
                             Control.UpdateInteractiveMovement(new CGPoint(gestureLocation.X, draggedViewCell.Center.Y));
                             break;
-                        case HorizontalListViewMovementDirection.VerticalOnly:
+                        case DragAndDropDirection.VerticalOnly:
                             Control.UpdateInteractiveMovement(new CGPoint(draggedViewCell.Center.X, gestureLocation.Y));
                             break;
                         default:

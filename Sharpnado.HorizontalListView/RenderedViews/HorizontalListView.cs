@@ -12,7 +12,13 @@ using Xamarin.Forms;
 
 namespace Sharpnado.HorizontalListView.RenderedViews
 {
-    public enum HorizontalListViewMovementDirection
+    public enum DragAndDropTrigger
+    {
+        LongTap = 0,
+        Pan,
+    }
+
+    public enum DragAndDropDirection
     {
         Free = 0,
         VerticalOnly,
@@ -198,16 +204,16 @@ namespace Sharpnado.HorizontalListView.RenderedViews
             typeof(HorizontalListView),
             defaultValue: false);
 
-        public static readonly BindableProperty MovementDirectionProperty = BindableProperty.Create(
-          nameof(MovementDirection),
-          typeof(HorizontalListViewMovementDirection),
+        public static readonly BindableProperty DragAndDropDirectionProperty = BindableProperty.Create(
+          nameof(DragAndDropDirection),
+          typeof(DragAndDropDirection),
           typeof(HorizontalListView),
-          HorizontalListViewMovementDirection.Free,
+          DragAndDropDirection.Free,
           propertyChanged: OnMovementDirectionChanged);
 
         public event EventHandler<ListLayoutChangedEventArgs> ListLayoutChanging;
 
-        public bool DragAndDropImmediately { get; set; } = false;
+        public DragAndDropTrigger DragAndDropTrigger { get; set; } = DragAndDropTrigger.LongTap;
 
         public int CurrentIndex
         {
@@ -327,10 +333,10 @@ namespace Sharpnado.HorizontalListView.RenderedViews
             set => SetValue(IsDragAndDroppingProperty, value);
         }
 
-        public HorizontalListViewMovementDirection MovementDirection
+        public DragAndDropDirection DragAndDropDirection
         {
-            get => (HorizontalListViewMovementDirection)GetValue(MovementDirectionProperty);
-            set => SetValue(MovementDirectionProperty, value);
+            get => (DragAndDropDirection)GetValue(DragAndDropDirectionProperty);
+            set => SetValue(DragAndDropDirectionProperty, value);
         }
 
         public HorizontalListViewLayout ListLayout

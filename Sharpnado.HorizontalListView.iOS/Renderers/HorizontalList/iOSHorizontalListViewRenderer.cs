@@ -230,7 +230,7 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
             Control.ScrollAnimationEnded += OnStopScrolling;
             Control.DecelerationEnded += OnStopScrolling;
 
-            EnableDragAndDrop(Element.EnableDragAndDrop, Element.DragAndDropImmediately);
+            EnableDragAndDrop(Element.EnableDragAndDrop, Element.DragAndDropTrigger);
 
             ScrollToCurrentItem();
             ProcessDisableScroll();
@@ -315,7 +315,7 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
                 return;
             }
 
-            EnableDragAndDrop(Element.EnableDragAndDrop, Element.DragAndDropImmediately);
+            EnableDragAndDrop(Element.EnableDragAndDrop, Element.DragAndDropTrigger);
 
             ((iOSViewSource)Control.DataSource).OnEnableDragAndDropUpdated(Element.EnableDragAndDrop);
         }

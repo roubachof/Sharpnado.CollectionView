@@ -137,9 +137,7 @@
                         ListLayoutChanging="ListLayoutChanging"
                         ScrollBeganCommand="{Binding OnScrollBeginCommand}"
                         ScrollEndedCommand="{Binding OnScrollEndCommand}"
-                        TapCommand="{Binding TapCommand}"
-                        MovementDirection="VerticalOnly"
-                        DragAndDropImmediately="True" />
+                        TapCommand="{Binding TapCommand}"/>
 
                     <!--  HorizontalListView Logo  -->
                     <!--<sho:HorizontalListView
