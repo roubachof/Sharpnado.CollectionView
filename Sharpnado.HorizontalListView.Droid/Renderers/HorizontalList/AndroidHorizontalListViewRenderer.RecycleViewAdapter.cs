@@ -105,6 +105,7 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
             private readonly Context _context;
             private readonly HorizontalListView.RenderedViews.HorizontalListView _element;
             private readonly WeakReference<RecyclerView> _weakParentView;
+            private readonly WeakReference<AndroidHorizontalListViewRenderer> _weakNativeView;
             private readonly IEnumerable _elementItemsSource;
             private readonly INotifyCollectionChanged _notifyCollectionChanged;
             private readonly List<object> _dataSource;
@@ -123,17 +124,15 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
 
             private int _currentMaxPosition = -1;
 
-            private AndroidHorizontalListViewRenderer _renderer;
-
             public RecycleViewAdapter(IntPtr javaReference, JniHandleOwnership transfer)
                 : base(javaReference, transfer)
             {
             }
 
-            public RecycleViewAdapter(HorizontalListView.RenderedViews.HorizontalListView element, AndroidHorizontalListViewRenderer renderer, RecyclerView parentView, Context context)
+            public RecycleViewAdapter(HorizontalListView.RenderedViews.HorizontalListView element, AndroidHorizontalListViewRenderer nativeView, RecyclerView parentView, Context context)
             {
-                _renderer = renderer;
                 _element = element;
+                _weakNativeView = new WeakReference<AndroidHorizontalListViewRenderer>(nativeView);
                 _weakParentView = new WeakReference<RecyclerView>(parentView);
                 _context = context;
 
@@ -199,11 +198,6 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
 
                 var item = (ViewHolder)holder;
                 item.Bind(_dataSource[position], _element);
-
-                if (_element.DragAndDropTrigger == DragAndDropTrigger.Pan)
-                {
-                    item.ItemView.Touch += (sender, e) => OnItemViewTouch(sender, e, item);
-                }
 
                 if (position > _currentMaxPosition)
                 {
@@ -315,7 +309,28 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
             private ViewHolder CreateViewHolder(int itemViewType = -1)
             {
                 var view = CreateView(out var viewCell, itemViewType);
-                return new ViewHolder(view, viewCell, _element.TapCommand);
+                var viewHolder = new ViewHolder(view, viewCell, _element.TapCommand);
+                if (_element.DragAndDropTrigger == DragAndDropTrigger.Pan)
+                {
+                    viewHolder.ItemView.Touch += (sender, e) => OnItemViewTouch(e, viewHolder);
+                }
+
+                return viewHolder;
+            }
+
+            private void OnItemViewTouch(TouchEventArgs e, ViewHolder item)
+            {
+                if (e.Event.ActionMasked == MotionEventActions.Down && _element.EnableDragAndDrop)
+                {
+                    if (!_weakNativeView.TryGetTarget(out AndroidHorizontalListViewRenderer nativeView))
+                    {
+                        return;
+                    }
+
+                    nativeView.StartDragging(item);
+                }
+
+                e.Handled = false;
             }
 
             private void HandleDragAndDropEnabledAnimation(ViewCell viewCell)
@@ -517,16 +532,6 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                     viewCell.BindingContext = null;
                     viewCell.Parent = null;
                 }
-            }
-
-            private void OnItemViewTouch(object sender, TouchEventArgs e, ViewHolder item)
-            {
-                if (e.Event.ActionMasked == MotionEventActions.Down && _element.EnableDragAndDrop)
-                {
-                    _renderer.StartDragging(item);
-                }
-
-                e.Handled = false;
             }
         }
     }
