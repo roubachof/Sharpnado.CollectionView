@@ -230,7 +230,7 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
             Control.ScrollAnimationEnded += OnStopScrolling;
             Control.DecelerationEnded += OnStopScrolling;
 
-            EnableDragAndDrop(Element.EnableDragAndDrop, Element.iOSDragAndDropOnPanGesture);
+            EnableDragAndDrop(Element.EnableDragAndDrop, Element.DragAndDropTrigger);
 
             ScrollToCurrentItem();
             ProcessDisableScroll();
@@ -246,21 +246,21 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
 
             return Element.ListLayout == HorizontalListViewLayout.Grid || Element.ListLayout == HorizontalListViewLayout.Vertical
                        ? new UICollectionViewFlowLayout
-                           {
-                               ScrollDirection = UICollectionViewScrollDirection.Vertical,
-                               ItemSize = new CGSize(Element.ItemWidth, Element.ItemHeight),
-                               MinimumInteritemSpacing = Element.ItemSpacing,
-                               MinimumLineSpacing = Element.ItemSpacing,
-                               SectionInset = sectionInset,
-                           }
+                       {
+                           ScrollDirection = UICollectionViewScrollDirection.Vertical,
+                           ItemSize = new CGSize(Element.ItemWidth, Element.ItemHeight),
+                           MinimumInteritemSpacing = Element.ItemSpacing,
+                           MinimumLineSpacing = Element.ItemSpacing,
+                           SectionInset = sectionInset,
+                       }
                        : new SnappingCollectionViewLayout(Element.SnapStyle)
-                           {
-                               ScrollDirection = UICollectionViewScrollDirection.Horizontal,
-                               ItemSize = new CGSize(Element.ItemWidth, Element.ItemHeight),
-                               MinimumInteritemSpacing = 500,
-                               MinimumLineSpacing = Element.ItemSpacing,
-                               SectionInset = sectionInset,
-                           };
+                       {
+                           ScrollDirection = UICollectionViewScrollDirection.Horizontal,
+                           ItemSize = new CGSize(Element.ItemWidth, Element.ItemHeight),
+                           MinimumInteritemSpacing = 500,
+                           MinimumLineSpacing = Element.ItemSpacing,
+                           SectionInset = sectionInset,
+                       };
         }
 
         private void ScrollToCurrentItem()
@@ -315,7 +315,7 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
                 return;
             }
 
-            EnableDragAndDrop(Element.EnableDragAndDrop, Element.iOSDragAndDropOnPanGesture);
+            EnableDragAndDrop(Element.EnableDragAndDrop, Element.DragAndDropTrigger);
 
             ((iOSViewSource)Control.DataSource).OnEnableDragAndDropUpdated(Element.EnableDragAndDrop);
         }

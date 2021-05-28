@@ -46,7 +46,7 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                 _onDragAndDropdEnded = onDragAndDropdEnded;
             }
 
-            public override bool IsLongPressDragEnabled => true;
+            public override bool IsLongPressDragEnabled => _horizontalList.DragAndDropTrigger == DragAndDropTrigger.LongTap;
 
             public override int GetMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder)
             {
@@ -54,6 +54,14 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                     && !draggableViewCell.IsDraggable)
                 {
                     return 0;
+                }
+
+                switch (_horizontalList.DragAndDropDirection)
+                {
+                    case DragAndDropDirection.VerticalOnly:
+                        return MakeMovementFlags(ItemTouchHelper.Up | ItemTouchHelper.Down, 0);
+                    case DragAndDropDirection.HorizontalOnly:
+                        return MakeMovementFlags(ItemTouchHelper.Left | ItemTouchHelper.Right, 0);
                 }
 
                 return MakeMovementFlags(ItemTouchHelper.Left | ItemTouchHelper.Right | ItemTouchHelper.Up | ItemTouchHelper.Down, 0);

@@ -398,7 +398,7 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
             _itemsSource = Element.ItemsSource;
 
             Control.GetRecycledViewPool().Clear();
-            var adapter = new RecycleViewAdapter(Element, Control, Context);
+            var adapter = new RecycleViewAdapter(Element, this, Control, Context);
             Control.SetAdapter(adapter);
 
             if (!oldAdapter.IsNullOrDisposed())
@@ -437,6 +437,11 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
             UpdateItemsSource();
             ProcessDisableScroll();
             ScrollToCurrentItem();
+        }
+
+        private void StartDragging(RecyclerView.ViewHolder viewHolder)
+        {
+            _dragHelper.StartDrag(viewHolder);
         }
     }
 }

@@ -105,6 +105,7 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
             private readonly Context _context;
             private readonly HorizontalListView.RenderedViews.HorizontalListView _element;
             private readonly WeakReference<RecyclerView> _weakParentView;
+            private readonly WeakReference<AndroidHorizontalListViewRenderer> _weakNativeView;
             private readonly IEnumerable _elementItemsSource;
             private readonly INotifyCollectionChanged _notifyCollectionChanged;
             private readonly List<object> _dataSource;
@@ -128,9 +129,10 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
             {
             }
 
-            public RecycleViewAdapter(HorizontalListView.RenderedViews.HorizontalListView element, RecyclerView parentView, Context context)
+            public RecycleViewAdapter(HorizontalListView.RenderedViews.HorizontalListView element, AndroidHorizontalListViewRenderer nativeView, RecyclerView parentView, Context context)
             {
                 _element = element;
+                _weakNativeView = new WeakReference<AndroidHorizontalListViewRenderer>(nativeView);
                 _weakParentView = new WeakReference<RecyclerView>(parentView);
                 _context = context;
 
@@ -307,7 +309,28 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
             private ViewHolder CreateViewHolder(int itemViewType = -1)
             {
                 var view = CreateView(out var viewCell, itemViewType);
-                return new ViewHolder(view, viewCell, _element.TapCommand);
+                var viewHolder = new ViewHolder(view, viewCell, _element.TapCommand);
+                if (_element.DragAndDropTrigger == DragAndDropTrigger.Pan)
+                {
+                    viewHolder.ItemView.Touch += (sender, e) => OnItemViewTouch(e, viewHolder);
+                }
+
+                return viewHolder;
+            }
+
+            private void OnItemViewTouch(TouchEventArgs e, ViewHolder item)
+            {
+                if (e.Event.ActionMasked == MotionEventActions.Down && _element.EnableDragAndDrop)
+                {
+                    if (!_weakNativeView.TryGetTarget(out AndroidHorizontalListViewRenderer nativeView))
+                    {
+                        return;
+                    }
+
+                    nativeView.StartDragging(item);
+                }
+
+                e.Handled = false;
             }
 
             private void HandleDragAndDropEnabledAnimation(ViewCell viewCell)
@@ -327,22 +350,22 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
             {
                 TaskMonitor.Create(
                     async () =>
+                    {
+                        if (_element.PreRevealAnimationAsync != null)
                         {
-                            if (_element.PreRevealAnimationAsync != null)
-                            {
-                                await _element.PreRevealAnimationAsync(cell);
-                            }
+                            await _element.PreRevealAnimationAsync(cell);
+                        }
 
-                            if (_element.RevealAnimationAsync != null)
-                            {
-                                await _element.RevealAnimationAsync(cell);
-                            }
+                        if (_element.RevealAnimationAsync != null)
+                        {
+                            await _element.RevealAnimationAsync(cell);
+                        }
 
-                            if (_element.PostRevealAnimationAsync != null)
-                            {
-                                await _element.PostRevealAnimationAsync(cell);
-                            }
-                        });
+                        if (_element.PostRevealAnimationAsync != null)
+                        {
+                            await _element.PostRevealAnimationAsync(cell);
+                        }
+                    });
             }
 
             private View CreateView(out ViewCell viewCell, int itemViewType)
@@ -383,7 +406,9 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
 
                 itemView.LayoutParameters = new FrameLayout.LayoutParams(width, height)
                 {
-                    Gravity = GravityFlags.CenterHorizontal, TopMargin = topMargin, BottomMargin = bottomMargin,
+                    Gravity = GravityFlags.CenterHorizontal,
+                    TopMargin = topMargin,
+                    BottomMargin = bottomMargin,
                 };
 
                 HandleDragAndDropEnabledAnimation(viewCell);
@@ -467,28 +492,28 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                 using var h = new Handler(Looper.MainLooper);
                 h.Post(
                     () =>
+                    {
+                        if (_isDisposed)
                         {
-                            if (_isDisposed)
-                            {
-                                return;
-                            }
+                            return;
+                        }
 
-                            for (int index = removedIndex; index < removedIndex + itemCount; index++)
-                            {
-                                var data = _dataSource[index];
-                                Unbind(data);
-                            }
+                        for (int index = removedIndex; index < removedIndex + itemCount; index++)
+                        {
+                            var data = _dataSource[index];
+                            Unbind(data);
+                        }
 
-                            _dataSource.RemoveRange(removedIndex, itemCount);
-                            if (itemCount == 1)
-                            {
-                                NotifyItemRemoved(removedIndex);
-                            }
-                            else
-                            {
-                                NotifyItemRangeRemoved(removedIndex, itemCount);
-                            }
-                        });
+                        _dataSource.RemoveRange(removedIndex, itemCount);
+                        if (itemCount == 1)
+                        {
+                            NotifyItemRemoved(removedIndex);
+                        }
+                        else
+                        {
+                            NotifyItemRangeRemoved(removedIndex, itemCount);
+                        }
+                    });
             }
 
             private void Unbind(object data)

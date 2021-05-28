@@ -137,8 +137,7 @@
                         ListLayoutChanging="ListLayoutChanging"
                         ScrollBeganCommand="{Binding OnScrollBeginCommand}"
                         ScrollEndedCommand="{Binding OnScrollEndCommand}"
-                        TapCommand="{Binding TapCommand}"
-                        iOSDragAndDropOnPanGesture="True" />
+                        TapCommand="{Binding TapCommand}"/>
 
                     <!--  HorizontalListView Logo  -->
                     <!--<sho:HorizontalListView
