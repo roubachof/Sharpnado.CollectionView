@@ -14,7 +14,7 @@
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
       <summary>HorizontalListView (CollectionView) on steroids for Xamarin Forms</summary>
       <tags>xamarin.forms android ios netstandard horizontallistview collectionview gridview carouselview listview drag drop</tags>
-      <releaseNotes>Can enable drag and drop dynamically, drag and drop enable animation, can drag on Pan gesture on iOS.</releaseNotes>
+      <releaseNotes>Dragging with pan on both platforms, drag directions. Implemented by @themronion.</releaseNotes>
       <description>
 
 * Horizontal, Grid, Carousel or Vertical layout
@@ -29,7 +29,7 @@
 * RecyclerView on Android
 * UICollectionView on iOS
 
-Initialization: 
+Initialization:
 
 * On core project call Sharpnado.HorizontalListView.Initializer.Initialize(true, false) in App.xaml.cs after InitializeComponent().
 * On platform projects (ios/android), call SharpnadoInitializer.Initialize() before Xamarin.Forms.Forms.Init() and LoadApplication(new App()).

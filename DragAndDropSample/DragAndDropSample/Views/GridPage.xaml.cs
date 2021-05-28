@@ -63,6 +63,7 @@ namespace DragAndDropSample.Views
                 case HorizontalListViewLayout.Linear:
                     HorizontalListView.ItemWidth = 260;
                     HorizontalListView.ItemHeight = 260;
+                    HorizontalListView.DragAndDropDirection = DragAndDropDirection.HorizontalOnly;
                     HorizontalListView.ColumnCount = 0;
                     HorizontalListView.Margin = Device.RuntimePlatform == Device.Android
                         ? new Thickness(0, 60, 0, 0)
@@ -75,12 +76,14 @@ namespace DragAndDropSample.Views
                     HorizontalListView.ItemHeight = 120;
                     HorizontalListView.ColumnCount = 0;
                     HorizontalListView.Margin = new Thickness(0);
+                    HorizontalListView.DragAndDropDirection = DragAndDropDirection.Free;
                     break;
 
                 case HorizontalListViewLayout.Vertical:
                     HorizontalListView.ItemWidth = 0;
                     HorizontalListView.ItemHeight = 120;
                     HorizontalListView.Margin = new Thickness(0);
+                    HorizontalListView.DragAndDropDirection = DragAndDropDirection.VerticalOnly;
                     break;
             }
         }

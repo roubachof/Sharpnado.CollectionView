@@ -3,7 +3,7 @@
 
   <PropertyGroup>
     <Copyright>Copyright © Sharpnado 2020</Copyright>
-    <Version>1.8.1</Version>
+    <Version>1.8.2</Version>
     <Company>Sharpnado</Company>
     <Product>Sharpnado.HorizontalListView</Product>
     <Description>Xamarin Forms HorizontalListView, including carousel, vertical and grid layout.</Description>

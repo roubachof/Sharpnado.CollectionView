@@ -406,6 +406,20 @@ public class DragAndDropInfo
 
 Contributor: Implemented by @jmmortega.
 
+## DragAndDropTrigger and DragAndDropDirection
+
+Since 1.8.2, you can now choose if you want to begin the drag and drop with a ``Pan`` gesture or a `LongPress`.
+
+* `DragAndDropTrigger="Pan"`
+* `DragAndDropTrigger="LongTap"`
+
+You can also restrict the drag movement to a given direction:
+
+* For the horizontal layout: `DragAndDropDirection = HorizontalOnly` 
+* For the vertical layout: `DragAndDropDirection = VerticalOnly`
+
+It will give a better more precise drag experience, more precise.
+
 ### Since 1.8.1
 
 `EnableDragAndDrop` is now a bindable property, so you can enable it at runtime.
@@ -441,6 +455,7 @@ You can decide to start the drag without long press on iOS thanks to the iOS spe
 
 
 **Remark:** You don't have to inherit from `DraggableViewCell`, any `ViewCell` can be dragged.
+
 
 ### DraggableViewCell
 

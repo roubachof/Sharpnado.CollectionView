@@ -269,3 +269,4 @@ build*.txt
 *nupkg.zip
 /*.txt
 DragAndDropSample/.DS_Store
+.DS_Store

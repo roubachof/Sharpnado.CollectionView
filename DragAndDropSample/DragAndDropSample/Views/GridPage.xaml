@@ -127,6 +127,7 @@
                         CollectionPadding="10,30,10,75"
                         ColumnCount="2"
                         CurrentIndex="{Binding CurrentIndex}"
+                        DragAndDropTrigger="Pan"
                         EnableDragAndDrop="{Binding Source={x:Reference DragAndDropSwitch}, Path=IsToggled}"
                         InfiniteListLoader="{Binding SillyPeoplePaginator}"
                         ItemHeight="120"
@@ -137,7 +138,7 @@
                         ListLayoutChanging="ListLayoutChanging"
                         ScrollBeganCommand="{Binding OnScrollBeginCommand}"
                         ScrollEndedCommand="{Binding OnScrollEndCommand}"
-                        TapCommand="{Binding TapCommand}"/>
+                        TapCommand="{Binding TapCommand}" />
 
                     <!--  HorizontalListView Logo  -->
                     <!--<sho:HorizontalListView
