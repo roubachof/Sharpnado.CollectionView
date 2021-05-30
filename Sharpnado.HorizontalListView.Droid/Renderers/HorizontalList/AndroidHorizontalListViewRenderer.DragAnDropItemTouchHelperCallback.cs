@@ -164,7 +164,7 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
 
                 if (_from > -1 && _to > -1)
                 {
-                    _recycleViewAdapter.OnItemMoved(_from, _to);
+                    _recycleViewAdapter.OnItemMovedFromDragAndDrop(_from, _to);
                     _onDragAndDropdEnded?.Execute(new DragAndDropInfo(
                         _from,
                         _to,

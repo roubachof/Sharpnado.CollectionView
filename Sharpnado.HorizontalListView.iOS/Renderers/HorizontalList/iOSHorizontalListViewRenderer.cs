@@ -459,6 +459,10 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
                         NSIndexPath.FromRowSection(e.OldStartingIndex, 0),
                         NSIndexPath.FromRowSection(e.NewStartingIndex, 0));
                     break;
+
+                case NotifyCollectionChangedAction.Replace:
+                    Control.ReloadItems(new[] { NSIndexPath.FromRowSection(e.NewStartingIndex, 0) });
+                    break;
             }
         }
     }

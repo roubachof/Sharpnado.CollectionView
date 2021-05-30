@@ -242,7 +242,7 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                 }
             }
 
-            public void OnItemMoved(int from, int to)
+            public void OnItemMovedFromDragAndDrop(int from, int to)
             {
                 if (_elementItemsSource is IList collection)
                 {
@@ -456,10 +456,58 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                         parentView.InvalidateItemDecorations();
                         break;
 
+                    case NotifyCollectionChangedAction.Move:
+                        OnItemMoved(e.OldStartingIndex, e.NewStartingIndex);
+                        parentView.InvalidateItemDecorations();
+                        break;
+
+                    case NotifyCollectionChangedAction.Replace:
+                        OnItemReplaced(e.NewStartingIndex, e.NewItems[0]);
+                        parentView.InvalidateItemDecorations();
+                        break;
+
                     case NotifyCollectionChangedAction.Reset:
                         // Handled in the AndroidHorizontalListViewRenderer class, will just create a new adapter
                         break;
                 }
+            }
+
+            private void OnItemReplaced(int itemIndex, object newItem)
+            {
+                InternalLogger.Info($"OnItemReplaced( itemIndex: {itemIndex} )");
+                using var h = new Handler(Looper.MainLooper);
+                h.Post(
+                    () =>
+                    {
+                        if (_isDisposed)
+                        {
+                            return;
+                        }
+
+                        _dataSource[itemIndex] = newItem;
+
+                        NotifyItemChanged(itemIndex);
+                    });
+            }
+
+            private void OnItemMoved(int from, int to)
+            {
+                InternalLogger.Info($"OnItemMoved( from: {from}, to: {to} )");
+                using var h = new Handler(Looper.MainLooper);
+                h.Post(
+                    () =>
+                    {
+                        if (_isDisposed)
+                        {
+                            return;
+                        }
+
+                        var item = _dataSource[from];
+                        _dataSource.RemoveAt(from);
+                        _dataSource.Insert(to, item);
+
+                        NotifyItemMoved(from, to);
+                    });
             }
 
             private void OnItemAdded(int newIndex, IList items)

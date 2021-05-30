@@ -172,6 +172,9 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
                 case NotifyCollectionChangedAction.Remove:
                     _dataSource.RemoveRange(eventArgs.OldStartingIndex, eventArgs.OldItems.Count);
                     break;
+                case NotifyCollectionChangedAction.Replace:
+                    _dataSource[eventArgs.NewStartingIndex] = eventArgs.NewItems[0];
+                    break;
                 case NotifyCollectionChangedAction.Reset:
                     // Handled in the iOSHorizontalListViewRenderer class, will just create a new adapter
                     break;
