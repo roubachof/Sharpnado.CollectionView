@@ -127,6 +127,8 @@
                         CollectionPadding="10,30,10,75"
                         ColumnCount="2"
                         CurrentIndex="{Binding CurrentIndex}"
+                        DragAndDropEndedCommand="{Binding OnDragEnded}"
+                        DragAndDropStartedCommand="{Binding OnDragStarted}"
                         DragAndDropTrigger="Pan"
                         EnableDragAndDrop="{Binding Source={x:Reference DragAndDropSwitch}, Path=IsToggled}"
                         InfiniteListLoader="{Binding SillyPeoplePaginator}"

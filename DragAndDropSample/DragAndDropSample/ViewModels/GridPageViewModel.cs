@@ -64,6 +64,10 @@ namespace DragAndDropSample.ViewModels
 
         public ICommand OnScrollEndCommand { get; private set; }
 
+        public ICommand OnDragStarted { get; private set; }
+
+        public ICommand OnDragEnded { get; private set; }
+
         public TaskLoaderNotifier<IReadOnlyCollection<SillyDude>> SillyPeopleLoaderNotifier { get; }
 
         public ListMode Mode
@@ -102,6 +106,20 @@ namespace DragAndDropSample.ViewModels
                 () => System.Diagnostics.Debug.WriteLine("SillyInfiniteGridPeopleVm: OnScrollBeginCommand"));
             OnScrollEndCommand = new Command(
                 () => System.Diagnostics.Debug.WriteLine("SillyInfiniteGridPeopleVm: OnScrollEndCommand"));
+
+            OnDragStarted = new Command(
+                (info) =>
+                {
+                    var dragInfo = (DragAndDropInfo)info;
+                    System.Diagnostics.Debug.WriteLine($"OnDragStarted( from: {dragInfo.From}, to: {dragInfo.To} )");
+                });
+
+            OnDragEnded = new Command(
+                (info) =>
+                {
+                    var dragInfo = (DragAndDropInfo)info;
+                    System.Diagnostics.Debug.WriteLine($"OnDragEnded( from: {dragInfo.From}, to: {dragInfo.To} )");
+                });
         }
 
         private async Task<PageResult<SillyDude>> LoadSillyPeoplePageAsync(int pageNumber, int pageSize, bool isRefresh)

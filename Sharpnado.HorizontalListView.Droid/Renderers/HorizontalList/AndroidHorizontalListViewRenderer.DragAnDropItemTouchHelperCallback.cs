@@ -86,6 +86,11 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
                         draggableViewCell.IsDragAndDropping = true;
                         _draggedViewCell = draggableViewCell;
                     }
+
+                    _onDragAndDropStart?.Execute(new DragAndDropInfo(
+                        viewHolder.AdapterPosition,
+                        -1,
+                        ((ViewHolder)viewHolder).BindingContext));
                 }
                 else if (actionState == ItemTouchHelper.ActionStateIdle)
                 {
@@ -122,13 +127,8 @@ namespace Sharpnado.HorizontalListView.Droid.Renderers.HorizontalList
 
                 _to = target.AdapterPosition;
 
-                // System.Diagnostics.Debug.WriteLine($">>>>> OnMove( from: {viewHolder.AdapterPosition}, to: {target.AdapterPosition} )");
+                // System.Diagnostics.Debug.WriteLine($">>>>> OnMove( from: {_from}, to: {_to} )");
                 _recycleViewAdapter.OnItemMoving(viewHolder.AdapterPosition, target.AdapterPosition);
-
-                _onDragAndDropStart?.Execute(new DragAndDropInfo(
-                    _from,
-                    _to,
-                    ((ViewHolder)viewHolder).BindingContext));
 
                 return true;
             }

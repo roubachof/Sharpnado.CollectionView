@@ -2,10 +2,10 @@ namespace Sharpnado.HorizontalListView.ViewModels
 {
     public class DragAndDropInfo
     {
-        public DragAndDropInfo(int to, int @from, object content)
+        public DragAndDropInfo(int from, int to, object content)
         {
+            From = from;
             To = to;
-            From = @from;
             Content = content;
         }
 
