@@ -216,6 +216,14 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
             _isScrolling = true;
             Element.ScrollBeganCommand?.Execute(null);
         }
+        
+        private void OnStopScrollingByUserAction(object sender, DraggingEventArgs e)
+        {
+            if (!e.Decelerate)
+            {
+                OnStopScrolling(sender, e);
+            }
+        }
 
         private void OnStopScrolling(object sender, EventArgs e)
         {
