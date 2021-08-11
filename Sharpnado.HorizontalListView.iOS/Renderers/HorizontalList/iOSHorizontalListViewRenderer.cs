@@ -104,6 +104,7 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
                     Control.DecelerationEnded -= OnStopScrolling;
                     Control.ScrollAnimationEnded -= OnStopScrolling;
                     Control.Scrolled -= OnScrolled;
+                    Control.DraggingEnded -= OnStopScrollingByUserAction;
 
                     Control.DraggingEnded -= OnDraggingEnded;
                     Control.DecelerationEnded -= OnDecelerationEnded;
@@ -229,6 +230,7 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
             Control.Scrolled += OnScrolled;
             Control.ScrollAnimationEnded += OnStopScrolling;
             Control.DecelerationEnded += OnStopScrolling;
+            Control.DraggingEnded += OnStopScrollingByUserAction;
 
             EnableDragAndDrop(Element.EnableDragAndDrop, Element.DragAndDropTrigger);
 
