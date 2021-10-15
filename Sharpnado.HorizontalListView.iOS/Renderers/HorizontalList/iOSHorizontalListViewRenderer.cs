@@ -115,6 +115,7 @@ namespace Sharpnado.HorizontalListView.iOS.Renderers.HorizontalList
                     _collectionView.Dispose();
                     _collectionView.DataSource?.Dispose();
                     _collectionView.CollectionViewLayout?.Dispose();
+                    _collectionView = null;
                 }
 
                 if (_itemsSource is INotifyCollectionChanged oldNotifyCollection)
