@@ -4,7 +4,7 @@ using Android.Glide;
 using Android.Graphics;
 using Android.OS;
 
-using Sharpnado.HorizontalListView.Droid;
+using Sharpnado.CollectionView.Droid;
 
 namespace DragAndDropSample.Droid
 {
@@ -19,7 +19,7 @@ namespace DragAndDropSample.Droid
 
             base.OnCreate(savedInstanceState);
             
-            SharpnadoInitializer.Initialize();
+            Initializer.Initialize();
 
             XamEffects.Droid.Effects.Init();
 

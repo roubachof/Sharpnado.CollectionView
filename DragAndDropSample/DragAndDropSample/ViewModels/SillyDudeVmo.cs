@@ -13,7 +13,7 @@ using DragAndDropSample.Services;
 
 namespace DragAndDropSample.ViewModels
 {
-    public class SillyDudeVmo
+    public class SillyDudeVmo : IDudeItem
     {
         public SillyDudeVmo(SillyDude dude, ICommand tapCommand)
         {
@@ -48,13 +48,18 @@ namespace DragAndDropSample.ViewModels
 
         public string ImageUrl { get; }
 
-        public int SillinessDegree { get; }
+        public double SillinessDegree { get; }
 
         public string SourceUrl { get; }
 
         public void Lock()
         {
             IsMovable = false;
+        }
+
+        public override string ToString()
+        {
+            return $"{FullName} silly degree: {SillinessDegree}";
         }
     }
 

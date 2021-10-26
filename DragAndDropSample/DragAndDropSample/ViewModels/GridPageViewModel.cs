@@ -6,9 +6,9 @@ using System.Windows.Input;
 using DragAndDropSample.Navigables;
 using DragAndDropSample.Services;
 
-using Sharpnado.HorizontalListView.Paging;
-using Sharpnado.HorizontalListView.Services;
-using Sharpnado.HorizontalListView.ViewModels;
+using Sharpnado.CollectionView.Paging;
+using Sharpnado.CollectionView.Services;
+using Sharpnado.CollectionView.ViewModels;
 using Sharpnado.Presentation.Forms;
 
 using Xamarin.Forms;
@@ -43,20 +43,17 @@ namespace DragAndDropSample.ViewModels
             SillyPeople = new ObservableRangeCollection<SillyDudeVmo>();
             SillyPeoplePaginator = new Paginator<SillyDude>(LoadSillyPeoplePageAsync, pageSize: PageSize);
             SillyPeopleLoaderNotifier = new TaskLoaderNotifier<IReadOnlyCollection<SillyDude>>();
-        }
 
-        public LogoLetterVmo[] Logo { get; } = new[]
-        {
-            new LogoLetterVmo("H", Color.FromHex("#FF0266"), "ThinAccentNeumorphism"),
-            new LogoLetterVmo("L", Color.White, "ThinDarkerNeumorphism"),
-            new LogoLetterVmo("V", Color.White, "ThinDarkerNeumorphism"),
-        };
+            GoBackCommand = new TaskLoaderCommand(() => NavigationService.NavigateBackAsync());
+        }
 
         public int CurrentIndex
         {
             get => _currentIndex;
             set => SetAndRaise(ref _currentIndex, value);
         }
+
+        public ICommand GoBackCommand { get; }
 
         public ICommand TapCommand { get; private set; }
 
@@ -94,7 +91,7 @@ namespace DragAndDropSample.ViewModels
         {
             SillyPeople = new ObservableRangeCollection<SillyDudeVmo>();
 
-            SillyPeopleLoaderNotifier.Load(async () => (await SillyPeoplePaginator.LoadPage(1)).Items);
+            SillyPeopleLoaderNotifier.Load(async _ => (await SillyPeoplePaginator.LoadPage(1)).Items);
         }
 
         private void InitCommands()

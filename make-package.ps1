@@ -1,11 +1,11 @@
-$formsVersion = "3.6.0.220655"
+$formsVersion = "4.5.0.356"
 
-$hlvProject = ".\Sharpnado.HorizontalListView\Sharpnado.HorizontalListView.csproj"
-$droidHLVProject = ".\Sharpnado.HorizontalListView.Droid\Sharpnado.HorizontalListView.Droid.csproj"
-$iosHLVProject = ".\Sharpnado.HorizontalListView.iOS\Sharpnado.HorizontalListView.iOS.csproj"
+$hlvProject = ".\Sharpnado.CollectionView\Sharpnado.CollectionView.csproj"
+$droidHLVProject = ".\Sharpnado.CollectionView.Droid\Sharpnado.CollectionView.Droid.csproj"
+$iosHLVProject = ".\Sharpnado.CollectionView.iOS\Sharpnado.CollectionView.iOS.csproj"
 
-$droidBin = ".\Sharpnado.HorizontalListView.Droid\bin\Release"
-$droidObj = ".\Sharpnado.HorizontalListView.Droid\obj\Release"
+$droidBin = ".\Sharpnado.CollectionView.Droid\bin\Release"
+$droidObj = ".\Sharpnado.CollectionView.Droid\obj\Release"
 
 rm *.txt
 
@@ -20,15 +20,15 @@ $replaceString = "`$1 $formsVersion `$3"
 
 
 echo "########################################"
-echo "# Sharpnado.Forms.HorizontalListView"
+echo "# Sharpnado.CollectionView"
 echo "########################################"
 
 echo "  deleting android bin-obj folders"
 rm -Force -Recurse $droidBin
 rm -Force -Recurse $droidObj
 
-echo "  cleaning Sharpnado.HorizontalListView solution"
-msbuild .\Sharpnado.HorizontalListView.sln /t:Clean
+echo "  cleaning Sharpnado.CollectionView solution"
+msbuild .\Sharpnado.CollectionView.sln /t:Clean
 
 if ($LastExitCode -gt 0)
 {
@@ -36,8 +36,8 @@ if ($LastExitCode -gt 0)
     return
 }
 
-echo "  restoring Sharpnado.HorizontalListView solution packages"
-msbuild .\Sharpnado.HorizontalListView.sln /t:Restore
+echo "  restoring Sharpnado.CollectionView solution packages"
+msbuild .\Sharpnado.CollectionView.sln /t:Restore
 
 if ($LastExitCode -gt 0)
 {
@@ -45,8 +45,8 @@ if ($LastExitCode -gt 0)
     return
 }
 
-echo "  building Sharpnado.HorizontalListView solution"
-msbuild .\Sharpnado.HorizontalListView.sln /t:Build /p:Configuration=Release
+echo "  building Sharpnado.CollectionView solution"
+msbuild .\Sharpnado.CollectionView.sln /t:Build /p:Configuration=Release
 if ($LastExitCode -gt 0)
 {
     echo "  Error while building solution"
@@ -55,49 +55,10 @@ if ($LastExitCode -gt 0)
 
 
 echo "###############################################"
-echo "# Android 9.0 and below"
-echo "###############################################"
-
-echo "  deleting android obj folders"
-rm -Force -Recurse $droidObj
-if ($LastExitCode -gt 0)
-{
-    echo "  Error deleting android obj folder"
-    return
-}
-
-echo "  cleaning Android9 solution"
-msbuild .\Sharpnado.HorizontalListView.Droid\Sharpnado.HorizontalListView.Droid.csproj /t:Clean /p:Configuration=ReleaseAndroid9.0
-
-if ($LastExitCode -gt 0)
-{
-    echo "  Error while cleaning solution"
-    return
-}
-
-echo "  restoring Android9 solution packages"
-msbuild .\Sharpnado.HorizontalListView.Droid\Sharpnado.HorizontalListView.Droid.csproj /t:Restore /p:Configuration=ReleaseAndroid9.0
-
-if ($LastExitCode -gt 0)
-{
-    echo "  Error while restoring packages"
-    return
-}
-
-echo "  building Android9"
-msbuild .\Sharpnado.HorizontalListView.Droid\Sharpnado.HorizontalListView.Droid.csproj /t:Build /p:Configuration=ReleaseAndroid9.0
-if ($LastExitCode -gt 0)
-{
-    echo "  Error while building solution for Android9"
-    return
-}
-
-
-echo "###############################################"
 echo "# Packaging"
 echo "###############################################"
 
-$version = (Get-Item Sharpnado.HorizontalListView\bin\Release\netstandard2.0\Sharpnado.HorizontalListView.dll).VersionInfo.FileVersion
+$version = (Get-Item Sharpnado.CollectionView\bin\Release\netstandard2.0\Sharpnado.CollectionView.dll).VersionInfo.FileVersion
 
-echo "  packaging Sharpnado.HorizontalListView.nuspec (v$version)"
-nuget pack .\Sharpnado.HorizontalListView.nuspec -Version $version
+echo "  packaging Sharpnado.CollectionView.nuspec (v$version)"
+nuget pack .\Sharpnado.CollectionView.nuspec -Version $version

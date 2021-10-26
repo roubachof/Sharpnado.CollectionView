@@ -2,11 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <Copyright>Copyright © Sharpnado 2020</Copyright>
-    <Version>1.8.2</Version>
+    <Copyright>Copyright © Sharpnado 2021</Copyright>
+    <Version>2.0.0</Version>
     <Company>Sharpnado</Company>
-    <Product>Sharpnado.HorizontalListView</Product>
-    <Description>Xamarin Forms HorizontalListView, including carousel, vertical and grid layout.</Description>
+    <Product>Sharpnado.CollectionView</Product>
+    <Description>Xamarin.Forms custom CollectionView with drag and drop and more (former named HorizontalListView), including horizontal list view, carousel, vertical and grid layout.</Description>
   </PropertyGroup>
 
   <Target Name="GenerateCustomAssemblyInfo" BeforeTargets="BeforeBuild">

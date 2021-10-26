@@ -19,6 +19,7 @@ namespace DragAndDropSample.Navigables.Impl
         private static readonly Dictionary<string, Type> ViewLocatorDictionary = new Dictionary<string, Type>
             {
                 { nameof(GridPageViewModel), typeof(GridPage) },
+                { nameof(HeaderFooterGroupingPageViewModel), typeof(HeaderFooterGroupingPage) },
             };
 
         public ContentPage GetViewFor<TViewModel>()

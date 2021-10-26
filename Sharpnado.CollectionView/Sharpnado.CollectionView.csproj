@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-16"?><Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <CodeAnalysisRuleSet>..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyName>Sharpnado.CollectionView</AssemblyName>
+    <RootNamespace>Sharpnado.CollectionView</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MSBuildTasks">
+      <Version>1.5.0.235</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Sharpnado.TaskMonitor" Version="1.0.2" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.164">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms">
+      <Version> 4.5.0.356 </Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <Import Project="..\AssemblyInfo.targets" />
+
+</Project>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

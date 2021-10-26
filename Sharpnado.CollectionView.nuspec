@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+
+    	<id>Sharpnado.CollectionView</id>
+      <version>$version$</version>
+      <copyright>Sharpnado 2021</copyright>
+      <title>CollectionView on steroids for Xamarin.Forms</title>
+      <authors>Jean-Marie Alfonsi</authors>
+      <owners></owners>
+      <projectUrl>https://github.com/roubachof/Sharpnado.CollectionView</projectUrl>
+      <license type="file">LICENSE</license>
+      <icon>images\logo.png</icon>
+      <requireLicenseAcceptance>false</requireLicenseAcceptance>
+      <summary>CollectionView (formerly named HorizontalListView) on steroids for Xamarin.Forms</summary>
+      <tags>xamarin.forms android ios netstandard horizontallistview collectionview gridview carouselview listview drag drop header group footer</tags>
+      <releaseNotes>Header, Footer, GroupHeader implementation thanks to SizedDataTemplate.</releaseNotes>
+      <description>
+
+* Horizontal, Grid, Carousel or Vertical layout
+* Header, Footer and GroupHeader
+* Reveal custom animations
+* Drag and Drop
+* Column count
+* Infinite loading with Paginator component
+* Snapping on first or middle element
+* Padding and item spacing
+* Handles NotifyCollectionChangedAction Add, Remove and Reset actions
+* View recycling
+* RecyclerView on Android
+* UICollectionView on iOS
+
+Initialization:
+
+* On core project call Sharpnado.CollectionView.Initializer.Initialize(true, false) in App.xaml.cs after InitializeComponent().
+* On platform projects (ios/android), call Initializer.Initialize() before Xamarin.Forms.Forms.Init() and LoadApplication(new App()).
+      </description>
+
+      <dependencies>
+
+        <group targetFramework=".NETStandard2.0">
+          <dependency id="Xamarin.Forms" version="4.5.0.356" exclude="Build,Analyzers"/>
+          <dependency id="Sharpnado.TaskMonitor" version="1.0.2" />
+        </group>
+
+        <group targetFramework="Xamarin.iOS10">
+          <dependency id="Xamarin.Forms" version="4.5.0.356" exclude="Build,Analyzers"/>
+          <dependency id="Sharpnado.TaskMonitor" version="1.0.2" />
+        </group>
+
+        <group targetFramework="MonoAndroid10.0">
+          <dependency id="Xamarin.Forms" version="4.5.0.356" exclude="Build,Analyzers"/>
+          <dependency id="Sharpnado.TaskMonitor" version="1.0.2" />
+          <dependency id="Xamarin.AndroidX.Browser" version="1.0.0" />
+          <dependency id="Xamarin.AndroidX.Legacy.Support.V4" version="1.0.0" />
+          <dependency id="Xamarin.AndroidX.Lifecycle.LiveData" version="2.1.0" />
+          <dependency id="Xamarin.AndroidX.MediaRouter" version="1.1.0" />
+          <dependency id="Xamarin.Google.Android.Material" version="1.0.0" />
+        </group>
+
+      </dependencies>
+
+    </metadata>
+
+    <files>
+
+        <!--Net Standard-->
+        <file src="Sharpnado.CollectionView\bin\Release\netstandard2.0\Sharpnado.CollectionView.dll" target="lib\netstandard2.0\Sharpnado.CollectionView.dll" />
+        <file src="Sharpnado.CollectionView\bin\Release\netstandard2.0\Sharpnado.CollectionView.pdb" target="lib\netstandard2.0\Sharpnado.CollectionView.pdb" />
+
+        <!--Xamarin.Android 10.0-->
+        <file src="Sharpnado.CollectionView.Droid\bin\Release\Sharpnado.CollectionView.Droid.dll" target="lib\MonoAndroid10.0\Sharpnado.CollectionView.Droid.dll" />
+        <file src="Sharpnado.CollectionView.Droid\bin\Release\Sharpnado.CollectionView.Droid.pdb" target="lib\MonoAndroid10.0\Sharpnado.CollectionView.Droid.pdb" />
+        <file src="Sharpnado.CollectionView.Droid\bin\Release\Sharpnado.CollectionView.dll" target="lib\MonoAndroid10.0\Sharpnado.CollectionView.dll" />
+        <file src="Sharpnado.CollectionView.Droid\bin\Release\Sharpnado.CollectionView.pdb" target="lib\MonoAndroid10.0\Sharpnado.CollectionView.pdb" />
+
+        <!--Xamarin.iOS-->
+        <file src="Sharpnado.CollectionView.iOS\bin\Release\Sharpnado.CollectionView.iOS.dll" target="lib\Xamarin.iOS10\Sharpnado.CollectionView.iOS.dll" />
+        <file src="Sharpnado.CollectionView.iOS\bin\Release\Sharpnado.CollectionView.iOS.pdb" target="lib\Xamarin.iOS10\Sharpnado.CollectionView.iOS.pdb" />
+        <file src="Sharpnado.CollectionView.iOS\bin\Release\Sharpnado.CollectionView.dll" target="lib\Xamarin.iOS10\Sharpnado.CollectionView.dll" />
+        <file src="Sharpnado.CollectionView.iOS\bin\Release\Sharpnado.CollectionView.pdb" target="lib\Xamarin.iOS10\Sharpnado.CollectionView.pdb" />
+
+        <!-- Icon -->
+        <file src="Docs\logo.png" target="images\" />
+
+        <!--License-->
+        <file src="LICENSE" target="LICENSE" />
+
+    </files>
+
+</package>

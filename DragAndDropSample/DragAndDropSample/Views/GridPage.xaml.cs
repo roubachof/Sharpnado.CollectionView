@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-using Sharpnado.HorizontalListView.RenderedViews;
+using Sharpnado.CollectionView.RenderedViews;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -18,7 +18,7 @@ namespace DragAndDropSample.Views
                 {
                     viewCell.View.Opacity = 0;
 
-                    if (HorizontalListView.ListLayout == HorizontalListViewLayout.Vertical)
+                    if (HorizontalListView.CollectionLayout == CollectionViewLayout.Vertical)
                     {
                         viewCell.View.RotationX = 90;
                     }
@@ -34,7 +34,7 @@ namespace DragAndDropSample.Views
                 {
                     await viewCell.View.FadeTo(1);
 
-                    if (HorizontalListView.ListLayout == HorizontalListViewLayout.Vertical)
+                    if (HorizontalListView.CollectionLayout == CollectionViewLayout.Vertical)
                     {
                         await viewCell.View.RotateXTo(0);
                     }
@@ -56,11 +56,11 @@ namespace DragAndDropSample.Views
             };
         }
 
-        private void ListLayoutChanging(object sender, ListLayoutChangedEventArgs e)
+        private void ListLayoutChanging(object sender, CollectionLayoutChangedEventArgs e)
         {
             switch (e.ListLayout)
             {
-                case HorizontalListViewLayout.Linear:
+                case CollectionViewLayout.Horizontal:
                     HorizontalListView.ItemWidth = 260;
                     HorizontalListView.ItemHeight = 260;
                     HorizontalListView.DragAndDropDirection = DragAndDropDirection.HorizontalOnly;
@@ -71,7 +71,7 @@ namespace DragAndDropSample.Views
 
                     break;
 
-                case HorizontalListViewLayout.Grid:
+                case CollectionViewLayout.Grid:
                     HorizontalListView.ItemWidth = 120;
                     HorizontalListView.ItemHeight = 120;
                     HorizontalListView.ColumnCount = 0;
@@ -79,7 +79,7 @@ namespace DragAndDropSample.Views
                     HorizontalListView.DragAndDropDirection = DragAndDropDirection.Free;
                     break;
 
-                case HorizontalListViewLayout.Vertical:
+                case CollectionViewLayout.Vertical:
                     HorizontalListView.ItemWidth = 0;
                     HorizontalListView.ItemHeight = 120;
                     HorizontalListView.Margin = new Thickness(0);

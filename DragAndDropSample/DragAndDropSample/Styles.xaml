@@ -210,6 +210,27 @@
             Color="#3a3a3a" />
     </sho:ImmutableShades>
 
+    <sho:ImmutableShades x:Key="BottomNeumorphism">
+        <sho:Shade
+            BlurRadius="6"
+            Opacity="1"
+            Offset="0,8"
+            Color="#2b2b2b" />
+    </sho:ImmutableShades>
+
+    <sho:ImmutableShades x:Key="VerticalNeumorphism">
+        <sho:Shade
+            BlurRadius="6"
+            Opacity="1"
+            Offset="0,8"
+            Color="#2b2b2b" />
+        <sho:Shade
+            BlurRadius="6"
+            Opacity="1"
+            Offset="0,-8"
+            Color="#3a3a3a" />
+    </sho:ImmutableShades>
+
     <sho:ImmutableShades x:Key="ThinDarkerNeumorphism">
         <sho:Shade
             BlurRadius="3"

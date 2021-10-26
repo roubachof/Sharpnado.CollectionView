@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DragAndDropSample.Views.ChoosePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:DragAndDropSample.Converters;assembly=DragAndDropSample"
+    xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:renderedViews="http://sharpnado.com"
+    xmlns:viewModels="clr-namespace:DragAndDropSample.ViewModels;assembly=DragAndDropSample"
+    x:DataType="viewModels:ChoosePageViewModel"
+    BackgroundColor="{StaticResource DarkerSurface}"
+    NavigationPage.HasNavigationBar="False">
+    <StackLayout>
+
+        <renderedViews:Shadows Shades="{StaticResource DarkBottomShadow}">
+            <StackLayout
+                BackgroundColor="{StaticResource DarkSurface}"
+                Orientation="Vertical"
+                Spacing="0">
+                <StackLayout.Padding>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="iOS">20, 60, 20, 20</On>
+                        <On Platform="Android">20, 40, 20, 20</On>
+                    </OnPlatform>
+                </StackLayout.Padding>
+
+                <Grid ColumnDefinitions="*, 60" RowDefinitions="Auto,Auto">
+                    <Label
+                        Grid.Row="0"
+                        FontAttributes="Italic"
+                        FontSize="22"
+                        Text="Sharpnado's"
+                        TextColor="{StaticResource Accent}" />
+
+                    <Label
+                        Grid.Row="1"
+                        Margin="0,-10,0,0"
+                        FontAttributes="Bold"
+                        FontSize="30"
+                        Text="CollectionView"
+                        TextColor="White" />
+                </Grid>
+            </StackLayout>
+        </renderedViews:Shadows>
+
+        <!--  HorizontalListView Logo  -->
+        <renderedViews:GridView
+            x:Name="HorizontalListView"
+            HeightRequest="360"
+            VerticalOptions="Fill"
+            CollectionPadding="30,30,30,0"
+            ColumnCount="3"
+            EnableDragAndDrop="True"
+            ItemHeight="110"
+            ItemsSource="{Binding Logo, Mode=OneTime}">
+            <renderedViews:GridView.ItemTemplate>
+                <DataTemplate x:DataType="viewModels:LogoLetterVmo">
+                    <renderedViews:DraggableViewCell x:Name="DraggableViewCell">
+                        <ContentView>
+                            <renderedViews:Shadows
+                                x:Name="Shadow"
+                                CornerRadius="10"
+                                Shades="{Binding ShadowResourceName, Converter={converters:StringToResource}}">
+                                <pancakeView:PancakeView
+                                    Margin="8"
+                                    Padding="0"
+                                    CornerRadius="10"
+                                    BackgroundGradientStartPoint="0,0"
+                                    BackgroundGradientEndPoint="1,1">
+                                    <pancakeView:PancakeView.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
+                                            TargetType="pancakeView:PancakeView"
+                                            Value="True">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
+                                        </DataTrigger>
+                                    </pancakeView:PancakeView.Triggers>
+                                    <pancakeView:PancakeView.BackgroundGradientStops>
+                                        <pancakeView:GradientStopCollection>
+                                            <pancakeView:GradientStop Offset="0.1" Color="#3a3a3a" />
+                                            <pancakeView:GradientStop Offset="0.9" Color="#2b2b2b" />
+                                        </pancakeView:GradientStopCollection>
+                                    </pancakeView:PancakeView.BackgroundGradientStops>
+                                    <Label
+                                        Style="{StaticResource TextHeadline}"
+                                        Margin="0"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        VerticalTextAlignment="Center"
+                                        FontAttributes="Bold"
+                                        FontSize="90"
+                                        Text="{Binding Text}"
+                                        TextColor="{Binding TextColor}" />
+                                </pancakeView:PancakeView>
+                            </renderedViews:Shadows>
+                        </ContentView>
+                    </renderedViews:DraggableViewCell>
+                </DataTemplate>
+            </renderedViews:GridView.ItemTemplate>
+        </renderedViews:GridView>
+
+        <StackLayout Margin="0,30" Spacing="20">
+            <renderedViews:Shadows CornerRadius="10" Shades="{StaticResource ThinDarkNeumorphism}">
+                <Button
+                    x:Name="LayoutButton"
+                    WidthRequest="260"
+                    HorizontalOptions="Center"
+                    BackgroundColor="{StaticResource DarkSurface}"
+                    Clicked="LayoutButton_OnClicked"
+                    CornerRadius="10"
+                    Text="Layout Examples"
+                    TextColor="White" />
+            </renderedViews:Shadows>
+            <renderedViews:Shadows CornerRadius="10" Shades="{StaticResource ThinDarkNeumorphism}">
+                <Button
+                    x:Name="HeaderButton"
+                    WidthRequest="260"
+                    HorizontalOptions="Center"
+                    BackgroundColor="{StaticResource DarkSurface}"
+                    Clicked="HeaderButton_OnClicked"
+                    CornerRadius="10"
+                    Text="Header and Grouping Example"
+                    TextColor="White" />
+            </renderedViews:Shadows>
+        </StackLayout>
+
+    </StackLayout>
+</ContentPage>

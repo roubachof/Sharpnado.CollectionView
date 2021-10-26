@@ -1,6 +1,8 @@
-﻿using Sharpnado.HorizontalListView.RenderedViews;
+﻿using Sharpnado.CollectionView.RenderedViews;
 
 using Xamarin.Forms;
+
+using CollectionView = Sharpnado.CollectionView.RenderedViews.CollectionView;
 
 namespace DragAndDropSample.Views
 {
@@ -14,15 +16,15 @@ namespace DragAndDropSample.Views
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            var horizontalList = (HorizontalListView)container;
-            HorizontalListViewLayout layout = horizontalList.ListLayout;
+            var horizontalList = (CollectionView)container;
+            CollectionViewLayout layout = horizontalList.CollectionLayout;
 
             switch (layout)
             {
-                case HorizontalListViewLayout.Grid:
+                case CollectionViewLayout.Grid:
                     return GridTemplate;
 
-                case HorizontalListViewLayout.Linear:
+                case CollectionViewLayout.Horizontal:
                     return HorizontalTemplate;
 
                 default:

@@ -2,7 +2,7 @@
 
 using Foundation;
 
-using Sharpnado.HorizontalListView.iOS;
+using Sharpnado.CollectionView.iOS;
 
 using UIKit;
 
@@ -25,7 +25,7 @@ namespace DragAndDropSample.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            SharpnadoInitializer.Initialize();
+            Initializer.Initialize();
             Sharpnado.Tabs.iOS.Preserver.Preserve();
 
             XamEffects.iOS.Effects.Init();

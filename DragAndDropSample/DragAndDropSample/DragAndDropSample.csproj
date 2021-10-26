@@ -18,17 +18,17 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Sharpnado.Tabs" Version="2.0.1" />
-        <PackageReference Include="Sharpnado.TaskLoaderView" Version="2.1.1" />
-        <PackageReference Include="SimpleInjector" Version="5.1.0" />
-        <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2" />
-        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+        <PackageReference Include="Sharpnado.Tabs" Version="2.2.0" />
+        <PackageReference Include="Sharpnado.TaskLoaderView" Version="2.4.0" />
+        <PackageReference Include="SimpleInjector" Version="5.3.2" />
+        <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.3" />
+        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
         <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
         <PackageReference Include="XamEffects" Version="1.6.3" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Sharpnado.HorizontalListView\Sharpnado.HorizontalListView.csproj" />
+      <ProjectReference Include="..\..\Sharpnado.CollectionView\Sharpnado.CollectionView.csproj" />
     </ItemGroup>
 
   <ItemGroup>
@@ -54,6 +54,9 @@
   <ItemGroup>
     <EmbeddedResource Update="SillyCell.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\ChoosePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

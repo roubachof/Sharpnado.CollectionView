@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using Sharpnado.HorizontalListView.Services;
+using Sharpnado.CollectionView.Services;
 
 namespace DragAndDropSample.Services
 {

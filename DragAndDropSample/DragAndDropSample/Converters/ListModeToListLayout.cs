@@ -3,7 +3,7 @@ using System.Globalization;
 
 using DragAndDropSample.ViewModels;
 
-using Sharpnado.HorizontalListView.RenderedViews;
+using Sharpnado.CollectionView.RenderedViews;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -19,11 +19,11 @@ namespace DragAndDropSample.Converters
             switch (mode)
             {
                 case ListMode.Vertical:
-                    return HorizontalListViewLayout.Vertical; 
+                    return CollectionViewLayout.Vertical; 
                 case ListMode.Grid:
-                    return HorizontalListViewLayout.Grid;
+                    return CollectionViewLayout.Grid;
                 default:
-                    return HorizontalListViewLayout.Linear;
+                    return CollectionViewLayout.Horizontal;
             }
         }
 

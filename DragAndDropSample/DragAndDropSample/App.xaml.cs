@@ -1,9 +1,14 @@
 ﻿using System;
 
+using DragAndDropSample.Navigables;
 using DragAndDropSample.Navigables.Impl;
 using DragAndDropSample.Services;
 using DragAndDropSample.ViewModels;
 using DragAndDropSample.Views;
+
+using Sharpnado.CollectionView;
+
+using SimpleInjector;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -20,7 +25,7 @@ namespace DragAndDropSample
         {
             InitializeComponent();
 
-            Sharpnado.HorizontalListView.Initializer.Initialize(true, true);
+            Initializer.Initialize(true, true);
             Sharpnado.Tabs.Initializer.Initialize(true, true);
             Sharpnado.Shades.Initializer.Initialize(loggerEnable: false);
 
@@ -28,12 +33,19 @@ namespace DragAndDropSample
                 new Lazy<NavigationPage>(() => (NavigationPage)Current.MainPage),
                 new ViewLocator());
 
-            var sillyDudeService = new SillyDudeService(new ErrorEmulator());
+            DependencyContainer.Instance.Options.EnableAutoVerification = false;
 
-            var viewModel = new GridPageViewModel(navigationService, sillyDudeService);
+            var errorEmulator = new ErrorEmulator();
+            DependencyContainer.Instance.Register<ISillyDudeService>(() => new SillyDudeService(errorEmulator));
+            DependencyContainer.Instance.Register<INavigationService>(() => navigationService);
 
-            MainPage = new NavigationPage(new GridPage { BindingContext = viewModel });
-            viewModel.Load(null);
+            DependencyContainer.Instance.Register<GridPageViewModel>();
+            DependencyContainer.Instance.Register<GridPage>();
+
+            DependencyContainer.Instance.Register<HeaderFooterGroupingPageViewModel>();
+            DependencyContainer.Instance.Register<HeaderFooterGroupingPage>();
+
+            MainPage = new NavigationPage(new ChoosePage(navigationService) { BindingContext = new ChoosePageViewModel() });
         }
 
         protected override void OnStart()

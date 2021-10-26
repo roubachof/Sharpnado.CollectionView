@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="DragAndDropSample.Views.HeaderFooterGroupingPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customViews="clr-namespace:Sharpnado.Presentation.Forms.CustomViews;assembly=Sharpnado.TaskLoaderView"
+    xmlns:sho="http://sharpnado.com"
+    xmlns:viewModels="clr-namespace:DragAndDropSample.ViewModels;assembly=DragAndDropSample"
+    xmlns:views="clr-namespace:DragAndDropSample.Views;assembly=DragAndDropSample"
+    x:DataType="viewModels:HeaderFooterGroupingPageViewModel"
+    BackgroundColor="{StaticResource DarkerSurface}"
+    NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <DataTemplate x:Key="HeaderTemplate">
+                <sho:DraggableViewCell x:Name="DraggableViewCell" IsDraggable="False">
+
+                    <ContentView Margin="0" BackgroundColor="{StaticResource DarkerSurface}">
+                        <Label
+                            Style="{StaticResource TextSubhead}"
+                            HorizontalOptions="Center"
+                            Text="Look at my Nice Header!" />
+                    </ContentView>
+                </sho:DraggableViewCell>
+            </DataTemplate>
+
+            <DataTemplate x:Key="FooterTemplate">
+                <sho:DraggableViewCell x:Name="DraggableViewCell" IsDraggable="False">
+                    <StackLayout
+                        Padding="30,0,15,0"
+                        Orientation="Horizontal"
+                        Spacing="15">
+                        <ActivityIndicator
+                            VerticalOptions="Center"
+                            IsRunning="True"
+                            Color="{StaticResource Accent}" />
+                        <Label
+                            Style="{StaticResource TextSubhead}"
+                            VerticalOptions="Center"
+                            Text="Loading next dudes..." />
+                    </StackLayout>
+                </sho:DraggableViewCell>
+            </DataTemplate>
+
+            <DataTemplate x:Key="GroupHeaderTemplate" x:DataType="viewModels:DudeGroupHeader">
+                <sho:DraggableViewCell x:Name="DraggableViewCell" IsDraggable="False">
+                    <sho:Shadows x:Name="Shadow" Shades="{StaticResource VerticalNeumorphism}">
+                        <StackLayout
+                            Margin="0,15,0,10"
+                            Padding="0"
+                            BackgroundColor="{StaticResource DarkerSurface}"
+                            Orientation="Horizontal"
+                            Spacing="0">
+
+                            <Frame
+                                WidthRequest="30"
+                                HeightRequest="30"
+                                Margin="15,0,10,0"
+                                Padding="0"
+                                HorizontalOptions="End"
+                                VerticalOptions="Center"
+                                BackgroundColor="{StaticResource Accent}"
+                                CornerRadius="10"
+                                HasShadow="False">
+                                <Label
+                                    Style="{StaticResource TextTitle}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center"
+                                    Text="{Binding StarCount}" />
+                            </Frame>
+                            <Label
+                                Style="{StaticResource TextTitle}"
+                                VerticalOptions="Center"
+                                Text="Stars Dudes" />
+                        </StackLayout>
+                    </sho:Shadows>
+                </sho:DraggableViewCell>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DudeTemplate">
+                <sho:DraggableViewCell x:Name="DraggableViewCell">
+                    <sho:Shadows
+                        x:Name="Shadow"
+                        CornerRadius="10"
+                        Shades="{StaticResource ThinDarkerNeumorphism}">
+                        <views:SillyListCell
+                            Margin="16,13"
+                            BackgroundColor="{StaticResource DarkerSurface}"
+                            CornerRadius="10">
+                            <views:SillyListCell.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
+                                    TargetType="views:SillyListCell"
+                                    Value="True">
+                                    <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
+                                </DataTrigger>
+                            </views:SillyListCell.Triggers>
+                        </views:SillyListCell>
+                    </sho:Shadows>
+                </sho:DraggableViewCell>
+            </DataTemplate>
+
+            <views:HeaderFooterGroupingTemplateSelector
+                x:Key="HeaderFooterGroupingTemplateSelector"
+                DudeTemplate="{StaticResource DudeTemplate}"
+                FooterTemplate="{sho:SizedDataTemplate Template={StaticResource FooterTemplate},
+                                                       Size=60}"
+                GroupHeaderTemplate="{sho:SizedDataTemplate Template={StaticResource GroupHeaderTemplate},
+                                                            Size=75}"
+                HeaderTemplate="{sho:SizedDataTemplate Template={StaticResource HeaderTemplate},
+                                                       Size=40}" />
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto,*">
+
+            <customViews:TaskLoaderView
+                Grid.Row="1"
+                Style="{StaticResource SillyTaskLoader}"
+                TaskLoaderNotifier="{Binding SillyPeopleLoaderNotifier}">
+                <RefreshView
+                    Command="{Binding SillyPeopleLoaderNotifier.RefreshCommand}"
+                    IsRefreshing="{Binding SillyPeopleLoaderNotifier.ShowRefresher}"
+                    RefreshColor="{StaticResource Accent}">
+                    <sho:CollectionView
+                        CollectionLayout="Vertical"
+                        CollectionPadding="0,30,0,30"
+                        CurrentIndex="{Binding CurrentIndex}"
+                        ItemHeight="120"
+                        ItemTemplate="{StaticResource HeaderFooterGroupingTemplateSelector}"
+                        ItemsSource="{Binding SillyPeople}"
+                        ScrollBeganCommand="{Binding OnScrollBeginCommand}"
+                        ScrollEndedCommand="{Binding OnScrollEndCommand}"
+                        TapCommand="{Binding TapCommand}" />
+
+                    <!--  To enable infinite loading, add this property  -->
+                    <!--  InfiniteListLoader="{Binding SillyPeoplePaginator}"  -->
+
+                </RefreshView>
+            </customViews:TaskLoaderView>
+
+            <sho:Shadows Shades="{StaticResource DarkBottomShadow}">
+                <Grid
+                    BackgroundColor="{StaticResource DarkSurface}"
+                    ColumnDefinitions="60,*"
+                    RowDefinitions="Auto,Auto">
+                    <Grid.Padding>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="iOS">20, 60, 20, 20</On>
+                            <On Platform="Android">20, 40, 20, 20</On>
+                        </OnPlatform>
+                    </Grid.Padding>
+                    <ImageButton
+                        Grid.RowSpan="2"
+                        HeightRequest="40"
+                        VerticalOptions="Center"
+                        BackgroundColor="{StaticResource DarkSurface}"
+                        Command="{Binding GoBackCommand}"
+                        Source="leftarrow.png" />
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        FontAttributes="Italic"
+                        FontSize="22"
+                        Text="Sharpnado's"
+                        TextColor="{StaticResource Accent}" />
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,-10,0,0"
+                        FontAttributes="Bold"
+                        FontSize="30"
+                        Text="CollectionView"
+                        TextColor="White" />
+                </Grid>
+            </sho:Shadows>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -175,8 +175,6 @@ namespace SkiaRate
 
         private static void OnValueChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            var view = bindable as RatingView;
-            view.Value = view.ClampValue((double)newValue);
             OnPropertyChanged(bindable, oldValue, newValue);
         }
 
