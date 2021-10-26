@@ -1,4 +1,5 @@
 # Sharpnado.CollectionView
+**Formerly named `HorizontalListView`**
 
 <p align="left"><img src="Docs/logo.png" height="180"/>
 
@@ -83,6 +84,11 @@ All references to `HorizontalList` has been renamed to `Collection`, including:
  * ```UICollectionView``` on iOS
 
 
+
+https://user-images.githubusercontent.com/596903/138864430-108dcbc2-e425-4e2e-a9e1-feb568c0a866.mp4
+
+
+    
 ## Horizontal list layout
 
 ```csharp
@@ -688,7 +694,11 @@ Then we just assign a fixed size to each template when we declare our `DataTempl
 
 We don't have to assign a size to our item template (here the silly dude), it will pick the `ItemWidth` (for an horizontal layout) or `ItemHeight` (for a vertical one) size.
 
-INCLUDE header_demo_320.mp4
+
+
+https://user-images.githubusercontent.com/596903/138863695-1a3c426f-6d3c-4096-a743-20392fe9db3c.mp4
+
+
 
 You can find this example in the sample project (click on "Header and Grouping Example" button).
 
