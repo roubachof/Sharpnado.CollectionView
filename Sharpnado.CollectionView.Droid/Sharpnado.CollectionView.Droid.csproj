@@ -73,9 +73,6 @@
     <PackageReference Include="Xamarin.Forms">
       <Version>5.0.0.2196</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Google.Android.Material">
-      <Version>1.4.0.4</Version>
-    </PackageReference>
     <PackageReference Include="MSBuildTasks">
       <Version>1.5.0.235</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
