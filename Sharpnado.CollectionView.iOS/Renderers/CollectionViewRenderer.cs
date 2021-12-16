@@ -406,7 +406,21 @@ namespace Sharpnado.CollectionView.iOS.Renderers
                 return;
             }
 
-            if (Control.NumberOfItemsInSection(0) == ((IList)_itemsSource).Count)
+            var count = 0;
+            if (_itemsSource is IList list)
+            {
+                count = list.Count;
+            }
+            else
+            {
+                var enumerator = _itemsSource.GetEnumerator();
+                while (enumerator.MoveNext())
+                {
+                    count += 1;
+                }
+            }
+
+            if (Control.NumberOfItemsInSection(0) == count)
             {
                 return;
             }
