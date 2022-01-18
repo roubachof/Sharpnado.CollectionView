@@ -14,7 +14,7 @@
       <requireLicenseAcceptance>false</requireLicenseAcceptance>
       <summary>CollectionView (formerly named HorizontalListView) on steroids for Xamarin.Forms</summary>
       <tags>xamarin.forms android ios netstandard horizontallistview collectionview gridview carouselview listview drag drop header group footer</tags>
-      <releaseNotes>Header, Footer, GroupHeader implementation thanks to SizedDataTemplate.</releaseNotes>
+      <releaseNotes>Bindable ColumnCount and ScrollTo method helper.</releaseNotes>
       <description>
 
 * Horizontal, Grid, Carousel or Vertical layout

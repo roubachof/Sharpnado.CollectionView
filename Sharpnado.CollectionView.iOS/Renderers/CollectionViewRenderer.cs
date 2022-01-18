@@ -86,6 +86,7 @@ namespace Sharpnado.CollectionView.iOS.Renderers
                 case nameof(RenderedViews.CollectionView.DisableScroll):
                     ProcessDisableScroll();
                     break;
+                case nameof(RenderedViews.CollectionView.ColumnCount):
                 case nameof(RenderedViews.CollectionView.CollectionLayout):
                     UpdateListLayout();
                     break;
@@ -284,7 +285,7 @@ namespace Sharpnado.CollectionView.iOS.Renderers
             Control.ScrollToItem(
                 NSIndexPath.FromRowSection(Element.CurrentIndex, 0),
                 position,
-                false);
+                Element.AnimateScroll);
         }
 
         private void ProcessDisableScroll()

@@ -103,6 +103,7 @@ namespace Sharpnado.CollectionView.Droid.Renderers
                 case nameof(CollectionView.RenderedViews.CollectionView.DisableScroll):
                     ProcessDisableScroll();
                     break;
+                case nameof(CollectionView.RenderedViews.CollectionView.ColumnCount):
                 case nameof(CollectionView.RenderedViews.CollectionView.CollectionLayout):
                     UpdateListLayout();
                     break;

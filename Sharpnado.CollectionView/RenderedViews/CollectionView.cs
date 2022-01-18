@@ -211,6 +211,12 @@ namespace Sharpnado.CollectionView.RenderedViews
           DragAndDropDirection.Free,
           propertyChanged: OnMovementDirectionChanged);
 
+        public static readonly BindableProperty ColumnCountProperty = BindableProperty.Create(
+            nameof(ColumnCount),
+            typeof(int),
+            typeof(CollectionView),
+            1);
+
         public CollectionView()
         {
             // default layout is VerticalList
@@ -353,6 +359,12 @@ namespace Sharpnado.CollectionView.RenderedViews
             set => SetValue(CollectionLayoutProperty, value);
         }
 
+        public int ColumnCount
+        {
+            get => (int)GetValue(ColumnCountProperty);
+            set => SetValue(ColumnCountProperty, value);
+        }
+
         public Func<ViewCell, Task> PreRevealAnimationAsync { get; set; }
 
         public Func<ViewCell, Task> RevealAnimationAsync { get; set; }
@@ -365,8 +377,6 @@ namespace Sharpnado.CollectionView.RenderedViews
 
         public SnapStyle SnapStyle { get; set; } = SnapStyle.None;
 
-        public int ColumnCount { get; set; } = 1;
-
         public ScrollSpeed ScrollSpeed { get; set; } = ScrollSpeed.Normal;
 
         public bool IsLayoutHorizontal =>
@@ -376,6 +386,14 @@ namespace Sharpnado.CollectionView.RenderedViews
             CollectionLayout == CollectionViewLayout.Horizontal
             || CollectionLayout == CollectionViewLayout.Carousel
             || CollectionLayout == CollectionViewLayout.Vertical;
+
+        public bool AnimateScroll { get; set; }
+
+        public void ScrollTo(int index, bool animateScroll = true)
+        {
+            AnimateScroll = animateScroll;
+            CurrentIndex = index;
+        }
 
         public void CheckConsistency()
         {

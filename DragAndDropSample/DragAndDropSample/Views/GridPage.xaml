@@ -4,9 +4,6 @@
     x:Class="DragAndDropSample.Views.GridPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
     xmlns:converters="clr-namespace:DragAndDropSample.Converters;assembly=DragAndDropSample"
     xmlns:customViews="clr-namespace:Sharpnado.Presentation.Forms.CustomViews;assembly=Sharpnado.TaskLoaderView"
     xmlns:sho="http://sharpnado.com"
@@ -151,7 +148,7 @@
                         </OnPlatform>
                     </StackLayout.Padding>
 
-                    <Grid ColumnDefinitions="60,*, 60" RowDefinitions="Auto,Auto">
+                    <Grid ColumnDefinitions="60,*, 60" RowDefinitions="Auto,Auto, 40">
                         <ImageButton
                             Grid.RowSpan="2"
                             HeightRequest="40"
@@ -181,10 +178,30 @@
                             x:Name="DragAndDropSwitch"
                             Grid.RowSpan="2"
                             Grid.Column="2" />
-                        <!--
-                            OnColor="{StaticResource Accent}"
-                            ThumbColor="{StaticResource TextPrimaryDarkColor}"
-                        -->
+
+                        <StackLayout
+                            x:Name="ColumnCountContainer"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="2"
+                            Margin="0,0,10,0"
+                            HorizontalOptions="End"
+                            VerticalOptions="End"
+                            Orientation="Horizontal">
+                            <Label
+                                Margin="0,0,0,2"
+                                VerticalTextAlignment="Center"
+                                Text="Column Count"
+                                TextColor="White" />
+                            <Picker
+                                x:Name="ColumnPicker"
+                                WidthRequest="50"
+                                HorizontalTextAlignment="Center"
+                                BackgroundColor="{StaticResource DarkerSurface}"
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                TextColor="White" />
+                        </StackLayout>
 
                     </Grid>
 
@@ -192,7 +209,7 @@
                         x:Name="TabHost"
                         WidthRequest="280"
                         HeightRequest="50"
-                        Margin="0,35,0,10"
+                        Margin="0,10,0,10"
                         HorizontalOptions="Center"
                         VerticalOptions="EndAndExpand"
                         BackgroundColor="{StaticResource DarkSurface}"

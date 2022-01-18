@@ -14,8 +14,8 @@
 [assembly: System.Reflection.AssemblyCompany("Sharpnado")]
 [assembly: System.Reflection.AssemblyProduct("Sharpnado.CollectionView")]
 [assembly: System.Reflection.AssemblyCopyright("Copyright © Sharpnado 2021")]
-[assembly: System.Reflection.AssemblyFileVersion("2.0.0")]
-[assembly: System.Reflection.AssemblyVersion("2.0.0")]
+[assembly: System.Reflection.AssemblyFileVersion("2.1.0")]
+[assembly: System.Reflection.AssemblyVersion("2.1.0")]
 [assembly: System.Reflection.AssemblyTitle("Sharpnado.CollectionView")]
 
 
