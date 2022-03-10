@@ -10,6 +10,7 @@ using Sharpnado.CollectionView.Paging;
 using Sharpnado.CollectionView.Services;
 using Sharpnado.CollectionView.ViewModels;
 using Sharpnado.Presentation.Forms;
+using Sharpnado.Tasks;
 
 using Xamarin.Forms;
 
@@ -121,6 +122,11 @@ namespace DragAndDropSample.ViewModels
 
         private async Task<PageResult<SillyDude>> LoadSillyPeoplePageAsync(int pageNumber, int pageSize, bool isRefresh)
         {
+            //if (pageNumber > 1)
+            //{
+            //    return PageResult<SillyDude>.Empty;
+            //}
+
             PageResult<SillyDude> resultPage = await _sillyDudeService.GetSillyPeoplePage(pageNumber, pageSize);
             var viewModels = resultPage.Items.Select(dude => new SillyDudeVmo(dude, TapCommand)).ToList();
 
@@ -132,7 +138,7 @@ namespace DragAndDropSample.ViewModels
             SillyPeople.AddRange(viewModels);
 
             // Uncomment to test CurrentIndex property
-            // TaskMonitor.Create(
+            //TaskMonitor.Create(
             //    async () =>
             //    {
             //        await Task.Delay(2000);

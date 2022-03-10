@@ -35,7 +35,10 @@ namespace Sharpnado.CollectionView.iOS.Renderers
             {
                 foreach (var view in _views)
                 {
-                    view.CellContent.Dispose();
+                    if (view.TryGetCellContent(out var cellContent))
+                    {
+                        cellContent.Dispose();
+                    }
                 }
 
                 _views.Clear();

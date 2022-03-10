@@ -357,6 +357,7 @@ namespace Sharpnado.CollectionView.Droid.Renderers
             }
 
             LinearLayoutManager?.ScrollToPositionWithOffset(Element.CurrentIndex, offset);
+            GridLayoutManager?.ScrollToPositionWithOffset(Element.CurrentIndex, offset);
         }
 
         private void UpdateEnableDragAndDrop()

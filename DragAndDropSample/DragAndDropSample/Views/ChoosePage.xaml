@@ -83,14 +83,20 @@
                                     </pancakeView:PancakeView.BackgroundGradientStops>
                                     <Label
                                         Style="{StaticResource TextHeadline}"
-                                        Margin="0"
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center"
                                         VerticalTextAlignment="Center"
                                         FontAttributes="Bold"
                                         FontSize="90"
                                         Text="{Binding Text}"
-                                        TextColor="{Binding TextColor}" />
+                                        TextColor="{Binding TextColor}">
+                                        <Label.Margin>
+                                            <OnPlatform x:TypeArguments="Thickness">
+                                                <On Platform="iOS">0</On>
+                                                <On Platform="Android">0, -15, 0, 0</On>
+                                            </OnPlatform>
+                                        </Label.Margin>
+                                    </Label>
                                 </pancakeView:PancakeView>
                             </renderedViews:Shadows>
                         </ContentView>

@@ -27,11 +27,14 @@ namespace Sharpnado.CollectionView.iOS.Renderers
 
         private readonly ICommand _tapCommand;
 
+        private readonly WeakReference<UIView> _weakCellContent;
+
         public UIViewCellHolder(ViewCell formsCell, UIView view, ICommand tapCommand)
         {
             FormsCell = formsCell;
-            CellContent = view;
             _tapCommand = tapCommand;
+
+            _weakCellContent = new WeakReference<UIView>(view);
 
             if (tapCommand != null)
             {
@@ -41,21 +44,39 @@ namespace Sharpnado.CollectionView.iOS.Renderers
 
         public ViewCell FormsCell { get; }
 
-        public UIView CellContent { get; }
+        public bool TryGetCellContent(out UIView cellContent)
+        {
+            return _weakCellContent.TryGetTarget(out cellContent);
+        }
 
         public static bool operator ==(UIViewCellHolder c1, UIViewCellHolder c2)
         {
-            return ReferenceEquals(c1.FormsCell, c2.FormsCell) && ReferenceEquals(c1.CellContent, c2.CellContent);
+            if (!c1.TryGetCellContent(out var cellContent1) || !c2.TryGetCellContent(out var cellContent2))
+            {
+                return false;
+            }
+
+            return ReferenceEquals(c1.FormsCell, c2.FormsCell) && ReferenceEquals(cellContent1, cellContent2);
         }
 
         public static bool operator !=(UIViewCellHolder c1, UIViewCellHolder c2)
         {
-            return !ReferenceEquals(c1.FormsCell, c2.FormsCell) || !ReferenceEquals(c1.CellContent, c2.CellContent);
+            if (!c1.TryGetCellContent(out var cellContent1) || !c2.TryGetCellContent(out var cellContent2))
+            {
+                return true;
+            }
+
+            return !ReferenceEquals(c1.FormsCell, c2.FormsCell) || !ReferenceEquals(cellContent1, cellContent2);
         }
 
         public bool Equals(UIViewCellHolder other)
         {
-            return Equals(FormsCell, other.FormsCell) && Equals(CellContent, other.CellContent);
+            if (!TryGetCellContent(out var cellContent1) || !other.TryGetCellContent(out var cellContent2))
+            {
+                return false;
+            }
+
+            return Equals(FormsCell, other.FormsCell) && Equals(cellContent1, cellContent2);
         }
 
         public override bool Equals(object obj)
@@ -70,9 +91,11 @@ namespace Sharpnado.CollectionView.iOS.Renderers
 
         public override int GetHashCode()
         {
+            TryGetCellContent(out var cellContent);
+
             unchecked
             {
-                return ((FormsCell != null ? FormsCell.GetHashCode() : 0) * 397) ^ (CellContent != null ? CellContent.GetHashCode() : 0);
+                return ((FormsCell != null ? FormsCell.GetHashCode() : 0) * 397) ^ (cellContent != null ? cellContent.GetHashCode() : 0);
             }
         }
 
@@ -246,9 +269,9 @@ namespace Sharpnado.CollectionView.iOS.Renderers
                     return nativeCell;
                 }
 
-                if (_weakElement.TryGetTarget(out var p))
+                if (_weakElement.TryGetTarget(out var p) && holder.TryGetCellContent(out var cellContent))
                 {
-                    nativeCell.Initialize(holder.FormsCell, holder.CellContent, p);
+                    nativeCell.Initialize(holder.FormsCell, cellContent, p);
                 }
             }
 
@@ -321,20 +344,19 @@ namespace Sharpnado.CollectionView.iOS.Renderers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            _viewCellHolderCellHolderQueue?.Clear();
+
+            foreach (var weakCreatedCell in _createdCells.Values)
             {
-                _viewCellHolderCellHolderQueue?.Clear();
-
-                foreach (var weakCreatedCell in _createdCells.Values)
+                if (weakCreatedCell.TryGetTarget(out var createdCell))
                 {
-                    if (weakCreatedCell.TryGetTarget(out var createdCell))
-                    {
-                        createdCell.Reset();
-                    }
+                    createdCell.Reset();
                 }
-
-                _createdCells.Clear();
             }
+
+            _dataTemplates?.Clear();
+            _createdCells?.Clear();
+            _dataSource?.Clear();
 
             base.Dispose(disposing);
         }

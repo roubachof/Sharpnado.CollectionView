@@ -104,10 +104,11 @@ namespace DragAndDropSample.Views
                     HorizontalListView.BatchBegin();
                     HorizontalListView.ItemWidth = 120;
                     HorizontalListView.ItemHeight = 120;
-                    HorizontalListView.ColumnCount = 0;
                     HorizontalListView.BatchCommit();
                     HorizontalListView.Margin = new Thickness(0);
                     HorizontalListView.DragAndDropDirection = DragAndDropDirection.Free;
+
+                    HorizontalListView.ColumnCount = ColumnPicker.SelectedIndex == 0 ? -1 : ColumnPicker.SelectedIndex;
                     break;
 
                 case CollectionViewLayout.Vertical:

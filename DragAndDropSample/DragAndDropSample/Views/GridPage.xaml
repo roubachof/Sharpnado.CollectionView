@@ -120,7 +120,7 @@
                         CollectionLayoutChanging="ListLayoutChanging"
                         CollectionPadding="10,30,10,75"
                         ColumnCount="2"
-                        CurrentIndex="{Binding CurrentIndex}"
+                        CurrentIndex="{Binding CurrentIndex, Mode=TwoWay}"
                         DragAndDropEndedCommand="{Binding OnDragEnded}"
                         DragAndDropStartedCommand="{Binding OnDragStarted}"
                         DragAndDropTrigger="Pan"
@@ -133,6 +133,54 @@
                         ScrollBeganCommand="{Binding OnScrollBeginCommand}"
                         ScrollEndedCommand="{Binding OnScrollEndCommand}"
                         TapCommand="{Binding TapCommand}" />
+
+
+                    <!--  Testing the ViewCacheSize property  -->
+                    <!--<sho:CollectionView
+                        x:Name="HorizontalListView"
+                        CollectionLayout="{Binding Mode, Converter={converters:ListModeToListLayout}}"
+                        CollectionLayoutChanging="ListLayoutChanging"
+                        CollectionPadding="10,30,10,75"
+                        ColumnCount="2"
+                        CurrentIndex="{Binding CurrentIndex}"
+                        DragAndDropEndedCommand="{Binding OnDragEnded}"
+                        DragAndDropStartedCommand="{Binding OnDragStarted}"
+                        DragAndDropTrigger="Pan"
+                        EnableDragAndDrop="{Binding Source={x:Reference DragAndDropSwitch}, Path=IsToggled}"
+                        InfiniteListLoader="{Binding SillyPeoplePaginator}"
+                        ItemHeight="120"
+                        ItemWidth="120"
+                        ItemsSource="{Binding SillyPeople}"
+                        ScrollBeganCommand="{Binding OnScrollBeginCommand}"
+                        ScrollEndedCommand="{Binding OnScrollEndCommand}"
+                        TapCommand="{Binding TapCommand}"
+                        ViewCacheSize="100">
+                        <sho:CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <sho:DraggableViewCell x:Name="DraggableViewCell">
+                                    <sho:Shadows
+                                        x:Name="Shadow"
+                                        CornerRadius="10"
+                                        Shades="{StaticResource ThinDarkerNeumorphism}">
+                                        <views:SillyGridCell
+                                            Margin="16,13,16,13"
+                                            BackgroundColor="{StaticResource DarkerSurface}"
+                                            CornerRadius="10">
+                                            <views:SillyGridCell.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
+                                                    TargetType="views:SillyGridCell"
+                                                    Value="True">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
+                                                </DataTrigger>
+                                            </views:SillyGridCell.Triggers>
+                                        </views:SillyGridCell>
+                                    </sho:Shadows>
+                                </sho:DraggableViewCell>
+                            </DataTemplate>
+                        </sho:CollectionView.ItemTemplate>
+                    </sho:CollectionView>-->
+
                 </RefreshView>
             </customViews:TaskLoaderView>
 

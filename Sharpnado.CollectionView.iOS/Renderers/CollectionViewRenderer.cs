@@ -116,6 +116,9 @@ namespace Sharpnado.CollectionView.iOS.Renderers
                     oldNotifyCollection.CollectionChanged -= OnCollectionChanged;
                 }
 
+                _dragAndDropGesture?.Dispose();
+                _dragAndDropGesture = null;
+                _itemsSource = null;
                 _registeredDataTemplates.Clear();
             }
 
@@ -402,12 +405,7 @@ namespace Sharpnado.CollectionView.iOS.Renderers
                 return;
             }
 
-            if (Control == null)
-            {
-                return;
-            }
-
-            if (Control.NumberOfItemsInSection(0) == ((IList)_itemsSource).Count)
+            if (Control == null || _itemsSource == null)
             {
                 return;
             }
