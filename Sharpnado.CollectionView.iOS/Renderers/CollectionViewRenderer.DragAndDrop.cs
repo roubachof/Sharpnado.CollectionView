@@ -97,7 +97,6 @@ namespace Sharpnado.CollectionView.iOS.Renderers
                     var changedPath = Control.IndexPathForItemAtPoint(gestureLocation);
                     if (changedPath != null)
                     {
-                        draggedViewCell = (iOSViewCell)Control.CellForItem(changedPath);
                         if (draggedViewCell == null
                             || (draggedViewCell.FormsCell is DraggableViewCell draggableViewCell
                                 && !draggableViewCell.IsDraggable))
