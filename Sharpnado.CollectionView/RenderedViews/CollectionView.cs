@@ -159,6 +159,26 @@ namespace Sharpnado.CollectionView.RenderedViews
             typeof(ICommand),
             typeof(CollectionView));
 
+        public static readonly BindableProperty ScrollingLeftCommandProperty = BindableProperty.Create(
+            nameof(ScrollingLeftCommand),
+            typeof(ICommand),
+            typeof(CollectionView));
+
+        public static readonly BindableProperty ScrollingUpCommandProperty = BindableProperty.Create(
+            nameof(ScrollingUpCommand),
+            typeof(ICommand),
+            typeof(CollectionView));
+
+        public static readonly BindableProperty ScrollingRightCommandProperty = BindableProperty.Create(
+            nameof(ScrollingRightCommand),
+            typeof(ICommand),
+            typeof(CollectionView));
+
+        public static readonly BindableProperty ScrollingDownCommandProperty = BindableProperty.Create(
+            nameof(ScrollingDownCommand),
+            typeof(ICommand),
+            typeof(CollectionView));
+
         public static readonly BindableProperty EnableDragAndDropProperty = BindableProperty.Create(
             nameof(EnableDragAndDrop),
             typeof(bool),
@@ -315,6 +335,30 @@ namespace Sharpnado.CollectionView.RenderedViews
         {
             get => (ICommand)GetValue(ScrollEndedCommandProperty);
             set => SetValue(ScrollEndedCommandProperty, value);
+        }
+
+        public ICommand ScrollingLeftCommand
+        {
+            get => (ICommand)GetValue(ScrollingLeftCommandProperty);
+            set => SetValue(ScrollingLeftCommandProperty, value);
+        }
+
+        public ICommand ScrollingUpCommand
+        {
+            get => (ICommand)GetValue(ScrollingUpCommandProperty);
+            set => SetValue(ScrollingUpCommandProperty, value);
+        }
+
+        public ICommand ScrollingDownCommand
+        {
+            get => (ICommand)GetValue(ScrollingDownCommandProperty);
+            set => SetValue(ScrollingDownCommandProperty, value);
+        }
+
+        public ICommand ScrollingRightCommand
+        {
+            get => (ICommand)GetValue(ScrollingRightCommandProperty);
+            set => SetValue(ScrollingRightCommandProperty, value);
         }
 
         public bool EnableDragAndDrop

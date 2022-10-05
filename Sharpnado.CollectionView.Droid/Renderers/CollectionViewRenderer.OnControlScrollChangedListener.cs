@@ -19,8 +19,6 @@ namespace Sharpnado.CollectionView.Droid.Renderers
             private CancellationTokenSource _cts;
             private int _lastVisibleItemIndex = -1;
 
-            private int _currentOffset = 0;
-
             public OnControlScrollChangedListener(IntPtr handle, JniHandleOwnership transfer)
                 : base(handle, transfer)
             {
@@ -38,7 +36,23 @@ namespace Sharpnado.CollectionView.Droid.Renderers
             {
                 base.OnScrolled(recyclerView, dx, dy);
 
-                _currentOffset += dx;
+                if (dx > 0)
+                {
+                    _element.ScrollingRightCommand?.Execute(null);
+                }
+                else if (dx < 0)
+                {
+                    _element.ScrollingLeftCommand?.Execute(null);
+                }
+
+                if (dy > 0)
+                {
+                    _element.ScrollingDownCommand?.Execute(null);
+                }
+                else if (dy < 0)
+                {
+                    _element.ScrollingUpCommand?.Execute(null);
+                }
 
                 var infiniteListLoader = _element?.InfiniteListLoader;
                 if (infiniteListLoader == null)
