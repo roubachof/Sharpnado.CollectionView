@@ -4,7 +4,7 @@ namespace Sharpnado.CollectionView.Droid.Renderers
 {
     public static class MeasureHelper
     {
-        public const int RecyclerViewItemVerticalMarginDp = 2;
+        public const int RecyclerViewItemVerticalMarginDp = 0;
 
         public static int ComputeSpan(int availableWidth, CollectionView.RenderedViews.CollectionView element)
         {
