@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Shadow
+        x:Key="ShadowNeumorphismTop"
+        Brush="#404040"
+        Opacity="1"
+        Radius="6"
+        Offset="-8,-6" />
+
+    <Shadow
+        x:Key="ShadowNeumorphismBottom"
+        Brush="#303030"
+        Opacity="1"
+        Radius="6"
+        Offset="8,6" />
+
+    <Shadow
+        x:Key="ShadowDarkerNeumorphismTop"
+        Brush="#3a3a3a"
+        Opacity="1"
+        Radius="3"
+        Offset="-5,-5" />
+
+    <Shadow
+        x:Key="ShadowDarkerNeumorphismBottom"
+        Brush="#2b2b2b"
+        Opacity="1"
+        Radius="3"
+        Offset="5,5" />
+
+    <Shadow
+        x:Key="ShadowVerticalNeumorphismTop"
+        Brush="#3a3a3a"
+        Opacity="1"
+        Radius="6"
+        Offset="0,-8" />
+
+    <Shadow
+        x:Key="ShadowVerticalNeumorphismBottom"
+        Brush="#2b2b2b"
+        Opacity="1"
+        Radius="6"
+        Offset="0,8" />
+
+    <Shadow
+        x:Key="ShadowAccentTop"
+        Brush="#404040"
+        Opacity="1"
+        Radius="3"
+        Offset="-5,-5" />
+
+    <Shadow
+        x:Key="ShadowAccentBottom"
+        Brush="#FF0266"
+        Opacity="1"
+        Radius="3"
+        Offset="5,5" />
+
+    <Shadow
+        x:Key="DarkBottomShadow"
+        Brush="#2c2c2c"
+        Opacity="1"
+        Radius="6"
+        Offset="0,8" />
+
+    <Shadow
+        x:Key="DarkNeumorphismTop"
+        Brush="#404040"
+        Opacity="1"
+        Radius="6"
+        Offset="-8,-8" />
+
+    <Shadow
+        x:Key="DarkNeumorphismBottom"
+        Brush="#303030"
+        Opacity="1"
+        Radius="6"
+        Offset="8,8" />
+
+</ResourceDictionary>

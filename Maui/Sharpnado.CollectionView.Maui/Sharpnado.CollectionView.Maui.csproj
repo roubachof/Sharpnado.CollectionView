@@ -1,0 +1,156 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
+		<RootNamespace>Sharpnado.CollectionView</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+
+		<CodeAnalysisRuleSet>..\..\StyleCopRules.ruleset</CodeAnalysisRuleSet>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Product>$(AssemblyName) ($(TargetFramework))</Product>
+		<AssemblyVersion>3.0.0</AssemblyVersion>
+		<AssemblyFileVersion>3.0.0</AssemblyFileVersion>
+		<Version>3.0.0</Version>
+		<PackOnBuild>true</PackOnBuild>
+		<NeutralLanguage>en</NeutralLanguage>
+
+		<UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>Sharpnado.CollectionView.Maui</PackageId>
+		<PackageProjectUrl>https://github.com/roubachof/Sharpnado.CollectionView</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/roubachof/Sharpnado.CollectionView</RepositoryUrl>
+		<PackageIcon>images\logo_maui.png</PackageIcon>
+		<PackageReadmeFile>docs\ReadMe.md</PackageReadmeFile>
+		<PackageTags>maui performance xamarin.forms android ios horizontallistview collectionview gridview carouselview listview drag drop header group footer</PackageTags>
+		<PackageReleaseNotes>
+			First MAUI release \o/
+		</PackageReleaseNotes>
+
+		<Title>A performant CollectionView with drag and drop for MAUI</Title>
+		<Summary>Including Horizontal, Grid, Carousel or Vertical layout, drag and drop, proper recycling for data template, pagination, infinite scrolling</Summary>
+		<Description>
+			CollectionView on steroids including:
+
+			* Horizontal, Grid, Carousel or Vertical layout
+			* Header, Footer and GroupHeader
+			* Reveal custom animations
+			* Drag and Drop
+			* Column count
+			* Infinite loading with Paginator component
+			* Snapping on first or middle element
+			* Padding and item spacing
+			* Handles NotifyCollectionChangedAction Add, Remove and Reset actions
+			* View recycling
+			* RecyclerView on Android
+			* UICollectionView on iOS
+
+			## Installation
+
+			* In Core project, in `MauiProgram.cs`:
+
+			```csharp
+			public static MauiApp CreateMauiApp()
+			{
+				var builder = MauiApp.CreateBuilder();
+				builder
+					.UseMauiApp()
+					.UseSharpnadoCollectionView(loggerEnabled: false);
+			}
+			```
+		</Description>
+
+		<Owners>Jean-Marie Alfonsi</Owners>
+		<Authors>Jean-Marie Alfonsi</Authors>
+		<Copyright>Copyright 2022 Sharpnado</Copyright>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<FileVersion>3.0.0</FileVersion>
+	</PropertyGroup>
+
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Helpers\JniExtensions.cs" Link="Platforms\Android\Helpers\JniExtensions.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Helpers\JniWeakReference.cs" Link="Platforms\Android\Helpers\JniWeakReference.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Helpers\PlatformHelper.cs" Link="Platforms\Android\Helpers\PlatformHelper.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Helpers\ViewExtensions.cs" Link="Platforms\Android\Helpers\ViewExtensions.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Helpers\ViewHierarchyPrinter.cs" Link="Platforms\Android\Helpers\ViewHierarchyPrinter.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Helpers\ViewVisitor.cs" Link="Platforms\Android\Helpers\ViewVisitor.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\CellCache.cs" Link="Platforms\Android\Renderers\CellCache.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\CenterSnapHelper.cs" Link="Platforms\Android\Renderers\CenterSnapHelper.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\CollectionViewRenderer.cs" Link="Platforms\Android\Renderers\CollectionViewRenderer.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\CollectionViewRenderer.DragAnDropItemTouchHelperCallback.cs" Link="Platforms\Android\Renderers\CollectionViewRenderer.DragAnDropItemTouchHelperCallback.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\CollectionViewRenderer.OnControlScrollChangedListener.cs" Link="Platforms\Android\Renderers\CollectionViewRenderer.OnControlScrollChangedListener.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\CollectionViewRenderer.RecycleViewAdapter.cs" Link="Platforms\Android\Renderers\CollectionViewRenderer.RecycleViewAdapter.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\CustomLinearLayoutManager.cs" Link="Platforms\Android\Renderers\CustomLinearLayoutManager.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\MeasureHelper.cs" Link="Platforms\Android\Renderers\MeasureHelper.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\ResponsiveGridLayoutManager.cs" Link="Platforms\Android\Renderers\ResponsiveGridLayoutManager.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\SlowRecyclerView.cs" Link="Platforms\Android\Renderers\SlowRecyclerView.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\StartSnapHelper.cs" Link="Platforms\Android\Renderers\StartSnapHelper.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\ViewHolderQueue.cs" Link="Platforms\Android\Renderers\ViewHolderQueue.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Initializer.cs">
+			<Link>Platforms\Android\Initializer.cs</Link>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\AssemblyConfiguration.cs" Link="AssemblyConfiguration.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\Contract.cs" Link="Contract.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\Helpers\ElementExtensions.cs" Link="Helpers\ElementExtensions.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\Helpers\ElementHierarchyPrinter.cs" Link="Helpers\ElementHierarchyPrinter.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\Helpers\ElementVisitor.cs" Link="Helpers\ElementVisitor.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\Helpers\ListExtensions.cs" Link="Helpers\ListExtensions.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\Helpers\SharpnadoViewExtensions.cs" Link="Helpers\SharpnadoViewExtensions.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\Helpers\ViewExtensions.cs" Link="Helpers\ViewExtensions.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\Initializer.cs" Link="Initializer.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\InternalLogger.cs" Link="InternalLogger.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\Paging\IInfiniteListLoader.cs" Link="Paging\IInfiniteListLoader.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\Paging\Paginator.cs" Link="Paging\Paginator.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\RenderedViews\CollectionView.cs" Link="CollectionView.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\RenderedViews\ComputationHelper.cs" Link="ComputationHelper.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\RenderedViews\PlatformHelper.cs" Link="PlatformHelper.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\RenderedViews\SizedDataTemplate.cs" Link="SizedDataTemplate.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\RenderedViews\SizedDataTemplateSelector.cs" Link="SizedDataTemplateSelector.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\Services\PageResult.cs" Link="Paging\PageResult.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\ViewModels\Bindable.cs" Link="ViewModels\Bindable.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\ViewModels\DragAndDropInfo.cs" Link="ViewModels\DragAndDropInfo.cs" />
+		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\ViewModels\ObservableRangeCollection.cs" Link="ViewModels\ObservableRangeCollection.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\Docs\logo_maui.png" Pack="true" PackagePath="\images\" />
+		<None Include="ReadMe.md" Pack="true" PackagePath="\docs\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Sharpnado.TaskMonitor" Version="1.0.2" />
+		<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.354">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+
+</Project>

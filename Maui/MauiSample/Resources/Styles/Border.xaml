@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Style x:Key="BorderDarkerNeumorphismTop" TargetType="Border">
+        <Setter Property="StrokeShape" Value="RoundRectangle 10" />
+        <Setter Property="Shadow" Value="{StaticResource ShadowDarkerNeumorphismTop}" />
+    </Style>
+
+    <Style x:Key="BorderDarkerNeumorphismBottom" TargetType="Border">
+        <Setter Property="StrokeShape" Value="RoundRectangle 10" />
+        <Setter Property="Shadow" Value="{StaticResource ShadowDarkerNeumorphismBottom}" />
+    </Style>
+
+</ResourceDictionary>
