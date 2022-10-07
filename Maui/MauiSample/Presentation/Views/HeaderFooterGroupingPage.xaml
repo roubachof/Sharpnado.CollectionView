@@ -47,23 +47,24 @@
 
             <DataTemplate x:Key="GroupHeaderTemplate" x:DataType="viewModels:DudeGroupHeader">
                 <sho:DraggableViewCell x:Name="DraggableViewCell" IsDraggable="False">
-                    <Border x:Name="Shadow" Shadow="{StaticResource ShadowVerticalNeumorphismTop}">
+                    <ContentView>
                         <StackLayout
                             Margin="0,15,0,10"
                             Padding="0"
-                            BackgroundColor="{StaticResource DarkerSurface}"
+                            BackgroundColor="{StaticResource DarkSurface}"
                             Orientation="Horizontal"
                             Shadow="{StaticResource ShadowVerticalNeumorphismBottom}"
                             Spacing="0">
 
-                            <Frame
+                            <Border
                                 Margin="15,0,10,0"
                                 Padding="0"
                                 BackgroundColor="{StaticResource Accent}"
-                                CornerRadius="10"
-                                HasShadow="False"
                                 HeightRequest="30"
                                 HorizontalOptions="End"
+                                Stroke="#F70055"
+                                StrokeShape="RoundRectangle 10"
+                                StrokeThickness="2"
                                 VerticalOptions="Center"
                                 WidthRequest="30">
                                 <Label
@@ -71,30 +72,24 @@
                                     Style="{StaticResource TextTitle}"
                                     Text="{Binding StarCount}"
                                     VerticalOptions="Center" />
-                            </Frame>
+                            </Border>
                             <Label
                                 Style="{StaticResource TextTitle}"
                                 Text="Stars Dudes"
                                 VerticalOptions="Center" />
                         </StackLayout>
-                    </Border>
+                    </ContentView>
                 </sho:DraggableViewCell>
             </DataTemplate>
 
             <DataTemplate x:Key="DudeTemplate">
                 <sho:DraggableViewCell x:Name="DraggableViewCell">
-                    <Border BackgroundColor="{StaticResource DarkerSurface}" Style="{StaticResource BorderDarkerNeumorphismTop}">
-                        <views:SillyListCell Margin="16,13" Shadow="{StaticResource ShadowDarkerNeumorphismBottom}">
-                            <views:SillyListCell.Triggers>
-                                <DataTrigger
-                                    Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
-                                    TargetType="views:SillyListCell"
-                                    Value="True">
-                                    <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
-                                </DataTrigger>
-                            </views:SillyListCell.Triggers>
-                        </views:SillyListCell>
-                    </Border>
+                    <ContentView>
+                        <views:SillyListCell
+                            Margin="16,8"
+                            Background="{StaticResource DarkSurface}"
+                            Style="{StaticResource BorderDarkerNeumorphismBottom}" />
+                    </ContentView>
                 </sho:DraggableViewCell>
             </DataTemplate>
 
@@ -142,12 +137,12 @@
             <Grid
                 BackgroundColor="{StaticResource DarkSurface}"
                 ColumnDefinitions="60,*"
-                RowDefinitions="Auto,Auto"
+                RowDefinitions="30,30"
                 Shadow="{StaticResource DarkBottomShadow}">
                 <Grid.Padding>
                     <OnPlatform x:TypeArguments="Thickness">
-                        <On Platform="iOS">20, 60, 20, 20</On>
-                        <On Platform="Android">20, 40, 20, 20</On>
+                        <On Platform="iOS">0, 60, 20, 20</On>
+                        <On Platform="Android">0, 30, 20, 20</On>
                     </OnPlatform>
                 </Grid.Padding>
                 <ImageButton
@@ -174,6 +169,23 @@
                     FontSize="30"
                     Text="CollectionView"
                     TextColor="White" />
+
+                <Image
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    HeightRequest="60"
+                    HorizontalOptions="End"
+                    Source="cocktail.png"
+                    VerticalOptions="Center"
+                    WidthRequest="60">
+                    <Image.Shadow>
+                        <Shadow
+                            Brush="{StaticResource Primary}"
+                            Opacity="1"
+                            Radius="10" />
+                    </Image.Shadow>
+                </Image>
             </Grid>
 
         </Grid>

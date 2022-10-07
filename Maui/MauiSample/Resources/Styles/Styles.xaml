@@ -36,6 +36,23 @@
         Right="{StaticResource StandardPadding}"
         Top="{StaticResource StandardPadding}" />
 
+    <Style
+        x:Key="Avatar"
+        ApplyToDerivedTypes="True"
+        TargetType="Image">
+        <Setter Property="HorizontalOptions" Value="Fill" />
+        <Setter Property="VerticalOptions" Value="Fill" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="ContentPage">
+        <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
+    </Style>
+
+    <Style ApplyToDerivedTypes="True" TargetType="NavigationPage">
+        <Setter Property="BarBackgroundColor" Value="{StaticResource DarkSurface}" />
+        <Setter Property="BarTextColor" Value="{StaticResource PrimaryDarkColor}" />
+    </Style>
+
     <Style x:Key="SillyTaskLoader" TargetType="tlv:TaskLoaderView">
         <Setter Property="AccentColor" Value="{StaticResource Accent}" />
         <Setter Property="TextColor" Value="{StaticResource PrimaryDarkColor}" />
@@ -403,12 +420,6 @@
         <Setter Property="Shell.TabBarForegroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray200}}" />
-    </Style>
-
-    <Style TargetType="NavigationPage">
-        <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Gray950}}" />
-        <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource White}}" />
-        <Setter Property="IconColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource White}}" />
     </Style>
 
     <Style TargetType="TabbedPage">

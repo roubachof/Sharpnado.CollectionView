@@ -19,72 +19,67 @@
             <Style x:Key="SegmentedTabStyle" TargetType="sho:UnderlinedTabItem">
                 <Setter Property="SelectedTabColor" Value="{StaticResource Accent}" />
                 <Setter Property="LabelSize" Value="16" />
+                <Setter Property="UnderlineHeight" Value="0" />
                 <Setter Property="UnselectedLabelColor" Value="{StaticResource TextSecondaryDarkColor}" />
             </Style>
 
             <DataTemplate x:Key="GridDudeTemplate">
                 <sho:DraggableViewCell x:Name="DraggableViewCell">
-                    <Border x:Name="Shadow" Style="{StaticResource BorderDarkerNeumorphismTop}">
-                        <Border
-                            Margin="16,13,16,13"
-                            BackgroundColor="{StaticResource DarkerSurface}"
+                    <ContentView>
+                        <views:SillyGridCell
+                            Margin="10"
+                            Background="{StaticResource DarkSurface}"
                             Style="{StaticResource BorderDarkerNeumorphismBottom}">
-                            <views:SillyGridCell>
-                                <views:SillyGridCell.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
-                                        TargetType="views:SillyGridCell"
-                                        Value="True">
-                                        <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
-                                    </DataTrigger>
-                                </views:SillyGridCell.Triggers>
-                            </views:SillyGridCell>
-                        </Border>
-                    </Border>
+                            <views:SillyGridCell.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
+                                    TargetType="views:SillyGridCell"
+                                    Value="True">
+                                    <Setter Property="Background" Value="{StaticResource DarklessSurface}" />
+                                </DataTrigger>
+                            </views:SillyGridCell.Triggers>
+                        </views:SillyGridCell>
+                    </ContentView>
                 </sho:DraggableViewCell>
             </DataTemplate>
 
             <DataTemplate x:Key="HorizontalDudeTemplate">
                 <sho:DraggableViewCell x:Name="DraggableViewCell">
-                    <Border x:Name="Shadow" Style="{StaticResource BorderDarkerNeumorphismTop}">
-                        <Border
-                            Margin="16,13,16,13"
-                            BackgroundColor="{StaticResource DarkerSurface}"
+                    <ContentView>
+                        <views:SillyHorizontalCell
+                            Margin="10"
+                            Background="{StaticResource DarkSurface}"
                             Style="{StaticResource BorderDarkerNeumorphismBottom}">
-                            <views:SillyHorizontalCell>
-                                <views:SillyHorizontalCell.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
-                                        TargetType="views:SillyHorizontalCell"
-                                        Value="True">
-                                        <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
-                                    </DataTrigger>
-                                </views:SillyHorizontalCell.Triggers>
-                            </views:SillyHorizontalCell>
-                        </Border>
-                    </Border>
+                            <views:SillyHorizontalCell.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
+                                    TargetType="views:SillyHorizontalCell"
+                                    Value="True">
+                                    <Setter Property="Background" Value="{StaticResource DarklessSurface}" />
+                                </DataTrigger>
+                            </views:SillyHorizontalCell.Triggers>
+                        </views:SillyHorizontalCell>
+                    </ContentView>
                 </sho:DraggableViewCell>
             </DataTemplate>
 
             <DataTemplate x:Key="VerticalDudeTemplate">
                 <sho:DraggableViewCell x:Name="DraggableViewCell">
-                    <Border x:Name="Shadow" Style="{StaticResource BorderDarkerNeumorphismTop}">
-                        <Border
-                            Margin="16,13,16,13"
-                            BackgroundColor="{StaticResource DarkerSurface}"
+                    <ContentView>
+                        <views:SillyListCell
+                            Margin="16,8"
+                            Background="{StaticResource DarkSurface}"
                             Style="{StaticResource BorderDarkerNeumorphismBottom}">
-                            <views:SillyListCell>
-                                <views:SillyListCell.Triggers>
-                                    <DataTrigger
-                                        Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
-                                        TargetType="views:SillyListCell"
-                                        Value="True">
-                                        <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
-                                    </DataTrigger>
-                                </views:SillyListCell.Triggers>
-                            </views:SillyListCell>
-                        </Border>
-                    </Border>
+                            <views:SillyListCell.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
+                                    TargetType="views:SillyListCell"
+                                    Value="True">
+                                    <Setter Property="Background" Value="{StaticResource DarklessSurface}" />
+                                </DataTrigger>
+                            </views:SillyListCell.Triggers>
+                        </views:SillyListCell>
+                    </ContentView>
                 </sho:DraggableViewCell>
             </DataTemplate>
 
@@ -109,6 +104,7 @@
                 <RefreshView
                     Command="{Binding SillyPeopleLoaderNotifier.RefreshCommand}"
                     IsClippedToBounds="False"
+                    IsEnabled="{Binding Source={x:Reference DragAndDropSwitch}, Path=IsToggled, Converter={converters:NotConverter}}"
                     IsRefreshing="{Binding SillyPeopleLoaderNotifier.ShowRefresher}"
                     RefreshColor="{StaticResource Accent}">
                     <sho:CollectionView
@@ -181,19 +177,18 @@
                 </RefreshView>
             </taskLoaderView:TaskLoaderView>
 
-            <StackLayout
+            <VerticalStackLayout
                 BackgroundColor="{StaticResource DarkSurface}"
-                Orientation="Vertical"
                 Shadow="{StaticResource DarkBottomShadow}"
                 Spacing="0">
-                <StackLayout.Padding>
+                <VerticalStackLayout.Padding>
                     <OnPlatform x:TypeArguments="Thickness">
-                        <On Platform="iOS">20, 60, 20, 20</On>
-                        <On Platform="Android">20, 40, 20, 20</On>
+                        <On Platform="iOS">0, 60, 20, 20</On>
+                        <On Platform="Android">0, 30, 20, 20</On>
                     </OnPlatform>
-                </StackLayout.Padding>
+                </VerticalStackLayout.Padding>
 
-                <Grid ColumnDefinitions="60,*, 60" RowDefinitions="Auto,Auto, 40">
+                <Grid ColumnDefinitions="60,*, 60" RowDefinitions="30, 30, 50">
                     <ImageButton
                         Grid.RowSpan="2"
                         BackgroundColor="{StaticResource DarkSurface}"
@@ -219,61 +214,91 @@
                         Text="CollectionView"
                         TextColor="White" />
 
-                    <Switch
-                        x:Name="DragAndDropSwitch"
+                    <Image
+                        Grid.Row="0"
                         Grid.RowSpan="2"
-                        Grid.Column="2" />
-
-                    <StackLayout
-                        x:Name="ColumnCountContainer"
-                        Grid.Row="2"
                         Grid.Column="1"
                         Grid.ColumnSpan="2"
-                        Margin="0,0,10,0"
+                        HeightRequest="60"
                         HorizontalOptions="End"
-                        Orientation="Horizontal"
-                        VerticalOptions="End">
-                        <Label
-                            Margin="0,0,0,2"
-                            Text="Column Count"
-                            TextColor="White"
-                            VerticalTextAlignment="Center" />
-                        <Picker
-                            x:Name="ColumnPicker"
-                            BackgroundColor="{StaticResource DarkerSurface}"
-                            FontAttributes="Bold"
-                            FontSize="15"
-                            HorizontalTextAlignment="Center"
-                            TextColor="White"
-                            WidthRequest="50" />
-                    </StackLayout>
+                        Source="island.png"
+                        VerticalOptions="Center"
+                        WidthRequest="60">
+                        <Image.Shadow>
+                            <Shadow
+                                Brush="{StaticResource Primary}"
+                                Opacity="1"
+                                Radius="10" />
+                        </Image.Shadow>
+                    </Image>
+
+                    <HorizontalStackLayout
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        HeightRequest="40"
+                        HorizontalOptions="End"
+                        Spacing="10">
+                        <HorizontalStackLayout
+                            Margin="16,0,0,0"
+                            Spacing="10"
+                            VerticalOptions="End">
+                            <Label
+                                Margin="0,0,0,2"
+                                FontSize="12"
+                                Text="Drag and Drop"
+                                TextColor="White"
+                                VerticalOptions="Center" />
+                            <Switch x:Name="DragAndDropSwitch" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout x:Name="ColumnCountContainer" VerticalOptions="End">
+                            <Label
+                                Margin="0,0,0,2"
+                                FontSize="12"
+                                Text="Column Count"
+                                TextColor="White"
+                                VerticalOptions="Center" />
+                            <Picker
+                                x:Name="ColumnPicker"
+                                Margin="10,0,0,0"
+                                BackgroundColor="{StaticResource DarkSurface}"
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                TextColor="{StaticResource Primary}" />
+                        </HorizontalStackLayout>
+                    </HorizontalStackLayout>
 
                 </Grid>
 
-                <Border
-                    Margin="0,10,0,10"
+
+                <sho:TabHostView
+                    x:Name="TabHost"
+                    Margin="0,10,0,0"
+                    BackgroundColor="{StaticResource DarklessSurface}"
+                    CornerRadius="25"
                     HeightRequest="50"
                     HorizontalOptions="Center"
-                    Shadow="{StaticResource DarkNeumorphismTop}"
-                    StrokeShape="RoundRectangle 25"
+                    IsSegmented="True"
+                    SegmentedOutlineColor="#303030"
+                    SelectedIndex="{Binding Mode, Converter={converters:ListModeToInt}, Mode=TwoWay}"
+                    TabType="Fixed"
                     VerticalOptions="EndAndExpand"
                     WidthRequest="280">
-                    <sho:TabHostView
-                        x:Name="TabHost"
-                        BackgroundColor="{StaticResource DarkSurface}"
-                        CornerRadius="25"
-                        IsSegmented="True"
-                        SelectedIndex="{Binding Mode, Converter={converters:ListModeToInt}, Mode=TwoWay}"
-                        Shadow="{StaticResource DarkNeumorphismBottom}"
-                        TabType="Fixed">
-                        <sho:TabHostView.Tabs>
-                            <sho:UnderlinedTabItem Label="Grid" Style="{StaticResource SegmentedTabStyle}" />
-                            <sho:UnderlinedTabItem Label="Horizontal" Style="{StaticResource SegmentedTabStyle}" />
-                            <sho:UnderlinedTabItem Label="Vertical" Style="{StaticResource SegmentedTabStyle}" />
-                        </sho:TabHostView.Tabs>
-                    </sho:TabHostView>
-                </Border>
-            </StackLayout>
+                    <sho:TabHostView.Shadow>
+                        <Shadow
+                            Brush="#303030"
+                            Opacity="1"
+                            Radius="10"
+                            Offset="0,10" />
+                    </sho:TabHostView.Shadow>
+                    <sho:TabHostView.Tabs>
+                        <sho:UnderlinedTabItem Label="Grid" Style="{StaticResource SegmentedTabStyle}" />
+                        <sho:UnderlinedTabItem Label="Horizontal" Style="{StaticResource SegmentedTabStyle}" />
+                        <sho:UnderlinedTabItem Label="Vertical" Style="{StaticResource SegmentedTabStyle}" />
+                    </sho:TabHostView.Tabs>
+                </sho:TabHostView>
+            </VerticalStackLayout>
 
         </Grid>
     </ContentPage.Content>

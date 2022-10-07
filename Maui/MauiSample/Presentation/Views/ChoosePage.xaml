@@ -38,6 +38,16 @@
                     FontSize="30"
                     Text="CollectionView"
                     TextColor="White" />
+
+                <Label
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Margin="205,12,0,0"
+                    FontFamily="RoadRage"
+                    FontSize="30"
+                    Rotation="-10"
+                    Text="MAUI"
+                    TextColor="{StaticResource Accent}" />
             </Grid>
         </StackLayout>
 
@@ -50,35 +60,51 @@
             HeightRequest="360"
             ItemHeight="110"
             ItemsSource="{Binding Logo, Mode=OneTime}"
-            VerticalOptions="Fill">
+            VerticalOptions="Fill"
+            ZIndex="100">
             <sho:GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewModels:LogoLetterVmo">
                     <sho:DraggableViewCell x:Name="DraggableViewCell">
                         <ContentView>
-                            <Border Shadow="{StaticResource ShadowNeumorphismTop}" StrokeShape="RoundRectangle 10">
-                                <Border
-                                    Margin="8"
-                                    Padding="0"
-                                    Shadow="{Binding ShadowResourceName, Converter={converters:StringToResource}}"
-                                    StrokeShape="RoundRectangle 10">
-                                    <Border.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
-                                            TargetType="Border"
-                                            Value="True">
-                                            <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
-                                        </DataTrigger>
-                                    </Border.Triggers>
-                                    <Border.Background>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                            <GradientStop Offset="0.1" Color="#3a3a3a" />
-                                            <GradientStop Offset="0.9" Color="#2b2b2b" />
-                                        </LinearGradientBrush>
-                                    </Border.Background>
+                            <Border
+                                Margin="8"
+                                Padding="0"
+                                Shadow="{Binding ShadowResourceName, Converter={converters:StringToResource}}"
+                                StrokeShape="RoundRectangle 10"
+                                StrokeThickness="0">
+                                <Border.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
+                                        TargetType="Border"
+                                        Value="True">
+                                        <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
+                                    </DataTrigger>
+                                </Border.Triggers>
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <GradientStop Offset="0.1" Color="#3a3a3a" />
+                                        <GradientStop Offset="0.9" Color="#2b2b2b" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Grid>
+                                    <Image
+                                        HorizontalOptions="Center"
+                                        IsVisible="{Binding HasImage}"
+                                        Source="{Binding ImageSource}"
+                                        VerticalOptions="Center">
+                                        <Image.Shadow>
+                                            <Shadow
+                                                Brush="{StaticResource Primary}"
+                                                Opacity="1"
+                                                Radius="15" />
+                                        </Image.Shadow>
+                                    </Image>
                                     <Label
                                         FontAttributes="Bold"
-                                        FontSize="90"
+                                        FontSize="{Binding FontSize}"
                                         HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        IsVisible="{Binding ImageSource, Converter={converters:IsNullConverter}}"
                                         Style="{StaticResource TextHeadline}"
                                         Text="{Binding Text}"
                                         TextColor="{Binding TextColor}"
@@ -91,7 +117,7 @@
                                             </OnPlatform>
                                         </Label.Margin>
                                     </Label>
-                                </Border>
+                                </Grid>
                             </Border>
                         </ContentView>
                     </sho:DraggableViewCell>
@@ -99,32 +125,32 @@
             </sho:GridView.ItemTemplate>
         </sho:GridView>
 
-        <StackLayout Margin="0,30" Spacing="20">
-            <Border Shadow="{StaticResource ShadowNeumorphismTop}" StrokeShape="RoundRectangle 10">
-                <Button
-                    x:Name="LayoutButton"
-                    BackgroundColor="{StaticResource DarkSurface}"
-                    Clicked="LayoutButton_OnClicked"
-                    CornerRadius="10"
-                    HorizontalOptions="Center"
-                    Shadow="{StaticResource ShadowNeumorphismBottom}"
-                    Text="Layout Examples"
-                    TextColor="White"
-                    WidthRequest="260" />
-            </Border>
+        <StackLayout
+            Margin="0,30"
+            Spacing="20"
+            ZIndex="10">
+            <Button
+                x:Name="LayoutButton"
+                BackgroundColor="{StaticResource DarkSurface}"
+                Clicked="LayoutButton_OnClicked"
+                CornerRadius="10"
+                HorizontalOptions="Center"
+                Shadow="{StaticResource ShadowNeumorphismBottom}"
+                Text="Layout Examples"
+                TextColor="White"
+                WidthRequest="260" />
 
-            <Border Shadow="{StaticResource ShadowNeumorphismTop}" StrokeShape="RoundRectangle 10">
-                <Button
-                    x:Name="HeaderButton"
-                    BackgroundColor="{StaticResource DarkSurface}"
-                    Clicked="HeaderButton_OnClicked"
-                    CornerRadius="10"
-                    HorizontalOptions="Center"
-                    Shadow="{StaticResource ShadowNeumorphismBottom}"
-                    Text="Header and Grouping Example"
-                    TextColor="White"
-                    WidthRequest="260" />
-            </Border>
+            <Button
+                x:Name="HeaderButton"
+                BackgroundColor="{StaticResource DarkSurface}"
+                Clicked="HeaderButton_OnClicked"
+                CornerRadius="10"
+                HorizontalOptions="Center"
+                Shadow="{StaticResource ShadowNeumorphismBottom}"
+                Text="Header and Grouping Example"
+                TextColor="White"
+                WidthRequest="260" />
+
         </StackLayout>
 
     </StackLayout>

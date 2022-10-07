@@ -39,6 +39,8 @@
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\cocktail.png" BaseSize="80,80" TintColor="#FF0266" />
+		<MauiImage Update="Resources\Images\island.png" BaseSize="80,80" TintColor="#FF0266" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
 		<!-- Custom Fonts -->

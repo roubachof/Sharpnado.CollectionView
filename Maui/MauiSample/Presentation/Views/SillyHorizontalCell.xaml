@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModels="clr-namespace:MauiSample.Presentation.ViewModels"
     xmlns:views="clr-namespace:MauiSample.Presentation.Views"
-    x:DataType="viewModels:SillyDudeVmo">
+    x:DataType="viewModels:SillyDudeVmo"
+    Stroke="{StaticResource DarkCardBorder}"
+    StrokeThickness="2">
 
     <Grid
         Padding="{StaticResource StandardThickness}"

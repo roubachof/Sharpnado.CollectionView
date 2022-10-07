@@ -5,13 +5,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModels="clr-namespace:MauiSample.Presentation.ViewModels"
     x:DataType="viewModels:SillyDudeVmo"
-    HeightRequest="70"
-    HorizontalOptions="Center"
-    StrokeShape="RoundRectangle 35"
-    VerticalOptions="Center"
-    WidthRequest="70">
+    Stroke="{StaticResource DarkCardBorder}"
+    StrokeThickness="2">
     <Image
         Aspect="AspectFill"
+        HeightRequest="70"
+        HorizontalOptions="Center"
         Source="{Binding ImageUrl}"
-        Style="{StaticResource Avatar}" />
+        Style="{StaticResource Avatar}"
+        VerticalOptions="Center"
+        WidthRequest="70">
+        <Image.Clip>
+            <EllipseGeometry
+                Center="35,35"
+                RadiusX="35"
+                RadiusY="35" />
+        </Image.Clip>
+
+    </Image>
 </Border>

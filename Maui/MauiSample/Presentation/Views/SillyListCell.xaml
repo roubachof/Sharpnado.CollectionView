@@ -5,23 +5,28 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModels="clr-namespace:MauiSample.Presentation.ViewModels"
     xmlns:views="clr-namespace:MauiSample.Presentation.Views"
-    Padding="{StaticResource StandardPadding}">
+    Padding="{StaticResource StandardPadding}"
+    Stroke="{StaticResource DarkCardBorder}"
+    StrokeThickness="2">
 
     <StackLayout
         x:DataType="viewModels:SillyDudeVmo"
         Orientation="Horizontal"
         Spacing="16">
-        <Border
-            Padding="0"
+        <Image
+            Aspect="AspectFill"
             HeightRequest="50"
-            StrokeShape="RoundRectangle 25"
+            Source="{Binding ImageUrl}"
+            Style="{StaticResource Avatar}"
             VerticalOptions="Start"
             WidthRequest="50">
-            <Image
-                Aspect="AspectFill"
-                Source="{Binding ImageUrl}"
-                Style="{StaticResource Avatar}" />
-        </Border>
+            <Image.Clip>
+                <EllipseGeometry
+                    Center="25,25"
+                    RadiusX="25"
+                    RadiusY="25" />
+            </Image.Clip>
+        </Image>
 
         <StackLayout
             Orientation="Vertical"

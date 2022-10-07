@@ -2,11 +2,16 @@
 
 namespace MauiSample.Presentation.Converters
 {
-    public class IsNullConverter : IValueConverter, IMarkupExtension
+    public class NotConverter : IValueConverter, IMarkupExtension
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value == null;
+            if (value is bool boolValue)
+            {
+                return !boolValue;
+            }
+
+            return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

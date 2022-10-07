@@ -11,10 +11,10 @@
 
     <Shadow
         x:Key="ShadowNeumorphismBottom"
-        Brush="#303030"
+        Brush="#292929"
         Opacity="1"
-        Radius="6"
-        Offset="8,6" />
+        Radius="8"
+        Offset="10,10" />
 
     <Shadow
         x:Key="ShadowDarkerNeumorphismTop"
@@ -27,8 +27,8 @@
         x:Key="ShadowDarkerNeumorphismBottom"
         Brush="#2b2b2b"
         Opacity="1"
-        Radius="3"
-        Offset="5,5" />
+        Radius="10"
+        Offset="10,10" />
 
     <Shadow
         x:Key="ShadowVerticalNeumorphismTop"
@@ -54,9 +54,16 @@
     <Shadow
         x:Key="ShadowAccentBottom"
         Brush="#FF0266"
-        Opacity="1"
-        Radius="3"
-        Offset="5,5" />
+        Opacity="0.8"
+        Radius="10"
+        Offset="10,10" />
+
+    <Shadow
+        x:Key="ShadowAccent"
+        Brush="#FF0266"
+        Opacity="0.8"
+        Radius="10"
+        Offset="0,10" />
 
     <Shadow
         x:Key="DarkBottomShadow"

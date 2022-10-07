@@ -20,7 +20,7 @@ using Sharpnado.CollectionView.Helpers;
 using Sharpnado.Tasks;
 
 #if NET6_0_OR_GREATER
-using Microsoft.Maui.Platform;
+using Platform = Microsoft.Maui.Controls.Compatibility.Platform.Android.Platform;
 #endif
 
 using Xamarin.Forms;
@@ -440,24 +440,27 @@ namespace Sharpnado.CollectionView.Droid.Renderers
                 _formsViews.Add(new WeakReference<ViewCell>(viewCell));
                 var view = viewCell.View;
 
-#if NET6_0_OR_GREATER
-                var viewHandler = view.ToHandler(_mauiContext);
-                viewHandler.PlatformArrange(new Rect(0, 0, itemWidth, itemHeight));
+                //var viewHandler = view.ToHandler(_mauiContext);
+                //viewHandler.PlatformArrange(new Rect(0, 0, itemWidth, itemHeight));
 
-                var itemView = viewHandler.PlatformView;
-                if (itemView == null)
-                {
-                    throw new NullReferenceException("PlatformArrange returned a null view");
-                }
-#else
+                //var itemView = viewHandler.PlatformView;
+                //if (itemView == null)
+                //{
+                //    throw new NullReferenceException("PlatformArrange returned a null view");
+                //}
+
                 var renderer = Platform.CreateRendererWithContext(view, _context);
                 Platform.SetRenderer(view, renderer);
 
+#if NET6_0_OR_GREATER
+                renderer.Element.Layout(new Rect(0, 0, itemWidth, itemHeight));
+#else
                 renderer.Element.Layout(new Rectangle(0, 0, itemWidth, itemHeight));
+#endif
                 renderer.UpdateLayout();
 
                 var itemView = renderer.View;
-#endif
+
                 int topMargin = _element.IsLayoutHorizontal
                     ? 0
                     : PlatformHelper.Instance.DpToPixels(MeasureHelper.RecyclerViewItemVerticalMarginDp);
