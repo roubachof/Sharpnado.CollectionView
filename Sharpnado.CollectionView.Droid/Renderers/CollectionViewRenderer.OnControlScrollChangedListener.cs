@@ -40,6 +40,13 @@ namespace Sharpnado.CollectionView.Droid.Renderers
 
                 _currentOffset += dx;
 
+                if (_element.ForceToUpdateCurrentIndexDuringScroll && _weakNativeView.TryGetTarget(out CollectionViewRenderer nativeView))
+                {
+                    _cts?.Cancel();
+                    _cts = new CancellationTokenSource();
+                    UpdateCurrentIndex(nativeView, _cts.Token);
+                }
+
                 var infiniteListLoader = _element?.InfiniteListLoader;
                 if (infiniteListLoader == null)
                 {
