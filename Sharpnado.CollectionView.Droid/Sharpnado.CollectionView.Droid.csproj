@@ -70,6 +70,9 @@
     <Compile Include="Renderers\ViewHolderQueue.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>1.7.3</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Forms">
       <Version>5.0.0.2196</Version>
     </PackageReference>

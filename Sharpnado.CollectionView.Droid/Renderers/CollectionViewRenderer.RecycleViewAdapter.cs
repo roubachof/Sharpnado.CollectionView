@@ -19,7 +19,7 @@ using Sharpnado.CollectionView.Droid.Helpers;
 using Sharpnado.CollectionView.Helpers;
 using Sharpnado.CollectionView.RenderedViews;
 using Sharpnado.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
@@ -422,8 +422,8 @@ namespace Sharpnado.CollectionView.Droid.Renderers
                 _formsViews.Add(new WeakReference<ViewCell>(viewCell));
                 var view = viewCell.View;
 
-                var renderer = Platform.CreateRendererWithContext(view, _context);
-                Platform.SetRenderer(view, renderer);
+                var renderer = Xamarin.Forms.Platform.Android.Platform.CreateRendererWithContext(view, _context);
+                Xamarin.Forms.Platform.Android.Platform.SetRenderer(view, renderer);
 
                 renderer.Element.Layout(new Rectangle(0, 0, itemWidth, itemHeight));
                 renderer.UpdateLayout();
@@ -512,8 +512,7 @@ namespace Sharpnado.CollectionView.Droid.Renderers
             private void OnItemReplaced(int itemIndex, object newItem)
             {
                 InternalLogger.Info($"OnItemReplaced( itemIndex: {itemIndex} )");
-                using var h = new Handler(Looper.MainLooper);
-                h.Post(
+                MainThread.BeginInvokeOnMainThread(
                     () =>
                     {
                         if (_isDisposed)
@@ -530,8 +529,7 @@ namespace Sharpnado.CollectionView.Droid.Renderers
             private void OnItemMoved(int from, int to)
             {
                 InternalLogger.Info($"OnItemMoved( from: {from}, to: {to} )");
-                using var h = new Handler(Looper.MainLooper);
-                h.Post(
+                MainThread.BeginInvokeOnMainThread(
                     () =>
                     {
                         if (_isDisposed)
@@ -550,8 +548,7 @@ namespace Sharpnado.CollectionView.Droid.Renderers
             private void OnItemAdded(int newIndex, IList items)
             {
                 InternalLogger.Info($"OnItemAdded( newIndex: {newIndex}, itemCount: {items.Count} )");
-                using var h = new Handler(Looper.MainLooper);
-                h.Post(
+                MainThread.BeginInvokeOnMainThread(
                     () =>
                     {
                         if (_isDisposed)
@@ -574,8 +571,7 @@ namespace Sharpnado.CollectionView.Droid.Renderers
             private void OnItemRemoved(int removedIndex, int itemCount)
             {
                 InternalLogger.Info($"OnItemRemoved( newIndex: {removedIndex}, itemCount: {itemCount} )");
-                using var h = new Handler(Looper.MainLooper);
-                h.Post(
+                MainThread.BeginInvokeOnMainThread(
                     () =>
                     {
                         if (_isDisposed)
