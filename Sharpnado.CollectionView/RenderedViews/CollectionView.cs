@@ -217,8 +217,8 @@ namespace Sharpnado.CollectionView.RenderedViews
             typeof(CollectionView),
             1);
 
-        public static readonly BindableProperty ForceToUpdateCurrentIndexDuringScrollProperty = BindableProperty.Create(
-            nameof(ForceToUpdateCurrentIndexDuringScroll),
+        public static readonly BindableProperty ForceUpdateCurrentIndexDuringScrollProperty = BindableProperty.Create(
+            nameof(ForceUpdateCurrentIndexDuringScroll),
             typeof(bool),
             typeof(CollectionView),
             false);
@@ -371,10 +371,10 @@ namespace Sharpnado.CollectionView.RenderedViews
             set => SetValue(ColumnCountProperty, value);
         }
 
-        public bool ForceToUpdateCurrentIndexDuringScroll
+        public bool ForceUpdateCurrentIndexDuringScroll
         {
-            get => (bool)GetValue(ForceToUpdateCurrentIndexDuringScrollProperty);
-            set => SetValue(ForceToUpdateCurrentIndexDuringScrollProperty, value);
+            get => (bool)GetValue(ForceUpdateCurrentIndexDuringScrollProperty);
+            set => SetValue(ForceUpdateCurrentIndexDuringScrollProperty, value);
         }
 
         public Func<ViewCell, Task> PreRevealAnimationAsync { get; set; }
