@@ -53,6 +53,12 @@ namespace Sharpnado.CollectionView.Droid.Renderers
         {
         }
 
+        public override bool OnInterceptTouchEvent(MotionEvent ev)
+        {
+            RequestDisallowInterceptTouchEvent(Element.HaveToDisallowInterceptTouchEvent);
+            return base.OnInterceptTouchEvent(ev);
+        }
+
         protected override void OnElementChanged(ElementChangedEventArgs<CollectionView.RenderedViews.CollectionView> e)
         {
             base.OnElementChanged(e);
