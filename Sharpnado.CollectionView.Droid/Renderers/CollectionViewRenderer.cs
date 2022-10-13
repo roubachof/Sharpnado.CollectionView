@@ -133,12 +133,13 @@ namespace Sharpnado.CollectionView.Droid.Renderers
             int width = right - left;
             int height = bottom - top;
 
+            base.OnLayout(changed, left, top, right, bottom);
+
             if (ComputeItemSize(width, height))
             {
                 UpdateItemsSource();
             }
 
-            base.OnLayout(changed, left, top, right, bottom);
             _forceLayout = false;
         }
 
