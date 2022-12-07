@@ -1,4 +1,4 @@
-﻿# Sharpnado's CollectionView
+# Sharpnado's CollectionView
 * Performance oriented
 * Horizontal, Grid, Carousel or Vertical layout
 * Header, Footer and GroupHeader
@@ -58,3 +58,4 @@ public static MauiApp CreateMauiApp()
 
 <!--  As a HorizontalListView -->
 <sho:HorizontalListView />
+```
