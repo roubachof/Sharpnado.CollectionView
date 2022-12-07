@@ -9,6 +9,7 @@
     xmlns:taskLoaderView="clr-namespace:Sharpnado.TaskLoaderView;assembly=Sharpnado.Maui.TaskLoaderView"
     xmlns:viewModels="clr-namespace:MauiSample.Presentation.ViewModels"
     xmlns:views="clr-namespace:MauiSample.Presentation.Views"
+    Padding="0"
     x:DataType="viewModels:GridPageViewModel"
     BackgroundColor="{StaticResource DarkerSurface}"
     NavigationPage.HasNavigationBar="False">
@@ -35,7 +36,7 @@
                                     Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
                                     TargetType="views:SillyGridCell"
                                     Value="True">
-                                    <Setter Property="Background" Value="{StaticResource DarklessSurface}" />
+                                    <Setter Property="Background" Value="{StaticResource DarkDraggedSurface}" />
                                 </DataTrigger>
                             </views:SillyGridCell.Triggers>
                         </views:SillyGridCell>
@@ -55,7 +56,7 @@
                                     Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
                                     TargetType="views:SillyHorizontalCell"
                                     Value="True">
-                                    <Setter Property="Background" Value="{StaticResource DarklessSurface}" />
+                                    <Setter Property="Background" Value="{StaticResource DarkDraggedSurface}" />
                                 </DataTrigger>
                             </views:SillyHorizontalCell.Triggers>
                         </views:SillyHorizontalCell>
@@ -75,7 +76,7 @@
                                     Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
                                     TargetType="views:SillyListCell"
                                     Value="True">
-                                    <Setter Property="Background" Value="{StaticResource DarklessSurface}" />
+                                    <Setter Property="Background" Value="{StaticResource DarkDraggedSurface}" />
                                 </DataTrigger>
                             </views:SillyListCell.Triggers>
                         </views:SillyListCell>
@@ -94,13 +95,19 @@
 
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*">
+            <Grid.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS">0, -45, 0, -35</On>
+                    <On Platform="Android">0</On>
+                </OnPlatform>
+            </Grid.Margin>
 
             <taskLoaderView:TaskLoaderView
                 Grid.Row="1"
                 IsClippedToBounds="False"
                 Style="{StaticResource SillyTaskLoader}"
                 TaskLoaderNotifier="{Binding SillyPeopleLoaderNotifier}"
-                VerticalOptions="FillAndExpand">
+                VerticalOptions="Fill">
                 <RefreshView
                     Command="{Binding SillyPeopleLoaderNotifier.RefreshCommand}"
                     IsClippedToBounds="False"
@@ -127,53 +134,6 @@
                         ScrollEndedCommand="{Binding OnScrollEndCommand}"
                         TapCommand="{Binding TapCommand}" />
 
-
-                    <!--  Testing the ViewCacheSize property  -->
-                    <!--<sho:CollectionView
-                        x:Name="HorizontalListView"
-                        CollectionLayout="{Binding Mode, Converter={converters:ListModeToListLayout}}"
-                        CollectionLayoutChanging="ListLayoutChanging"
-                        CollectionPadding="10,30,10,75"
-                        ColumnCount="2"
-                        CurrentIndex="{Binding CurrentIndex}"
-                        DragAndDropEndedCommand="{Binding OnDragEnded}"
-                        DragAndDropStartedCommand="{Binding OnDragStarted}"
-                        DragAndDropTrigger="Pan"
-                        EnableDragAndDrop="{Binding Source={x:Reference DragAndDropSwitch}, Path=IsToggled}"
-                        InfiniteListLoader="{Binding SillyPeoplePaginator}"
-                        ItemHeight="120"
-                        ItemWidth="120"
-                        ItemsSource="{Binding SillyPeople}"
-                        ScrollBeganCommand="{Binding OnScrollBeginCommand}"
-                        ScrollEndedCommand="{Binding OnScrollEndCommand}"
-                        TapCommand="{Binding TapCommand}"
-                        ViewCacheSize="100">
-                        <sho:CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <sho:DraggableViewCell x:Name="DraggableViewCell">
-                                    <sho:Shadows
-                                        x:Name="Shadow"
-                                        CornerRadius="10"
-                                        Shades="{StaticResource ThinDarkerNeumorphism}">
-                                        <views:SillyGridCell
-                                            Margin="16,13,16,13"
-                                            BackgroundColor="{StaticResource DarkerSurface}"
-                                            CornerRadius="10">
-                                            <views:SillyGridCell.Triggers>
-                                                <DataTrigger
-                                                    Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
-                                                    TargetType="views:SillyGridCell"
-                                                    Value="True">
-                                                    <Setter Property="BackgroundColor" Value="{StaticResource DarkSurface}" />
-                                                </DataTrigger>
-                                            </views:SillyGridCell.Triggers>
-                                        </views:SillyGridCell>
-                                    </sho:Shadows>
-                                </sho:DraggableViewCell>
-                            </DataTemplate>
-                        </sho:CollectionView.ItemTemplate>
-                    </sho:CollectionView>-->
-
                 </RefreshView>
             </taskLoaderView:TaskLoaderView>
 
@@ -188,7 +148,7 @@
                     </OnPlatform>
                 </VerticalStackLayout.Padding>
 
-                <Grid ColumnDefinitions="60,*, 60" RowDefinitions="30, 30, 50">
+                <Grid ColumnDefinitions="60,*, 60" RowDefinitions="30, 30, 15, 40">
                     <ImageButton
                         Grid.RowSpan="2"
                         BackgroundColor="{StaticResource DarkSurface}"
@@ -233,39 +193,47 @@
                     </Image>
 
                     <HorizontalStackLayout
-                        Grid.Row="2"
+                        Grid.Row="3"
                         Grid.Column="0"
                         Grid.ColumnSpan="3"
                         HeightRequest="40"
                         HorizontalOptions="End"
                         Spacing="10">
+
                         <HorizontalStackLayout
                             Margin="16,0,0,0"
                             Spacing="10"
-                            VerticalOptions="End">
+                            VerticalOptions="Fill">
                             <Label
                                 Margin="0,0,0,2"
                                 FontSize="12"
                                 Text="Drag and Drop"
                                 TextColor="White"
-                                VerticalOptions="Center" />
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
                             <Switch x:Name="DragAndDropSwitch" VerticalOptions="Center" />
                         </HorizontalStackLayout>
 
-                        <HorizontalStackLayout x:Name="ColumnCountContainer" VerticalOptions="End">
+                        <HorizontalStackLayout x:Name="ColumnCountContainer" VerticalOptions="Fill">
                             <Label
                                 Margin="0,0,0,2"
                                 FontSize="12"
                                 Text="Column Count"
                                 TextColor="White"
-                                VerticalOptions="Center" />
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center" />
                             <Picker
                                 x:Name="ColumnPicker"
-                                Margin="10,0,0,0"
-                                BackgroundColor="{StaticResource DarkSurface}"
                                 FontAttributes="Bold"
-                                FontSize="15"
-                                TextColor="{StaticResource Primary}" />
+                                FontSize="18"
+                                TextColor="{StaticResource Primary}">
+                                <Picker.Margin>
+                                    <OnPlatform x:TypeArguments="Thickness">
+                                        <On Platform="iOS">10,-5,0,0</On>
+                                        <On Platform="Android">10,0,0,0</On>
+                                    </OnPlatform>
+                                </Picker.Margin>
+                            </Picker>
                         </HorizontalStackLayout>
                     </HorizontalStackLayout>
 

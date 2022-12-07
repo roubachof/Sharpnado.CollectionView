@@ -1,4 +1,6 @@
 ﻿using MauiSample.Presentation.Navigables;
+using Microsoft.Maui.Controls.PlatformConfiguration;
+using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
 
 namespace MauiSample.Presentation.Views
 {
@@ -8,6 +10,7 @@ namespace MauiSample.Presentation.Views
         public HeaderFooterGroupingPage()
         {
             InitializeComponent();
+            On<iOS>().SetUseSafeArea(false);
         }
     }
 }

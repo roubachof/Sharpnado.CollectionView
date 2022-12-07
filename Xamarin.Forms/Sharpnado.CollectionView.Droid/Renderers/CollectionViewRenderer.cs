@@ -6,7 +6,7 @@ using Android.Views;
 using AndroidX.RecyclerView.Widget;
 
 #if NET6_0_OR_GREATER
-using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Controls.Handlers.Compatibility;
 using Microsoft.Maui.Controls.Platform;
 #endif
 

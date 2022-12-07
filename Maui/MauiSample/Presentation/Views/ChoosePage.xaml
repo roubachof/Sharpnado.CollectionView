@@ -6,22 +6,28 @@
     xmlns:converters="clr-namespace:MauiSample.Presentation.Converters"
     xmlns:sho="http://sharpnado.com"
     xmlns:viewModels="clr-namespace:MauiSample.Presentation.ViewModels"
+    Padding="0"
     x:DataType="viewModels:ChoosePageViewModel"
     BackgroundColor="{StaticResource DarkerSurface}"
     NavigationPage.HasNavigationBar="False">
-    <StackLayout>
+    <VerticalStackLayout>
+        <VerticalStackLayout.Margin>
+            <OnPlatform x:TypeArguments="Thickness">
+                <On Platform="iOS">0, -45, 0, -35</On>
+                <On Platform="Android">0</On>
+            </OnPlatform>
+        </VerticalStackLayout.Margin>
 
-        <StackLayout
+        <VerticalStackLayout
             BackgroundColor="{StaticResource DarkSurface}"
-            Orientation="Vertical"
             Shadow="{StaticResource DarkBottomShadow}"
             Spacing="0">
-            <StackLayout.Padding>
+            <VerticalStackLayout.Padding>
                 <OnPlatform x:TypeArguments="Thickness">
                     <On Platform="iOS">20, 60, 20, 20</On>
                     <On Platform="Android">20, 40, 20, 20</On>
                 </OnPlatform>
-            </StackLayout.Padding>
+            </VerticalStackLayout.Padding>
 
             <Grid ColumnDefinitions="*, 60" RowDefinitions="Auto,Auto">
                 <Label
@@ -49,18 +55,18 @@
                     Text="MAUI"
                     TextColor="{StaticResource Accent}" />
             </Grid>
-        </StackLayout>
+        </VerticalStackLayout>
 
         <!--  HorizontalListView Logo  -->
         <sho:GridView
             x:Name="HorizontalListView"
-            CollectionPadding="30,30,30,0"
+            CollectionPadding="30"
             ColumnCount="3"
             EnableDragAndDrop="True"
-            HeightRequest="360"
+            HeightRequest="390"
+            HorizontalOptions="Fill"
             ItemHeight="110"
             ItemsSource="{Binding Logo, Mode=OneTime}"
-            VerticalOptions="Fill"
             ZIndex="100">
             <sho:GridView.ItemTemplate>
                 <DataTemplate x:DataType="viewModels:LogoLetterVmo">
@@ -126,7 +132,7 @@
         </sho:GridView>
 
         <StackLayout
-            Margin="0,30"
+            Margin="0,15"
             Spacing="20"
             ZIndex="10">
             <Button
@@ -153,5 +159,5 @@
 
         </StackLayout>
 
-    </StackLayout>
+    </VerticalStackLayout>
 </ContentPage>

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-
+using System.Runtime.InteropServices;
 using CoreGraphics;
 
 using Foundation;
 
-using Sharpnado.CollectionView.RenderedViews;
+using Sharpnado.CollectionView;
 
 using UIKit;
 
@@ -13,14 +13,14 @@ namespace Sharpnado.CollectionView.iOS.Renderers
 {
     public class SizedFlowLayout : UICollectionViewDelegateFlowLayout
     {
-        private readonly WeakReference<RenderedViews.CollectionView> _weakElement;
+        private readonly WeakReference<CollectionView> _weakElement;
 
         private int _lastVisibleItemIndex = -1;
         private bool _isScrolling;
 
-        public SizedFlowLayout(RenderedViews.CollectionView collectionView)
+        public SizedFlowLayout(CollectionView collectionView)
         {
-            _weakElement = new WeakReference<RenderedViews.CollectionView>(collectionView);
+            _weakElement = new WeakReference<CollectionView>(collectionView);
         }
 
         public bool IsCurrentIndexUpdateBackfire { get; private set; }
@@ -203,12 +203,12 @@ namespace Sharpnado.CollectionView.iOS.Renderers
             var center = new CGPoint(
                 collectionViewCenter.X
                 + contentOffset.X
-                + (nfloat)element.CollectionPadding.Left
-                - (nfloat)element.CollectionPadding.Right,
+                + (NFloat)element.CollectionPadding.Left
+                - (NFloat)element.CollectionPadding.Right,
                 collectionViewCenter.Y
                 + contentOffset.Y
-                + (nfloat)element.CollectionPadding.Top
-                - (nfloat)element.CollectionPadding.Bottom);
+                + (NFloat)element.CollectionPadding.Top
+                - (NFloat)element.CollectionPadding.Bottom);
 
             var indexPath = collectionView.IndexPathForItemAtPoint(center);
             if (indexPath == null)
@@ -259,12 +259,12 @@ namespace Sharpnado.CollectionView.iOS.Renderers
                     var center = new CGPoint(
                         collectionViewCenter.X
                         + contentOffset.X
-                        + (nfloat)element.CollectionPadding.Left
-                        - (nfloat)element.CollectionPadding.Right,
+                        + (NFloat)element.CollectionPadding.Left
+                        - (NFloat)element.CollectionPadding.Right,
                         collectionViewCenter.Y 
                         + contentOffset.Y 
-                        + (nfloat)element.CollectionPadding.Top 
-                        - (nfloat)element.CollectionPadding.Bottom);
+                        + (NFloat)element.CollectionPadding.Top 
+                        - (NFloat)element.CollectionPadding.Bottom);
 
                     var centerPath = collectionView.IndexPathForItemAtPoint(center);
                     if (centerPath == null)

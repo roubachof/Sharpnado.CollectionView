@@ -25,6 +25,16 @@ namespace Sharpnado.CollectionView
             DiagnosticLog(tag + " | DBUG | " + message());
         }
 
+        public static void Debug(Func<string> message)
+        {
+            if (!EnableDebug)
+            {
+                return;
+            }
+
+            DiagnosticLog("DBUG | " + message());
+        }
+
         public static void Debug(string tag, string format, params object[] parameters)
         {
             if (!EnableDebug)
@@ -77,11 +87,16 @@ namespace Sharpnado.CollectionView
                 return;
             }
 
-#if DEBUG
-            System.Diagnostics.Debug.WriteLine(DateTime.Now.ToString("MM-dd H:mm:ss.fff") + " | SharpnadoInternals | " + $"{Thread.CurrentThread.ManagedThreadId:000} | " + format, parameters);
-#else
-            Console.WriteLine(DateTime.Now.ToString("MM-dd H:mm:ss.fff") + " | SharpnadoInternals | " + format, parameters);
-#endif
+            string prompt = DateTime.Now.ToString("MM-dd H:mm:ss.fff") + " | SharpnadoInternals | "
+                            + $"{Thread.CurrentThread.ManagedThreadId:000} | ";
+
+            if (parameters.Length > 0)
+            {
+                Console.WriteLine(prompt + format, parameters);
+                return;
+            }
+
+            Console.WriteLine(prompt + format);
         }
     }
 }

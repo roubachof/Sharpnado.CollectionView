@@ -5,7 +5,14 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiSample", "MauiSample.csproj", "{ADABD103-2CEE-40B2-9EC4-BDA08DB009D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharpnado.CollectionView.Maui", "..\Sharpnado.CollectionView.Maui\Sharpnado.CollectionView.Maui.csproj", "{6CBC693C-5270-448E-BE40-3E03B713BBC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharpnado.CollectionView.Maui", "..\Sharpnado.CollectionView.Maui\Sharpnado.CollectionView.Maui.csproj", "{6CBC693C-5270-448E-BE40-3E03B713BBC7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configuration", "configuration", "{E6CDC5C8-6D84-4EFF-BB42-1F92ED8D06DE}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\README.md = ..\..\README.md
+		..\..\Settings.XamlStyler = ..\..\Settings.XamlStyler
+		..\..\StyleCopRules.ruleset = ..\..\StyleCopRules.ruleset
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

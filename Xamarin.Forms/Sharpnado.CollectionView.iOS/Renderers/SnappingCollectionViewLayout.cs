@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 using CoreGraphics;
 
-using Sharpnado.CollectionView.RenderedViews;
+using Sharpnado.CollectionView;
 
 using UIKit;
 
@@ -24,8 +25,8 @@ namespace Sharpnado.CollectionView.iOS.Renderers
                 return base.TargetContentOffset(proposedContentOffset, scrollingVelocity);
             }
 
-            nfloat offsetAdjustment = nfloat.MaxValue;
-            nfloat horizontalOffset = proposedContentOffset.X + CollectionView.ContentInset.Left;
+            NFloat offsetAdjustment = NFloat.MaxValue;
+            NFloat horizontalOffset = proposedContentOffset.X + CollectionView.ContentInset.Left;
 
             var targetRect = new CGRect(
                 proposedContentOffset.X,

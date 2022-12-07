@@ -10,8 +10,13 @@ using CoreGraphics;
 
 using Foundation;
 
+#if NET6_0_OR_GREATER
+using Microsoft.Maui.Controls.Compatibility.Platform.iOS;
+using Platform = Microsoft.Maui.Controls.Compatibility.Platform.iOS.Platform;
+#endif
+
+using Sharpnado.CollectionView;
 using Sharpnado.CollectionView.iOS.Helpers;
-using Sharpnado.CollectionView.RenderedViews;
 using Sharpnado.Tasks;
 
 using UIKit;
@@ -131,7 +136,7 @@ namespace Sharpnado.CollectionView.iOS.Renderers
             FormsCell = null;
         }
 
-        public void Initialize(ViewCell formsCell, UIView view, CollectionView.RenderedViews.CollectionView parent)
+        public void Initialize(ViewCell formsCell, UIView view, CollectionView parent)
         {
             FormsCell = formsCell;
 
@@ -142,7 +147,7 @@ namespace Sharpnado.CollectionView.iOS.Renderers
             ContentView.AddSubview(view);
         }
 
-        public void Bind(object dataContext, CollectionView.RenderedViews.CollectionView parent)
+        public void Bind(object dataContext, CollectionView parent)
         {
             FormsCell.BindingContext = dataContext;
             FormsCell.Parent = parent;
@@ -151,7 +156,7 @@ namespace Sharpnado.CollectionView.iOS.Renderers
 
     public class iOSViewSource : UICollectionViewDataSource
     {
-        private readonly WeakReference<CollectionView.RenderedViews.CollectionView> _weakElement;
+        private readonly WeakReference<CollectionView> _weakElement;
 
         private readonly List<object> _dataSource;
         private readonly UIViewCellHolderQueue _viewCellHolderCellHolderQueue;
@@ -163,9 +168,9 @@ namespace Sharpnado.CollectionView.iOS.Renderers
 
         private int _currentMaxPosition = -1;
 
-        public iOSViewSource(CollectionView.RenderedViews.CollectionView element, List<DataTemplate> dataTemplates)
+        public iOSViewSource(CollectionView element, List<DataTemplate> dataTemplates)
         {
-            _weakElement = new WeakReference<CollectionView.RenderedViews.CollectionView>(element);
+            _weakElement = new WeakReference<CollectionView>(element);
             _createdCells = new Dictionary<long, WeakReference<iOSViewCell>>();
             _dataTemplates = dataTemplates;
 
@@ -379,7 +384,7 @@ namespace Sharpnado.CollectionView.iOS.Renderers
             }
         }
 
-        private void AnimateCell(ViewCell cell, CollectionView.RenderedViews.CollectionView element)
+        private void AnimateCell(ViewCell cell, CollectionView element)
         {
             TaskMonitor.Create(
                 async () =>
@@ -456,9 +461,14 @@ namespace Sharpnado.CollectionView.iOS.Renderers
             }
 
             // formsCell.Parent = element;
-            formsCell.View.Layout(new Rectangle(0, 0, itemWidth, itemHeight));
 
-            if (Platform.GetRenderer(formsCell.View) == null)
+#if NET6_0_OR_GREATER
+            formsCell.View.Layout(new Rect(0, 0, itemWidth, itemHeight));
+#else
+            formsCell.View.Layout(new Rectangle(0, 0, itemWidth, itemHeight));
+#endif
+
+            if (Microsoft.Maui.Controls.Compatibility.Platform.iOS.Platform.GetRenderer(formsCell.View) == null)
             {
                 IVisualElementRenderer renderer = Platform.CreateRenderer(formsCell.View);
                 Platform.SetRenderer(formsCell.View, renderer);

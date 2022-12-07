@@ -1,20 +1,37 @@
-# Sharpnado.CollectionView
+# Sharpnado.CollectionView(.Maui)
 **Formerly named `HorizontalListView`**
 
+<p align="left"><img src="Docs/logo_maui.png" height="180"/>
 <p align="left"><img src="Docs/logo.png" height="180"/>
 
 Get it from NuGet:
 
-[![Nuget](https://img.shields.io/nuget/v/Sharpnado.CollectionView.svg)](https://www.nuget.org/packages/Sharpnado.CollectionView)
 
-| Supported platforms        |
-|----------------------------|
-| :heavy_check_mark: Android |
-| :heavy_check_mark: iOS     |
+| MAUI Supported platforms   | XF Supported platforms        |
+|----------------------------|----------------------------|
+| [![Nuget](https://img.shields.io/nuget/v/Sharpnado.CollectionView.Maui.svg)](https://www.nuget.org/packages/Sharpnado.CollectionView)                            | [![Nuget](https://img.shields.io/nuget/v/Sharpnado.CollectionView.svg)](https://www.nuget.org/packages/Sharpnado.CollectionView) |
+| :heavy_check_mark: Android | :heavy_check_mark: Android |
+| :heavy_check_mark: iOS     | :heavy_check_mark: iOS     |
 
-![Presentation](Docs/github_banner.jpg)
+![Presentation](Docs/maui_banner.png)
 
 ## Initialization
+
+### MAUI
+
+* In `MauiProgram.cs`:
+
+```csharp
+public static MauiApp CreateMauiApp()
+{
+    var builder = MauiApp.CreateBuilder();
+    builder
+        .UseMauiApp()
+        .UseSharpnadoCollectionView(loggerEnabled: false);
+}
+```
+
+### Xamarin.Forms
 
 
 * On Core project in `App.xaml.cs`:

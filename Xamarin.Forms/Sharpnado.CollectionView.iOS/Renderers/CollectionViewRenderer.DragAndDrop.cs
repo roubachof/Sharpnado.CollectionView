@@ -4,7 +4,7 @@ using CoreGraphics;
 
 using Foundation;
 
-using Sharpnado.CollectionView.RenderedViews;
+using Sharpnado.CollectionView;
 using Sharpnado.CollectionView.ViewModels;
 
 using UIKit;

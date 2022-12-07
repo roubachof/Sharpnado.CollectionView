@@ -5,28 +5,36 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 using CoreGraphics;
 
 using Foundation;
 
+#if NET6_0_OR_GREATER
+using Microsoft.Maui.Controls.Handlers.Compatibility;
+using Microsoft.Maui.Controls.Platform;
+#endif
+
+using Sharpnado.CollectionView;
 using Sharpnado.CollectionView.iOS.Helpers;
-using Sharpnado.CollectionView.RenderedViews;
 
 using UIKit;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
-using CollectionView = Sharpnado.CollectionView.RenderedViews.CollectionView;
+using CollectionView = Sharpnado.CollectionView.CollectionView;
 using CollectionViewRenderer = Sharpnado.CollectionView.iOS.Renderers.CollectionViewRenderer;
 
+#if !NET6_0_OR_GREATER
 [assembly: ExportRenderer(typeof(CollectionView), typeof(CollectionViewRenderer))]
+#endif
 
 namespace Sharpnado.CollectionView.iOS.Renderers
 {
     [Foundation.Preserve]
-    public partial class CollectionViewRenderer : ViewRenderer<CollectionView.RenderedViews.CollectionView, UICollectionView>
+    public partial class CollectionViewRenderer : ViewRenderer<CollectionView, UICollectionView>
     {
         private readonly List<DataTemplate> _registeredDataTemplates = new ();
 
@@ -74,29 +82,29 @@ namespace Sharpnado.CollectionView.iOS.Renderers
         {
             switch (e.PropertyName)
             {
-                case nameof(RenderedViews.CollectionView.ItemsSource):
+                case nameof(CollectionView.ItemsSource):
                     UpdateItemsSource();
                     break;
-                case nameof(RenderedViews.CollectionView.CurrentIndex) when Control?.Delegate is SizedFlowLayout
+                case nameof(CollectionView.CurrentIndex) when Control?.Delegate is SizedFlowLayout
                 {
                     IsCurrentIndexUpdateBackfire: false
                 }:
                     ScrollToCurrentItem();
                     break;
-                case nameof(RenderedViews.CollectionView.DisableScroll):
+                case nameof(CollectionView.DisableScroll):
                     ProcessDisableScroll();
                     break;
-                case nameof(RenderedViews.CollectionView.ColumnCount):
-                case nameof(RenderedViews.CollectionView.CollectionLayout):
+                case nameof(CollectionView.ColumnCount):
+                case nameof(CollectionView.CollectionLayout):
                     UpdateListLayout();
                     break;
-                case nameof(RenderedViews.CollectionView.EnableDragAndDrop):
+                case nameof(CollectionView.EnableDragAndDrop):
                     UpdateEnableDragAndDrop();
                     break;
             }
         }
 
-        protected override void OnElementChanged(ElementChangedEventArgs<RenderedViews.CollectionView> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<CollectionView> e)
         {
             base.OnElementChanged(e);
 
@@ -204,7 +212,11 @@ namespace Sharpnado.CollectionView.iOS.Renderers
                     Element.ScrollSpeed == ScrollSpeed.Normal
                         ? UIScrollView.DecelerationRateNormal
                         : UIScrollView.DecelerationRateFast,
+#if NET6_0_OR_GREATER
+                BackgroundColor = Microsoft.Maui.Controls.Compatibility.Platform.iOS.CompatibilityColorExtensions.ToUIColor(Element?.BackgroundColor),
+#else
                 BackgroundColor = Element?.BackgroundColor.ToUIColor(),
+#endif
                 ShowsHorizontalScrollIndicator = false,
                 ContentInset = new UIEdgeInsets(0, 0, 0, 0),
             };
@@ -229,10 +241,10 @@ namespace Sharpnado.CollectionView.iOS.Renderers
         private UICollectionViewFlowLayout BuildListLayout()
         {
             var sectionInset = new UIEdgeInsets(
-                (nfloat)Element.CollectionPadding.Top,
-                (nfloat)Element.CollectionPadding.Left,
-                (nfloat)Element.CollectionPadding.Bottom,
-                (nfloat)Element.CollectionPadding.Right);
+                (NFloat)Element.CollectionPadding.Top,
+                (NFloat)Element.CollectionPadding.Left,
+                (NFloat)Element.CollectionPadding.Bottom,
+                (NFloat)Element.CollectionPadding.Right);
 
             return Element.CollectionLayout == CollectionViewLayout.Grid || Element.CollectionLayout == CollectionViewLayout.Vertical
                        ? new UICollectionViewFlowLayout

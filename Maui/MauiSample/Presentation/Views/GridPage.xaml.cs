@@ -1,4 +1,7 @@
 ﻿using MauiSample.Presentation.Navigables;
+using Microsoft.Maui.Controls.PlatformConfiguration;
+using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
+
 using Sharpnado.CollectionView;
 
 namespace MauiSample.Presentation.Views
@@ -11,6 +14,8 @@ namespace MauiSample.Presentation.Views
         public GridPage()
         {
             InitializeComponent();
+
+            On<iOS>().SetUseSafeArea(false);
 
             HorizontalListView.PreRevealAnimationAsync = async (viewCell) =>
                 {

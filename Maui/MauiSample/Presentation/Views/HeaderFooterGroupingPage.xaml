@@ -8,6 +8,7 @@
     xmlns:taskLoaderView="clr-namespace:Sharpnado.TaskLoaderView;assembly=Sharpnado.Maui.TaskLoaderView"
     xmlns:viewModels="clr-namespace:MauiSample.Presentation.ViewModels"
     xmlns:views="clr-namespace:MauiSample.Presentation.Views"
+    Padding="0"
     x:DataType="viewModels:HeaderFooterGroupingPageViewModel"
     BackgroundColor="{StaticResource DarkerSurface}"
     NavigationPage.HasNavigationBar="False">
@@ -108,11 +109,20 @@
 
     <ContentPage.Content>
         <Grid RowDefinitions="Auto,*">
+            <Grid.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS">0, -45, 0, -35</On>
+                    <On Platform="Android">0</On>
+                </OnPlatform>
+            </Grid.Margin>
 
             <taskLoaderView:TaskLoaderView
+                x:Name="LoaderView"
                 Grid.Row="1"
+                IsClippedToBounds="False"
                 Style="{StaticResource SillyTaskLoader}"
-                TaskLoaderNotifier="{Binding SillyPeopleLoaderNotifier}">
+                TaskLoaderNotifier="{Binding SillyPeopleLoaderNotifier}"
+                VerticalOptions="Fill">
                 <RefreshView
                     Command="{Binding SillyPeopleLoaderNotifier.RefreshCommand}"
                     IsRefreshing="{Binding SillyPeopleLoaderNotifier.ShowRefresher}"

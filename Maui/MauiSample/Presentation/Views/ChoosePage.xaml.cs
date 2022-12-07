@@ -1,6 +1,10 @@
-﻿using MauiSample.Presentation.Navigables;
+﻿using System.Collections.ObjectModel;
+
+using MauiSample.Presentation.Navigables;
 using MauiSample.Presentation.Navigables.Impl;
 using MauiSample.Presentation.ViewModels;
+using Microsoft.Maui.Controls.PlatformConfiguration;
+using Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;
 
 namespace MauiSample.Presentation.Views
 {
@@ -14,6 +18,13 @@ namespace MauiSample.Presentation.Views
             _navigationService = navigationService;
 
             InitializeComponent();
+            On<iOS>().SetUseSafeArea(false);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            Padding = new Thickness(0);
         }
 
         private async void LayoutButton_OnClicked(object sender, EventArgs e)

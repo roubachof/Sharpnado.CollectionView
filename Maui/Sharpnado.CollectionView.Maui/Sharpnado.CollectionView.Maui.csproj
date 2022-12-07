@@ -1,9 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks>net6.0;net6.0-ios;net6.0-android</TargetFrameworks>
 
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
 		<RootNamespace>Sharpnado.CollectionView</RootNamespace>
@@ -91,30 +90,6 @@
 		<FileVersion>3.0.0</FileVersion>
 	</PropertyGroup>
 
-	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Helpers\JniExtensions.cs" Link="Platforms\Android\Helpers\JniExtensions.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Helpers\JniWeakReference.cs" Link="Platforms\Android\Helpers\JniWeakReference.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Helpers\PlatformHelper.cs" Link="Platforms\Android\Helpers\PlatformHelper.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Helpers\ViewExtensions.cs" Link="Platforms\Android\Helpers\ViewExtensions.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Helpers\ViewHierarchyPrinter.cs" Link="Platforms\Android\Helpers\ViewHierarchyPrinter.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Helpers\ViewVisitor.cs" Link="Platforms\Android\Helpers\ViewVisitor.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\CellCache.cs" Link="Platforms\Android\Renderers\CellCache.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\CenterSnapHelper.cs" Link="Platforms\Android\Renderers\CenterSnapHelper.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\CollectionViewRenderer.cs" Link="Platforms\Android\Renderers\CollectionViewRenderer.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\CollectionViewRenderer.DragAnDropItemTouchHelperCallback.cs" Link="Platforms\Android\Renderers\CollectionViewRenderer.DragAnDropItemTouchHelperCallback.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\CollectionViewRenderer.OnControlScrollChangedListener.cs" Link="Platforms\Android\Renderers\CollectionViewRenderer.OnControlScrollChangedListener.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\CollectionViewRenderer.RecycleViewAdapter.cs" Link="Platforms\Android\Renderers\CollectionViewRenderer.RecycleViewAdapter.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\CustomLinearLayoutManager.cs" Link="Platforms\Android\Renderers\CustomLinearLayoutManager.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\MeasureHelper.cs" Link="Platforms\Android\Renderers\MeasureHelper.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\ResponsiveGridLayoutManager.cs" Link="Platforms\Android\Renderers\ResponsiveGridLayoutManager.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\SlowRecyclerView.cs" Link="Platforms\Android\Renderers\SlowRecyclerView.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\StartSnapHelper.cs" Link="Platforms\Android\Renderers\StartSnapHelper.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Renderers\ViewHolderQueue.cs" Link="Platforms\Android\Renderers\ViewHolderQueue.cs" />
-		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView.Droid\Initializer.cs">
-			<Link>Platforms\Android\Initializer.cs</Link>
-		</Compile>
-	</ItemGroup>
-
 	<ItemGroup>
 		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\AssemblyConfiguration.cs" Link="AssemblyConfiguration.cs" />
 		<Compile Include="..\..\Xamarin.Forms\Sharpnado.CollectionView\Contract.cs" Link="Contract.cs" />
@@ -151,6 +126,13 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
-
+	
+<!-- 
+  <Target Name="CopyContracts" AfterTargets="AfterBuild">
+    <ItemGroup>
+      <Contracts Include="Domain\*\Contracts\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(Contracts)" DestinationFolder="$(SolutionDir)\TeamCollect.Contracts\%(RecursiveDir)\.." SkipUnchangedFiles="true" />
+  </Target> -->
 
 </Project>

@@ -4,9 +4,13 @@
 
     <Color x:Key="DarklessSurface">#3D3D3D</Color>
 
+    <Color x:Key="DarkDraggedSurface">#4D4D4D</Color>
+
     <Color x:Key="DarkCardBorder">#3A3A3A</Color>
 
     <Color x:Key="DarkSurface">#383838</Color>
+
+    <Color x:Key="DarkOverlay">#CC000000</Color>
 
     <Color x:Key="DarkerSurface">#323232</Color>
 

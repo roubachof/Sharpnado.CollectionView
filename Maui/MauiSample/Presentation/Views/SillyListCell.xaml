@@ -3,6 +3,7 @@
     x:Class="MauiSample.Presentation.Views.SillyListCell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:AlohaKit.Controls;assembly=AlohaKit"
     xmlns:viewModels="clr-namespace:MauiSample.Presentation.ViewModels"
     xmlns:views="clr-namespace:MauiSample.Presentation.Views"
     Padding="{StaticResource StandardPadding}"
@@ -40,15 +41,18 @@
 
             <Label Style="{StaticResource TextCaptionSecondary}" Text="{Binding Role}" />
 
-            <views:RatingView
-                Margin="0,5,0,0"
-                ColorOn="{StaticResource Accent}"
-                Count="5"
-                HeightRequest="30"
-                HorizontalOptions="Start"
-                OutlineOffColor="Transparent"
-                RatingType="Full"
-                WidthRequest="100"
+            <controls:Rating
+                BackgroundColor="Transparent"
+                ItemsCount="5"
+                Scale="0.6"
+                SelectedFill="{StaticResource Accent}"
+                SelectedStroke="Transparent"
+                SelectedStrokeWidth="0"
+                TranslationX="-30"
+                UnSelectedFill="Transparent"
+                UnSelectedStroke="Transparent"
+                UnSelectedStrokeWidth="0"
+                VerticalOptions="Start"
                 Value="{Binding SillinessDegree}" />
         </StackLayout>
 
