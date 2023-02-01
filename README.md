@@ -9,7 +9,7 @@ Get it from NuGet:
 
 | MAUI Supported platforms   | XF Supported platforms        |
 |----------------------------|----------------------------|
-| [![Nuget](https://img.shields.io/nuget/v/Sharpnado.CollectionView.Maui.svg)](https://www.nuget.org/packages/Sharpnado.CollectionView)                            | [![Nuget](https://img.shields.io/nuget/v/Sharpnado.CollectionView.svg)](https://www.nuget.org/packages/Sharpnado.CollectionView) |
+| [![Nuget](https://img.shields.io/nuget/v/Sharpnado.CollectionView.Maui.svg)](https://www.nuget.org/packages/Sharpnado.CollectionView.Maui)                            | [![Nuget](https://img.shields.io/nuget/v/Sharpnado.CollectionView.svg)](https://www.nuget.org/packages/Sharpnado.CollectionView) |
 | :heavy_check_mark: Android | :heavy_check_mark: Android |
 | :heavy_check_mark: iOS     | :heavy_check_mark: iOS     |
 
