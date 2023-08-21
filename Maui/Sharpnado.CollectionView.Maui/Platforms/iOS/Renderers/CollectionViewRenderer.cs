@@ -373,6 +373,9 @@ namespace Sharpnado.CollectionView.iOS.Renderers
 
             Control.DataSource = new iOSViewSource(Element, dataTemplates);
 
+            /* Prevents 'Invalid batch updates detected' error. */
+            Control.NumberOfItemsInSection(0);
+
             oldDataSource?.Dispose();
 
             if (_itemsSource is INotifyCollectionChanged newNotifyCollection)
