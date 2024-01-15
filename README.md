@@ -27,7 +27,7 @@ public static MauiApp CreateMauiApp()
     var builder = MauiApp.CreateBuilder();
     builder
         .UseMauiApp()
-        .UseSharpnadoCollectionView(loggerEnabled: false);
+        .UseSharpnadoCollectionView(loggerEnable: false);
 }
 ```
 
