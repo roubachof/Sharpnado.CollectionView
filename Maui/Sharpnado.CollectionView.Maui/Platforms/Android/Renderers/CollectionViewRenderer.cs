@@ -238,6 +238,8 @@ namespace Sharpnado.CollectionView.Droid.Renderers
                 }
             }
 
+            Element.UpdateLayout = new Command(UpdateListLayout);
+
             _preDrawListener = new PreDrawListener(this);
             Control.ViewTreeObserver.AddOnPreDrawListener(_preDrawListener);
         }

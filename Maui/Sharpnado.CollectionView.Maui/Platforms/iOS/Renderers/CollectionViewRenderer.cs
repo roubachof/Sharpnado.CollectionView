@@ -238,6 +238,8 @@ namespace Sharpnado.CollectionView.iOS.Renderers
             };
 
             SetCollectionView(_collectionView);
+
+            Element.UpdateLayout = new Command(UpdateListLayout);
         }
 
         private void SetCollectionView(UICollectionView collectionView)

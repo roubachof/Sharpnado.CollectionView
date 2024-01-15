@@ -252,6 +252,12 @@ public class CollectionView : View
 
     public event EventHandler<CollectionLayoutChangedEventArgs> CollectionLayoutChanging;
 
+    /// <summary>
+    /// Force the layout of the collection view to be updated.
+    /// Useful if you changed a property that should impact the layout but the layout is not updated.
+    /// </summary>
+    public Command UpdateLayout { get; internal set; } = new Command(() => { });
+
     public DragAndDropTrigger DragAndDropTrigger { get; set; } = DragAndDropTrigger.LongTap;
 
     public int CurrentIndex

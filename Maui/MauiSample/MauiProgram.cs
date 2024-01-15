@@ -1,9 +1,4 @@
-﻿using MauiSample.Domain.Silly;
-using MauiSample.Infrastructure;
-using MauiSample.Presentation.Navigables;
-using MauiSample.Presentation.Navigables.Impl;
-
-using Sharpnado.CollectionView;
+﻿using Sharpnado.CollectionView;
 using Sharpnado.Tabs;
 
 namespace MauiSample;

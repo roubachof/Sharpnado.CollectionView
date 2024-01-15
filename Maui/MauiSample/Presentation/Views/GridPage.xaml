@@ -28,9 +28,9 @@
                 <sho:DraggableViewCell x:Name="DraggableViewCell">
                     <ContentView>
                         <views:SillyGridCell
+                            Style="{StaticResource BorderDarkerNeumorphismBottom}"
                             Margin="10"
-                            Background="{StaticResource DarkSurface}"
-                            Style="{StaticResource BorderDarkerNeumorphismBottom}">
+                            Background="{StaticResource DarkSurface}">
                             <views:SillyGridCell.Triggers>
                                 <DataTrigger
                                     Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
@@ -48,9 +48,9 @@
                 <sho:DraggableViewCell x:Name="DraggableViewCell">
                     <ContentView>
                         <views:SillyHorizontalCell
+                            Style="{StaticResource BorderDarkerNeumorphismBottom}"
                             Margin="10"
-                            Background="{StaticResource DarkSurface}"
-                            Style="{StaticResource BorderDarkerNeumorphismBottom}">
+                            Background="{StaticResource DarkSurface}">
                             <views:SillyHorizontalCell.Triggers>
                                 <DataTrigger
                                     Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
@@ -68,9 +68,9 @@
                 <sho:DraggableViewCell x:Name="DraggableViewCell">
                     <ContentView>
                         <views:SillyListCell
+                            Style="{StaticResource BorderDarkerNeumorphismBottom}"
                             Margin="16,8"
-                            Background="{StaticResource DarkSurface}"
-                            Style="{StaticResource BorderDarkerNeumorphismBottom}">
+                            Background="{StaticResource DarkSurface}">
                             <views:SillyListCell.Triggers>
                                 <DataTrigger
                                     Binding="{Binding Source={x:Reference DraggableViewCell}, Path=IsDragAndDropping}"
@@ -104,10 +104,10 @@
 
             <taskLoaderView:TaskLoaderView
                 Grid.Row="1"
-                IsClippedToBounds="False"
                 Style="{StaticResource SillyTaskLoader}"
-                TaskLoaderNotifier="{Binding SillyPeopleLoaderNotifier}"
-                VerticalOptions="Fill">
+                VerticalOptions="Fill"
+                IsClippedToBounds="False"
+                TaskLoaderNotifier="{Binding SillyPeopleLoaderNotifier}">
                 <RefreshView
                     Command="{Binding SillyPeopleLoaderNotifier.RefreshCommand}"
                     IsClippedToBounds="False"
@@ -151,11 +151,11 @@
                 <Grid ColumnDefinitions="60,*, 60" RowDefinitions="30, 30, 15, 40">
                     <ImageButton
                         Grid.RowSpan="2"
+                        HeightRequest="40"
+                        VerticalOptions="Center"
                         BackgroundColor="{StaticResource DarkSurface}"
                         Command="{Binding GoBackCommand}"
-                        HeightRequest="40"
-                        Source="leftarrow.png"
-                        VerticalOptions="Center" />
+                        Source="leftarrow.png" />
 
                     <Label
                         Grid.Row="0"
@@ -179,11 +179,11 @@
                         Grid.RowSpan="2"
                         Grid.Column="1"
                         Grid.ColumnSpan="2"
+                        WidthRequest="60"
                         HeightRequest="60"
                         HorizontalOptions="End"
-                        Source="island.png"
                         VerticalOptions="Center"
-                        WidthRequest="60">
+                        Source="island.png">
                         <Image.Shadow>
                             <Shadow
                                 Brush="{StaticResource Primary}"
@@ -202,26 +202,26 @@
 
                         <HorizontalStackLayout
                             Margin="16,0,0,0"
-                            Spacing="10"
-                            VerticalOptions="Fill">
+                            VerticalOptions="Fill"
+                            Spacing="10">
                             <Label
                                 Margin="0,0,0,2"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center"
                                 FontSize="12"
                                 Text="Drag and Drop"
-                                TextColor="White"
-                                VerticalOptions="Center"
-                                VerticalTextAlignment="Center" />
+                                TextColor="White" />
                             <Switch x:Name="DragAndDropSwitch" VerticalOptions="Center" />
                         </HorizontalStackLayout>
 
                         <HorizontalStackLayout x:Name="ColumnCountContainer" VerticalOptions="Fill">
                             <Label
                                 Margin="0,0,0,2"
+                                VerticalOptions="Center"
+                                VerticalTextAlignment="Center"
                                 FontSize="12"
                                 Text="Column Count"
-                                TextColor="White"
-                                VerticalOptions="Center"
-                                VerticalTextAlignment="Center" />
+                                TextColor="White" />
                             <Picker
                                 x:Name="ColumnPicker"
                                 FontAttributes="Bold"
@@ -242,17 +242,17 @@
 
                 <sho:TabHostView
                     x:Name="TabHost"
+                    WidthRequest="280"
+                    HeightRequest="50"
                     Margin="0,10,0,0"
+                    HorizontalOptions="Center"
+                    VerticalOptions="EndAndExpand"
                     BackgroundColor="{StaticResource DarklessSurface}"
                     CornerRadius="25"
-                    HeightRequest="50"
-                    HorizontalOptions="Center"
                     IsSegmented="True"
                     SegmentedOutlineColor="#303030"
                     SelectedIndex="{Binding Mode, Converter={converters:ListModeToInt}, Mode=TwoWay}"
-                    TabType="Fixed"
-                    VerticalOptions="EndAndExpand"
-                    WidthRequest="280">
+                    TabType="Fixed">
                     <sho:TabHostView.Shadow>
                         <Shadow
                             Brush="#303030"
@@ -261,9 +261,9 @@
                             Offset="0,10" />
                     </sho:TabHostView.Shadow>
                     <sho:TabHostView.Tabs>
-                        <sho:UnderlinedTabItem Label="Grid" Style="{StaticResource SegmentedTabStyle}" />
-                        <sho:UnderlinedTabItem Label="Horizontal" Style="{StaticResource SegmentedTabStyle}" />
-                        <sho:UnderlinedTabItem Label="Vertical" Style="{StaticResource SegmentedTabStyle}" />
+                        <sho:UnderlinedTabItem Style="{StaticResource SegmentedTabStyle}" Label="Grid" />
+                        <sho:UnderlinedTabItem Style="{StaticResource SegmentedTabStyle}" Label="Horizontal" />
+                        <sho:UnderlinedTabItem Style="{StaticResource SegmentedTabStyle}" Label="Vertical" />
                     </sho:TabHostView.Tabs>
                 </sho:TabHostView>
             </VerticalStackLayout>

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net6.0-ios;net6.0-android</TargetFrameworks>
+		<TargetFrameworks>net7.0;net7.0-ios;net7.0-android</TargetFrameworks>
 
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
@@ -22,9 +22,9 @@
 
 	<PropertyGroup>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
-		<AssemblyVersion>3.0.0</AssemblyVersion>
-		<AssemblyFileVersion>3.0.0</AssemblyFileVersion>
-		<Version>3.0.0</Version>
+		<AssemblyVersion>3.1.0</AssemblyVersion>
+		<AssemblyFileVersion>3.1.0</AssemblyFileVersion>
+		<Version>3.1.0</Version>
 		<PackOnBuild>true</PackOnBuild>
 		<NeutralLanguage>en</NeutralLanguage>
 
@@ -72,14 +72,14 @@
 				var builder = MauiApp.CreateBuilder();
 				builder
 					.UseMauiApp()
-					.UseSharpnadoCollectionView(loggerEnabled: false);
+					.UseSharpnadoCollectionView(loggerEnable: false);
 			}
 			```
 		</Description>
 
 		<Owners>Jean-Marie Alfonsi</Owners>
 		<Authors>Jean-Marie Alfonsi</Authors>
-		<Copyright>Copyright 2022 Sharpnado</Copyright>
+		<Copyright>Copyright 2024 Sharpnado</Copyright>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 
@@ -87,7 +87,7 @@
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<FileVersion>3.0.0</FileVersion>
+		<FileVersion>3.1.0</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -125,6 +125,12 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Platforms\MacCatalyst\" />
+	  <Folder Include="Platforms\Tizen\" />
+	  <Folder Include="Platforms\Windows\" />
 	</ItemGroup>
 	
 <!-- 

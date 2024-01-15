@@ -35,7 +35,7 @@ namespace MauiSample.Domain.Silly
 #if LOCAL_DATA
                             "will_ferrell.jpg",
 #else
-                        "https://news.usc.edu/files/2017/03/Will-Ferrell-Step-Brothers_Horizontal_web-824x549.jpg",
+                        "https://cdn.britannica.com/43/219743-050-DA91906B/American-actor-and-writer-Will-Ferrell-2015.jpg",
 #endif
                         4,
                         string.Empty,
