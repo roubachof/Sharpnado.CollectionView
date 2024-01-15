@@ -881,6 +881,12 @@ public static readonly BindableProperty DisableScrollProperty = BindableProperty
     defaultValue: false,
     defaultBindingMode: BindingMode.TwoWay);
 
+/// <summary>
+/// Force the layout of the collection view to be updated.
+/// Useful if you changed a property that should impact the layout but the layout is not updated.
+/// </summary>
+public Command UpdateLayout { get; internal set; } = new Command(() => { });
+
 public event EventHandler<ListLayoutChangedEventArgs> ListLayoutChanging;
 
 public Func<ViewCell, Task> PreRevealAnimationAsync { get; set; }
