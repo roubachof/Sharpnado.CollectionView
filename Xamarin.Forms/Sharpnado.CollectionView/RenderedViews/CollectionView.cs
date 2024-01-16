@@ -242,12 +242,30 @@ public class CollectionView : View
         typeof(CollectionView),
         1);
 
+#if NET6_0_OR_GREATER
+    public static readonly BindableProperty AutoDisconnectHandlerProperty = BindableProperty.Create(
+        nameof(AutoDisconnectHandler),
+        typeof(bool),
+        typeof(CollectionBase),
+        true);
+#endif
+
     public CollectionView()
     {
         // default layout is VerticalList
         SnapStyle = SnapStyle.None;
         ColumnCount = 1;
         ScrollSpeed = ScrollSpeed.Normal;
+
+#if NET6_0_OR_GREATER
+        Unloaded += (_, _) =>
+        {
+            if (AutoDisconnectHandler)
+            {
+                Handler?.DisconnectHandler();
+            }
+        };
+#endif
     }
 
     public event EventHandler<CollectionLayoutChangedEventArgs> CollectionLayoutChanging;
@@ -419,6 +437,18 @@ public class CollectionView : View
         get => (int)GetValue(ColumnCountProperty);
         set => SetValue(ColumnCountProperty, value);
     }
+
+#if NET6_0_OR_GREATER
+    /// <summary>
+    /// Default is true. If set to false, you will have to call <see cref="Handler.DisconnectHandler"/>
+    /// manually to prevent memory leaks.
+    /// </summary>
+    public bool AutoDisconnectHandler
+    {
+        get => (bool)GetValue(AutoDisconnectHandlerProperty);
+        set => SetValue(AutoDisconnectHandlerProperty, value);
+    }
+#endif
 
     public Func<ViewCell, Task> PreRevealAnimationAsync { get; set; }
 

@@ -85,6 +85,15 @@ namespace Sharpnado.CollectionView.iOS.Renderers
             base.Dispose(disposing);
         }
 
+#if NET6_0_OR_GREATER
+        protected override void DisconnectHandler(UICollectionView oldNativeView)
+        {
+            CleanUp();
+
+            base.DisconnectHandler(oldNativeView);
+        }
+#endif
+
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
