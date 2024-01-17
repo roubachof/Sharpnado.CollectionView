@@ -22,9 +22,9 @@
 
 	<PropertyGroup>
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
-		<AssemblyVersion>3.1.0</AssemblyVersion>
-		<AssemblyFileVersion>3.1.0</AssemblyFileVersion>
-		<Version>3.1.0</Version>
+		<AssemblyVersion>3.1.1</AssemblyVersion>
+		<AssemblyFileVersion>3.1.1</AssemblyFileVersion>
+		<Version>3.1.1</Version>
 		<PackOnBuild>true</PackOnBuild>
 		<NeutralLanguage>en</NeutralLanguage>
 
@@ -41,7 +41,8 @@
 		<PackageReadmeFile>docs\ReadMe.md</PackageReadmeFile>
 		<PackageTags>maui performance xamarin.forms android ios horizontallistview collectionview gridview carouselview listview drag drop header group footer</PackageTags>
 		<PackageReleaseNotes>
-			First MAUI release \o/
+			Fix one memory on iOS and another on Android thanks to @AdamEssenmacher.
+			Adds the UpdateLayout() method to force a layout update.
 		</PackageReleaseNotes>
 
 		<Title>A performant CollectionView with drag and drop for MAUI</Title>
@@ -87,7 +88,7 @@
 		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<FileVersion>3.1.0</FileVersion>
+		<FileVersion>3.1.1</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
