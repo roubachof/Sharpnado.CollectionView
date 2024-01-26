@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -144,10 +144,10 @@ namespace Sharpnado.CollectionView.iOS.Renderers
         {
             if (_collectionView != null)
             {
-                _collectionView.Dispose();
                 _collectionView.DataSource?.Dispose();
                 _collectionView.CollectionViewLayout?.Dispose();
                 _collectionView.Delegate?.Dispose();
+                _collectionView.Dispose();
                 _collectionView = null;
             }
 
